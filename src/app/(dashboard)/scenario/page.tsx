@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState, useMemo } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Slider } from '@/components/ui/slider'
+import { Input } from '@/components/ui/input'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
 import { loadRoles, loadScores } from '@/lib/data'
@@ -16,25 +17,93 @@ import {
   Users,
   DollarSign,
   TrendingUp,
+  TrendingDown,
   AlertTriangle,
   Download,
   RotateCcw,
   Zap,
-  Clock
+  Clock,
+  Plus,
+  Save,
+  Building2,
+  Calculator,
+  PiggyBank,
+  Target,
+  ArrowRight,
+  CheckCircle,
+  Edit3,
+  Trash2,
+  Sparkles
 } from 'lucide-react'
+import { AIScenarioModal } from '@/components/scenario/AIScenarioModal'
 
-// FCB Media baseline data
-const BASELINE = {
-  fte: 33,
-  staffCost: 6500000,
-  revenue: 11900000,
-  operatingMargin: 0.45,
+// Preset scenarios
+const PRESET_SCENARIOS = [
+  {
+    id: 'fcb-nz-media',
+    name: 'FCB NZ Media',
+    description: 'Single agency business unit',
+    fte: 33,
+    staffCost: 3960000,
+    revenue: 11900000,
+    avgSalary: 120000,
+    aiInvestment: 200000,
+  },
+  {
+    id: 'omnicom-oceania-media',
+    name: 'Omnicom Oceania Media',
+    description: 'Holding group media division',
+    fte: 1200,
+    staffCost: 144000000,
+    revenue: 320000000,
+    avgSalary: 120000,
+    aiInvestment: 6000000,
+  },
+]
+
+interface ScenarioInputs {
+  name: string
+  fte: number
+  staffCost: number
+  revenue: number
+  avgSalary: number
+  aiInvestment: number
+}
+
+interface SavedScenario extends ScenarioInputs {
+  id: string
+  description: string
 }
 
 export default function ScenarioPage() {
   const [roles, setRoles] = useState<Role[]>([])
   const [scores, setScores] = useState<RoleScore[]>([])
   const [loading, setLoading] = useState(true)
+  const [isEditing, setIsEditing] = useState(false)
+  const [activePreset, setActivePreset] = useState<string>('fcb-nz-media')
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([])
+  const [aiModalOpen, setAiModalOpen] = useState(false)
+
+  const [inputs, setInputs] = useState<ScenarioInputs>({
+    name: 'FCB NZ Media',
+    fte: 33,
+    staffCost: 3960000,
+    revenue: 11900000,
+    avgSalary: 120000,
+    aiInvestment: 200000,
+  })
+
+  // Load saved scenarios from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem('reshape-custom-scenarios')
+    if (stored) {
+      try {
+        setSavedScenarios(JSON.parse(stored))
+      } catch (e) {
+        console.error('Failed to load saved scenarios:', e)
+      }
+    }
+  }, [])
 
   const { reductionPercentage, timelineMonths, setReductionPercentage, setTimelineMonths, reset } = useScenarioStore()
 
@@ -56,41 +125,144 @@ export default function ScenarioPage() {
     loadData()
   }, [])
 
+  const loadPreset = (presetId: string) => {
+    const preset = PRESET_SCENARIOS.find(p => p.id === presetId)
+    if (preset) {
+      setInputs({
+        name: preset.name,
+        fte: preset.fte,
+        staffCost: preset.staffCost,
+        revenue: preset.revenue,
+        avgSalary: preset.avgSalary,
+        aiInvestment: preset.aiInvestment,
+      })
+      setActivePreset(presetId)
+      setIsEditing(false)
+    }
+  }
+
+  const loadSavedScenario = (scenarioId: string) => {
+    const scenario = savedScenarios.find(s => s.id === scenarioId)
+    if (scenario) {
+      setInputs({
+        name: scenario.name,
+        fte: scenario.fte,
+        staffCost: scenario.staffCost,
+        revenue: scenario.revenue,
+        avgSalary: scenario.avgSalary,
+        aiInvestment: scenario.aiInvestment,
+      })
+      setActivePreset(scenarioId)
+      setIsEditing(false)
+    }
+  }
+
+  const saveCustomScenario = () => {
+    if (!inputs.name || inputs.fte <= 0) return
+
+    const newScenario: SavedScenario = {
+      id: `custom-${Date.now()}`,
+      name: inputs.name,
+      description: 'Custom scenario',
+      fte: inputs.fte,
+      staffCost: inputs.staffCost,
+      revenue: inputs.revenue,
+      avgSalary: inputs.avgSalary,
+      aiInvestment: inputs.aiInvestment,
+    }
+
+    const updated = [...savedScenarios, newScenario]
+    setSavedScenarios(updated)
+    localStorage.setItem('reshape-custom-scenarios', JSON.stringify(updated))
+    setActivePreset(newScenario.id)
+    setIsEditing(false)
+  }
+
+  const deleteCustomScenario = (scenarioId: string) => {
+    const updated = savedScenarios.filter(s => s.id !== scenarioId)
+    setSavedScenarios(updated)
+    localStorage.setItem('reshape-custom-scenarios', JSON.stringify(updated))
+
+    // If we deleted the active scenario, switch to default
+    if (activePreset === scenarioId) {
+      loadPreset('fcb-nz-media')
+    }
+  }
+
+  const handleAIScenarioCreate = (
+    scenario: ScenarioInputs,
+    reductionPct: number,
+    timeline: number
+  ) => {
+    // Update the inputs
+    setInputs(scenario)
+
+    // Save as custom scenario
+    const newScenario: SavedScenario = {
+      id: `ai-${Date.now()}`,
+      name: scenario.name,
+      description: 'AI-generated scenario',
+      fte: scenario.fte,
+      staffCost: scenario.staffCost,
+      revenue: scenario.revenue,
+      avgSalary: scenario.avgSalary,
+      aiInvestment: scenario.aiInvestment,
+    }
+
+    const updated = [...savedScenarios, newScenario]
+    setSavedScenarios(updated)
+    localStorage.setItem('reshape-custom-scenarios', JSON.stringify(updated))
+    setActivePreset(newScenario.id)
+    setIsEditing(false)
+
+    // Apply suggested parameters
+    setReductionPercentage(reductionPct)
+    setTimelineMonths(timeline)
+  }
+
   // Calculate scenario impacts
   const scenario = useMemo(() => {
-    const targetFTE = Math.round(BASELINE.fte * (1 - reductionPercentage / 100))
-    const targetStaffCost = BASELINE.staffCost * (1 - reductionPercentage / 100)
-    const targetRevenuePerFTE = BASELINE.revenue / targetFTE
-    const currentRevenuePerFTE = BASELINE.revenue / BASELINE.fte
-    const savings = BASELINE.staffCost - targetStaffCost
-    const aiInvestment = 200000
-    const netBenefit = savings - aiInvestment
-    const roi = netBenefit / aiInvestment
-    const targetMargin = (BASELINE.revenue - targetStaffCost) / BASELINE.revenue
+    const targetFTE = Math.round(inputs.fte * (1 - reductionPercentage / 100))
+    const fteReduction = inputs.fte - targetFTE
+    const targetStaffCost = inputs.staffCost * (1 - reductionPercentage / 100)
+    const targetAvgSalary = targetFTE > 0 ? targetStaffCost / targetFTE : 0
+    const targetRevenuePerFTE = targetFTE > 0 ? inputs.revenue / targetFTE : 0
+    const currentRevenuePerFTE = inputs.fte > 0 ? inputs.revenue / inputs.fte : 0
+    const currentMargin = inputs.revenue > 0 ? (inputs.revenue - inputs.staffCost) / inputs.revenue : 0
+    const targetMargin = inputs.revenue > 0 ? (inputs.revenue - targetStaffCost) / inputs.revenue : 0
+    const savings = inputs.staffCost - targetStaffCost
+    const netBenefit = savings - inputs.aiInvestment
+    const roi = inputs.aiInvestment > 0 ? netBenefit / inputs.aiInvestment : 0
+    const paybackMonths = savings > 0 ? Math.ceil((inputs.aiInvestment / savings) * 12) : 0
 
     return {
       current: {
-        fte: BASELINE.fte,
-        staffCost: BASELINE.staffCost,
+        fte: inputs.fte,
+        staffCost: inputs.staffCost,
+        avgSalary: inputs.avgSalary,
+        revenue: inputs.revenue,
         revenuePerFTE: currentRevenuePerFTE,
-        operatingMargin: BASELINE.operatingMargin,
+        operatingMargin: currentMargin,
       },
       target: {
         fte: targetFTE,
         staffCost: targetStaffCost,
+        avgSalary: targetAvgSalary,
+        revenue: inputs.revenue,
         revenuePerFTE: targetRevenuePerFTE,
         operatingMargin: targetMargin,
       },
+      fteReduction,
       savings,
-      aiInvestment,
+      aiInvestment: inputs.aiInvestment,
       netBenefit,
       roi,
+      paybackMonths,
     }
-  }, [reductionPercentage])
+  }, [inputs, reductionPercentage])
 
   // Calculate role impacts
   const roleImpacts = useMemo(() => {
-    // Simplified wave assignment based on score
     const wave1 = scores.filter(s => s.compositeScore.now >= 65)
     const wave2 = scores.filter(s => s.compositeScore.now >= 40 && s.compositeScore.now < 65)
     const retained = scores.filter(s => s.compositeScore.now < 40)
@@ -129,8 +301,17 @@ export default function ScenarioPage() {
       })
     }
 
+    if (scenario.paybackMonths > 24) {
+      riskList.push({
+        type: 'financial',
+        severity: 'medium',
+        message: 'Long payback period (>24 months)',
+        mitigation: 'Review AI investment allocation',
+      })
+    }
+
     return riskList
-  }, [reductionPercentage, timelineMonths])
+  }, [reductionPercentage, timelineMonths, scenario.paybackMonths])
 
   if (loading) {
     return (
@@ -148,11 +329,11 @@ export default function ScenarioPage() {
         <div>
           <h1 className="text-2xl font-semibold">Scenario Builder</h1>
           <p className="text-muted-foreground mt-1">
-            Model workforce reduction scenarios with real-time impact calculations
+            Model workforce transformation scenarios at any scale
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={reset}>
+          <Button variant="outline" onClick={() => { reset(); loadPreset('fcb-nz-media'); }}>
             <RotateCcw className="h-4 w-4 mr-2" />
             Reset
           </Button>
@@ -163,6 +344,215 @@ export default function ScenarioPage() {
         </div>
       </div>
 
+      {/* Scenario Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Select Scenario</CardTitle>
+          <CardDescription>Choose a preset or create your own custom scenario</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {!isEditing ? (
+            <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {/* Preset Scenarios */}
+              {PRESET_SCENARIOS.map((preset) => (
+                <button
+                  key={preset.id}
+                  onClick={() => loadPreset(preset.id)}
+                  className={cn(
+                    'p-4 rounded-lg border text-left transition-all',
+                    activePreset === preset.id
+                      ? 'border-accent bg-accent/5 ring-2 ring-accent'
+                      : 'border-border hover:border-accent/50 hover:bg-muted/50'
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Building2 className="h-4 w-4 text-muted-foreground" />
+                    <span className="font-medium">{preset.name}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-3">{preset.description}</p>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-muted-foreground">FTE:</span>{' '}
+                      <span className="font-medium">{preset.fte.toLocaleString()}</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">Revenue:</span>{' '}
+                      <span className="font-medium">{formatCurrency(preset.revenue)}</span>
+                    </div>
+                  </div>
+                </button>
+              ))}
+
+              {/* Saved Custom Scenarios */}
+              {savedScenarios.map((scenario) => (
+                <div
+                  key={scenario.id}
+                  className={cn(
+                    'p-4 rounded-lg border text-left transition-all relative group',
+                    activePreset === scenario.id
+                      ? 'border-accent bg-accent/5 ring-2 ring-accent'
+                      : 'border-border hover:border-accent/50 hover:bg-muted/50'
+                  )}
+                >
+                  <button
+                    onClick={() => loadSavedScenario(scenario.id)}
+                    className="w-full text-left"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Building2 className="h-4 w-4 text-accent" />
+                      <span className="font-medium">{scenario.name}</span>
+                      <Badge variant="outline" className="text-[10px] ml-auto">Custom</Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-3">{scenario.description}</p>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-muted-foreground">FTE:</span>{' '}
+                        <span className="font-medium">{scenario.fte.toLocaleString()}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Revenue:</span>{' '}
+                        <span className="font-medium">{formatCurrency(scenario.revenue)}</span>
+                      </div>
+                    </div>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      deleteCustomScenario(scenario.id)
+                    }}
+                    className="absolute top-2 right-2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive/10 text-destructive"
+                    title="Delete scenario"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ))}
+
+              {/* Create Your Own Card */}
+              <button
+                onClick={() => {
+                  setIsEditing(true)
+                  setActivePreset('')
+                  setInputs({
+                    name: '',
+                    fte: 0,
+                    staffCost: 0,
+                    revenue: 0,
+                    avgSalary: 0,
+                    aiInvestment: 0,
+                  })
+                }}
+                className="p-4 rounded-lg border-2 border-dashed border-muted-foreground/30 text-left transition-all hover:border-accent hover:bg-accent/5 flex flex-col items-center justify-center min-h-[140px]"
+              >
+                <div className="p-3 rounded-full bg-muted mb-3">
+                  <Plus className="h-5 w-5 text-muted-foreground" />
+                </div>
+                <span className="font-medium">Create Your Own</span>
+                <p className="text-xs text-muted-foreground mt-1 text-center">
+                  Custom scenario with your inputs
+                </p>
+              </button>
+            </div>
+
+            {/* AI Create Button */}
+            <div className="mt-4 pt-4 border-t border-border">
+              <Button
+                onClick={() => setAiModalOpen(true)}
+                variant="outline"
+                className="w-full border-accent/50 hover:bg-accent/10"
+              >
+                <Sparkles className="h-4 w-4 mr-2 text-accent" />
+                Create with AI
+                <span className="ml-2 text-xs text-muted-foreground">
+                  Describe your scenario in plain English
+                </span>
+              </Button>
+            </div>
+            </>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Custom Scenario</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setIsEditing(false)
+                    loadPreset('fcb-nz-media')
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Scenario Name</label>
+                  <Input
+                    value={inputs.name}
+                    onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+                    placeholder="e.g., My Agency"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Total FTE</label>
+                  <Input
+                    type="number"
+                    value={inputs.fte || ''}
+                    onChange={(e) => setInputs({ ...inputs, fte: parseInt(e.target.value) || 0 })}
+                    placeholder="e.g., 150"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Total Revenue</label>
+                  <Input
+                    type="number"
+                    value={inputs.revenue || ''}
+                    onChange={(e) => setInputs({ ...inputs, revenue: parseInt(e.target.value) || 0 })}
+                    placeholder="e.g., 25000000"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Total Staff Cost</label>
+                  <Input
+                    type="number"
+                    value={inputs.staffCost || ''}
+                    onChange={(e) => setInputs({ ...inputs, staffCost: parseInt(e.target.value) || 0 })}
+                    placeholder="e.g., 15000000"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Avg Salary</label>
+                  <Input
+                    type="number"
+                    value={inputs.avgSalary || ''}
+                    onChange={(e) => setInputs({ ...inputs, avgSalary: parseInt(e.target.value) || 0 })}
+                    placeholder="e.g., 120000"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">AI Investment</label>
+                  <Input
+                    type="number"
+                    value={inputs.aiInvestment || ''}
+                    onChange={(e) => setInputs({ ...inputs, aiInvestment: parseInt(e.target.value) || 0 })}
+                    placeholder="e.g., 500000"
+                  />
+                </div>
+              </div>
+              {inputs.name && inputs.fte > 0 && (
+                <div className="pt-4 border-t border-border">
+                  <Button onClick={saveCustomScenario}>
+                    <Save className="h-4 w-4 mr-2" />
+                    Save Scenario
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Controls */}
       <Card>
         <CardHeader>
@@ -172,29 +562,34 @@ export default function ScenarioPage() {
           {/* Reduction Slider */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">Target Reduction</label>
-              <span className="text-2xl font-bold">{reductionPercentage}%</span>
+              <label className="text-sm font-medium">Target FTE Reduction</label>
+              <div className="text-right">
+                <span className="text-2xl font-bold">{reductionPercentage}%</span>
+                <p className="text-xs text-muted-foreground">
+                  {scenario.fteReduction} roles
+                </p>
+              </div>
             </div>
             <Slider
               value={[reductionPercentage]}
               onValueChange={(v) => setReductionPercentage(v[0])}
-              min={10}
-              max={50}
+              min={5}
+              max={60}
               step={5}
               className="w-full"
             />
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>10%</span>
+              <span>5%</span>
               <span>20%</span>
-              <span>30%</span>
-              <span>40%</span>
+              <span>35%</span>
               <span>50%</span>
+              <span>60%</span>
             </div>
           </div>
 
           {/* Timeline */}
           <div className="space-y-3">
-            <label className="text-sm font-medium">Timeline</label>
+            <label className="text-sm font-medium">Implementation Timeline</label>
             <div className="flex gap-2">
               {[6, 12, 18, 24].map((months) => (
                 <Button
@@ -203,7 +598,7 @@ export default function ScenarioPage() {
                   onClick={() => setTimelineMonths(months)}
                   className="flex-1"
                 >
-                  {months} mo
+                  {months} months
                 </Button>
               ))}
             </div>
@@ -212,14 +607,16 @@ export default function ScenarioPage() {
       </Card>
 
       {/* Impact Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="bg-success/5 border-success/20">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <DollarSign className="h-8 w-8 text-success" />
+              <div className="p-2 rounded-lg bg-success/10">
+                <PiggyBank className="h-5 w-5 text-success" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{formatCurrency(scenario.savings)}</p>
-                <p className="text-sm text-muted-foreground">Annual Savings</p>
+                <p className="text-xl font-bold">{formatCurrency(scenario.savings)}</p>
+                <p className="text-xs text-muted-foreground">Annual Savings</p>
               </div>
             </div>
           </CardContent>
@@ -227,10 +624,12 @@ export default function ScenarioPage() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <Zap className="h-8 w-8 text-accent" />
+              <div className="p-2 rounded-lg bg-accent/10">
+                <Zap className="h-5 w-5 text-accent" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{formatCurrency(scenario.aiInvestment)}</p>
-                <p className="text-sm text-muted-foreground">AI Investment</p>
+                <p className="text-xl font-bold">{formatCurrency(inputs.aiInvestment)}</p>
+                <p className="text-xs text-muted-foreground">AI Investment</p>
               </div>
             </div>
           </CardContent>
@@ -238,20 +637,41 @@ export default function ScenarioPage() {
         <Card className="bg-accent/5 border-accent/20">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <TrendingUp className="h-8 w-8 text-accent" />
+              <div className="p-2 rounded-lg bg-accent/10">
+                <TrendingUp className="h-5 w-5 text-accent" />
+              </div>
               <div>
-                <p className="text-2xl font-bold">{scenario.roi.toFixed(1)}x</p>
-                <p className="text-sm text-muted-foreground">ROI</p>
+                <p className="text-xl font-bold">{scenario.roi.toFixed(1)}x</p>
+                <p className="text-xs text-muted-foreground">First Year ROI</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-muted">
+                <Clock className="h-5 w-5 text-muted-foreground" />
+              </div>
+              <div>
+                <p className="text-xl font-bold">{scenario.paybackMonths} mo</p>
+                <p className="text-xs text-muted-foreground">Payback Period</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* State Comparison */}
+      {/* Full Financial Breakdown */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">State Comparison</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Calculator className="h-5 w-5" />
+            Financial Breakdown: {inputs.name}
+          </CardTitle>
+          <CardDescription>
+            Complete comparison of current state vs. target state
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -259,58 +679,132 @@ export default function ScenarioPage() {
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-left p-3 text-sm font-medium">Metric</th>
-                  <th className="text-right p-3 text-sm font-medium">Current</th>
-                  <th className="text-right p-3 text-sm font-medium">Target</th>
-                  <th className="text-right p-3 text-sm font-medium">Change</th>
+                  <th className="text-right p-3 text-sm font-medium">Current State</th>
+                  <th className="text-center p-3 text-sm font-medium w-12">
+                    <ArrowRight className="h-4 w-4 mx-auto text-muted-foreground" />
+                  </th>
+                  <th className="text-right p-3 text-sm font-medium">Target State</th>
+                  <th className="text-right p-3 text-sm font-medium">Impact</th>
                 </tr>
               </thead>
               <tbody>
+                <tr className="border-b border-border bg-muted/30">
+                  <td className="p-3 font-medium" colSpan={5}>Workforce</td>
+                </tr>
                 <tr className="border-b border-border">
-                  <td className="p-3 flex items-center gap-2">
+                  <td className="p-3 pl-6 flex items-center gap-2">
                     <Users className="h-4 w-4 text-muted-foreground" />
-                    FTE Count
+                    Total FTE
                   </td>
-                  <td className="p-3 text-right font-medium">{scenario.current.fte}</td>
-                  <td className="p-3 text-right font-medium">{scenario.target.fte}</td>
+                  <td className="p-3 text-right font-mono">{scenario.current.fte.toLocaleString()}</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{scenario.target.fte.toLocaleString()}</td>
                   <td className="p-3 text-right">
                     <Badge variant="destructive">
-                      -{scenario.current.fte - scenario.target.fte} ({reductionPercentage}%)
+                      -{scenario.fteReduction} ({reductionPercentage}%)
                     </Badge>
                   </td>
                 </tr>
                 <tr className="border-b border-border">
-                  <td className="p-3 flex items-center gap-2">
+                  <td className="p-3 pl-6 flex items-center gap-2">
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    Staff Cost
+                    Total Staff Cost
                   </td>
-                  <td className="p-3 text-right font-medium">{formatCurrency(scenario.current.staffCost)}</td>
-                  <td className="p-3 text-right font-medium">{formatCurrency(scenario.target.staffCost)}</td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.current.staffCost)}</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.target.staffCost)}</td>
                   <td className="p-3 text-right">
-                    <Badge variant="success">
+                    <Badge className="bg-success text-success-foreground">
                       -{formatCurrency(scenario.savings)}
                     </Badge>
                   </td>
                 </tr>
                 <tr className="border-b border-border">
-                  <td className="p-3 flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    Revenue/FTE
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    Average Salary
                   </td>
-                  <td className="p-3 text-right font-medium">{formatCurrency(scenario.current.revenuePerFTE)}</td>
-                  <td className="p-3 text-right font-medium">{formatCurrency(scenario.target.revenuePerFTE)}</td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.current.avgSalary)}</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.target.avgSalary)}</td>
                   <td className="p-3 text-right">
-                    <Badge variant="success">
+                    <Badge variant="outline">
+                      {scenario.target.avgSalary >= scenario.current.avgSalary ? '+' : ''}
+                      {Math.round((scenario.target.avgSalary / scenario.current.avgSalary - 1) * 100)}%
+                    </Badge>
+                  </td>
+                </tr>
+
+                <tr className="border-b border-border bg-muted/30">
+                  <td className="p-3 font-medium" colSpan={5}>Revenue & Efficiency</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    Total Revenue
+                  </td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.current.revenue)}</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.target.revenue)}</td>
+                  <td className="p-3 text-right">
+                    <Badge variant="outline">No change</Badge>
+                  </td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                    Revenue per FTE
+                  </td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.current.revenuePerFTE)}</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(scenario.target.revenuePerFTE)}</td>
+                  <td className="p-3 text-right">
+                    <Badge className="bg-success text-success-foreground">
                       +{Math.round((scenario.target.revenuePerFTE / scenario.current.revenuePerFTE - 1) * 100)}%
                     </Badge>
                   </td>
                 </tr>
-                <tr>
-                  <td className="p-3">Operating Margin</td>
-                  <td className="p-3 text-right font-medium">{(scenario.current.operatingMargin * 100).toFixed(0)}%</td>
-                  <td className="p-3 text-right font-medium">{(scenario.target.operatingMargin * 100).toFixed(0)}%</td>
+                <tr className="border-b border-border">
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <Target className="h-4 w-4 text-muted-foreground" />
+                    Operating Margin
+                  </td>
+                  <td className="p-3 text-right font-mono">{(scenario.current.operatingMargin * 100).toFixed(1)}%</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{(scenario.target.operatingMargin * 100).toFixed(1)}%</td>
                   <td className="p-3 text-right">
-                    <Badge variant="success">
-                      +{Math.round((scenario.target.operatingMargin - scenario.current.operatingMargin) * 100)} pts
+                    <Badge className="bg-success text-success-foreground">
+                      +{((scenario.target.operatingMargin - scenario.current.operatingMargin) * 100).toFixed(1)} pts
+                    </Badge>
+                  </td>
+                </tr>
+
+                <tr className="border-b border-border bg-muted/30">
+                  <td className="p-3 font-medium" colSpan={5}>Investment & Returns</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <Zap className="h-4 w-4 text-muted-foreground" />
+                    AI Investment (Year 1)
+                  </td>
+                  <td className="p-3 text-right font-mono">-</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono">{formatCurrency(inputs.aiInvestment)}</td>
+                  <td className="p-3 text-right">
+                    <Badge variant="outline">One-time</Badge>
+                  </td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="p-3 pl-6 flex items-center gap-2">
+                    <PiggyBank className="h-4 w-4 text-muted-foreground" />
+                    Net Annual Benefit
+                  </td>
+                  <td className="p-3 text-right font-mono">-</td>
+                  <td></td>
+                  <td className="p-3 text-right font-mono text-success">{formatCurrency(scenario.netBenefit)}</td>
+                  <td className="p-3 text-right">
+                    <Badge className="bg-success text-success-foreground">
+                      {scenario.roi.toFixed(1)}x ROI
                     </Badge>
                   </td>
                 </tr>
@@ -320,10 +814,13 @@ export default function ScenarioPage() {
         </CardContent>
       </Card>
 
-      {/* Role Impact */}
+      {/* Role Impact by Wave */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Role Impact by Wave</CardTitle>
+          <CardDescription>
+            Based on automation scores, scaled to {inputs.name} headcount
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="wave1">
@@ -343,7 +840,7 @@ export default function ScenarioPage() {
 
             <TabsContent value="wave1" className="mt-4">
               <p className="text-sm text-muted-foreground mb-4">
-                Automate immediately with current AI tools (Months 1-6)
+                High automation potential - implement in months 1-6
               </p>
               <div className="space-y-2">
                 {roleImpacts.wave1.map((score) => (
@@ -355,7 +852,7 @@ export default function ScenarioPage() {
                     <div className="flex items-center gap-3">
                       <Progress value={score.compositeScore.now} className="w-20 h-2" />
                       <span className="text-sm font-medium w-12 text-right">{score.compositeScore.now}%</span>
-                      <Badge variant="destructive">Eliminate</Badge>
+                      <Badge variant="destructive">Automate</Badge>
                     </div>
                   </div>
                 ))}
@@ -364,7 +861,7 @@ export default function ScenarioPage() {
 
             <TabsContent value="wave2" className="mt-4">
               <p className="text-sm text-muted-foreground mb-4">
-                AI-augmented roles for efficiency gains (Months 7-12)
+                Medium automation - AI-augment in months 7-12
               </p>
               <div className="space-y-2">
                 {roleImpacts.wave2.map((score) => (
@@ -376,7 +873,7 @@ export default function ScenarioPage() {
                     <div className="flex items-center gap-3">
                       <Progress value={score.compositeScore.now} className="w-20 h-2" />
                       <span className="text-sm font-medium w-12 text-right">{score.compositeScore.now}%</span>
-                      <Badge variant="warning">Reduce</Badge>
+                      <Badge className="bg-warning text-warning-foreground">Augment</Badge>
                     </div>
                   </div>
                 ))}
@@ -385,7 +882,7 @@ export default function ScenarioPage() {
 
             <TabsContent value="retained" className="mt-4">
               <p className="text-sm text-muted-foreground mb-4">
-                Human-critical roles to be retained or expanded
+                Human-critical roles requiring strategic judgment
               </p>
               <div className="space-y-2">
                 {roleImpacts.retained.map((score) => (
@@ -397,7 +894,7 @@ export default function ScenarioPage() {
                     <div className="flex items-center gap-3">
                       <Progress value={score.compositeScore.now} className="w-20 h-2" />
                       <span className="text-sm font-medium w-12 text-right">{score.compositeScore.now}%</span>
-                      <Badge variant="success">Retain</Badge>
+                      <Badge className="bg-success text-success-foreground">Retain</Badge>
                     </div>
                   </div>
                 ))}
@@ -413,7 +910,7 @@ export default function ScenarioPage() {
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-warning" />
-              Risk Indicators
+              Risk Indicators ({risks.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -437,6 +934,13 @@ export default function ScenarioPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* AI Scenario Modal */}
+      <AIScenarioModal
+        open={aiModalOpen}
+        onOpenChange={setAiModalOpen}
+        onScenarioCreate={handleAIScenarioCreate}
+      />
     </div>
   )
 }
