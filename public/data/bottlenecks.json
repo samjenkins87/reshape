@@ -1,0 +1,362 @@
+[
+  {
+    "id": "bn-001",
+    "name": "Manual Reporting Compilation",
+    "description": "Teams spend excessive time pulling data from multiple platforms and manually compiling reports in spreadsheets and presentations.",
+    "workflowStage": "Report",
+    "impactedRoles": ["role-001", "role-002", "role-003", "role-004", "role-005", "role-009"],
+    "severity": "Critical",
+    "rootCause": "Fragmented data sources, lack of unified reporting infrastructure, and over-reliance on manual data transformation.",
+    "currentState": "Analysts spend 15-20 hours weekly on report compilation. Each platform requires separate data exports and manual normalization.",
+    "mitigations": [
+      {
+        "id": "mit-001-01",
+        "description": "Implement unified data warehouse with automated connectors to all media platforms",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Data engineering resources", "Platform API access"]
+      },
+      {
+        "id": "mit-001-02",
+        "description": "Deploy AI-powered report generation that creates narratives from data",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Short-term",
+        "dependencies": ["Unified data layer", "LLM integration"]
+      },
+      {
+        "id": "mit-001-03",
+        "description": "Standardize reporting templates across client portfolio",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Immediate"
+      }
+    ],
+    "estimatedImpact": "40-60% reduction in reporting time, 10+ hours recovered per analyst weekly"
+  },
+  {
+    "id": "bn-002",
+    "name": "Cross-Platform Campaign Optimization",
+    "description": "Optimizing campaigns across multiple platforms (programmatic, social, search, retail) happens in silos without holistic view of performance.",
+    "workflowStage": "Optimize",
+    "impactedRoles": ["role-002", "role-003", "role-004", "role-012"],
+    "severity": "High",
+    "rootCause": "Platform-specific teams, incompatible metrics, lack of cross-channel attribution, and siloed optimization tools.",
+    "currentState": "Each channel optimized independently, leading to suboptimal budget allocation and missed cross-channel insights.",
+    "mitigations": [
+      {
+        "id": "mit-002-01",
+        "description": "Implement unified campaign management platform with cross-channel optimization",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Long-term",
+        "dependencies": ["Budget approval", "Platform integrations", "Organizational restructure"]
+      },
+      {
+        "id": "mit-002-02",
+        "description": "Deploy AI-driven budget allocation engine across channels",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Unified data layer", "MMM integration"]
+      },
+      {
+        "id": "mit-002-03",
+        "description": "Establish weekly cross-channel optimization reviews",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Immediate"
+      }
+    ],
+    "estimatedImpact": "15-25% improvement in overall campaign efficiency, better ROAS across portfolio"
+  },
+  {
+    "id": "bn-003",
+    "name": "Creative Production Bottleneck",
+    "description": "Creative asset production and versioning cannot keep pace with the volume required for personalized, multi-platform campaigns.",
+    "workflowStage": "Build",
+    "impactedRoles": ["role-007", "role-008", "role-004"],
+    "severity": "High",
+    "rootCause": "Traditional creative production processes not designed for digital scale, manual versioning, and limited creative automation.",
+    "currentState": "Campaigns delayed waiting for creative assets. Only 5-10 variants tested when 50+ could improve performance.",
+    "mitigations": [
+      {
+        "id": "mit-003-01",
+        "description": "Implement AI-powered creative generation and versioning tools",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Short-term",
+        "dependencies": ["Creative team buy-in", "Brand guidelines digitization"]
+      },
+      {
+        "id": "mit-003-02",
+        "description": "Deploy dynamic creative optimization (DCO) at scale",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Creative assets library", "Platform integrations"]
+      },
+      {
+        "id": "mit-003-03",
+        "description": "Establish modular creative system with reusable components",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Medium-term"
+      }
+    ],
+    "estimatedImpact": "10x increase in creative variants tested, 30% faster time-to-market"
+  },
+  {
+    "id": "bn-004",
+    "name": "Slow Insight-to-Action Cycle",
+    "description": "Time from data analysis to implemented optimization is too long, missing opportunities for real-time performance improvement.",
+    "workflowStage": "Measure",
+    "impactedRoles": ["role-005", "role-006", "role-002", "role-003"],
+    "severity": "High",
+    "rootCause": "Sequential workflow from analytics to activation, manual handoffs, and lack of automated recommendation implementation.",
+    "currentState": "Insights identified in weekly reports take 3-5 days to implement. Real-time optimization opportunities missed.",
+    "mitigations": [
+      {
+        "id": "mit-004-01",
+        "description": "Deploy AI agents that automatically implement approved optimizations",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Platform API access", "Governance framework", "Testing infrastructure"]
+      },
+      {
+        "id": "mit-004-02",
+        "description": "Implement real-time alerting with one-click action implementation",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Short-term",
+        "dependencies": ["Anomaly detection system", "Platform integrations"]
+      },
+      {
+        "id": "mit-004-03",
+        "description": "Reduce approval layers for routine optimizations",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Immediate"
+      }
+    ],
+    "estimatedImpact": "80% reduction in insight-to-action time, 5-10% performance improvement from faster optimization"
+  },
+  {
+    "id": "bn-005",
+    "name": "Manual Campaign QA Processes",
+    "description": "Pre-launch campaign QA is manual, time-consuming, and error-prone, leading to delayed launches and occasional live issues.",
+    "workflowStage": "Launch",
+    "impactedRoles": ["role-008", "role-002", "role-004"],
+    "severity": "Medium",
+    "rootCause": "Checklist-based QA processes, limited automated validation, and fragmented platform tools.",
+    "currentState": "Each campaign requires 2-4 hours of manual QA. 5-10% of campaigns have issues caught post-launch.",
+    "mitigations": [
+      {
+        "id": "mit-005-01",
+        "description": "Implement AI-powered campaign validation and anomaly detection",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Short-term",
+        "dependencies": ["Campaign configuration data", "Historical error data"]
+      },
+      {
+        "id": "mit-005-02",
+        "description": "Deploy automated creative compliance and brand safety checking",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Short-term",
+        "dependencies": ["Brand guidelines digitization", "AI classification models"]
+      },
+      {
+        "id": "mit-005-03",
+        "description": "Create automated pre-flight checklists integrated with campaign setup",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Immediate"
+      }
+    ],
+    "estimatedImpact": "70% reduction in QA time, 90% reduction in post-launch issues"
+  },
+  {
+    "id": "bn-006",
+    "name": "Audience Data Fragmentation",
+    "description": "First-party audience data is siloed across platforms, CRMs, and CDPs, limiting activation and measurement capabilities.",
+    "workflowStage": "Build",
+    "impactedRoles": ["role-001", "role-002", "role-004", "role-005"],
+    "severity": "High",
+    "rootCause": "Multiple data vendors, privacy regulations limiting data sharing, and lack of unified identity resolution.",
+    "currentState": "Different audience definitions across platforms. Match rates dropping. Measurement gaps due to signal loss.",
+    "mitigations": [
+      {
+        "id": "mit-006-01",
+        "description": "Implement unified customer data platform with clean room capabilities",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Long-term",
+        "dependencies": ["Client data sharing agreements", "Privacy compliance review"]
+      },
+      {
+        "id": "mit-006-02",
+        "description": "Deploy AI-powered audience modeling to bridge signal gaps",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["First-party data access", "ML infrastructure"]
+      },
+      {
+        "id": "mit-006-03",
+        "description": "Establish standardized audience taxonomy across platforms",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Short-term"
+      }
+    ],
+    "estimatedImpact": "25-40% improvement in audience reach and targeting precision"
+  },
+  {
+    "id": "bn-007",
+    "name": "Invoice and Billing Reconciliation",
+    "description": "Reconciling vendor invoices with planned spend and actual delivery is manual, creating delays and discrepancies.",
+    "workflowStage": "Report",
+    "impactedRoles": ["role-010", "role-009"],
+    "severity": "Medium",
+    "rootCause": "Lack of integration between campaign management, billing, and finance systems. Manual three-way matching required.",
+    "currentState": "Billing cycles take 30-45 days. 15-20% of invoices require manual investigation and adjustment.",
+    "mitigations": [
+      {
+        "id": "mit-007-01",
+        "description": "Implement automated invoice matching with campaign delivery data",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Platform API access", "Finance system integration"]
+      },
+      {
+        "id": "mit-007-02",
+        "description": "Deploy AI-powered discrepancy detection and resolution",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Short-term",
+        "dependencies": ["Historical billing data", "ML models"]
+      },
+      {
+        "id": "mit-007-03",
+        "description": "Standardize billing terms and formats with key vendors",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Short-term"
+      }
+    ],
+    "estimatedImpact": "60% reduction in reconciliation time, 95% reduction in billing discrepancies"
+  },
+  {
+    "id": "bn-008",
+    "name": "Measurement and Attribution Complexity",
+    "description": "Multi-touch attribution and marketing mix modeling are complex, expensive, and not actionable enough for campaign-level decisions.",
+    "workflowStage": "Measure",
+    "impactedRoles": ["role-006", "role-005", "role-001"],
+    "severity": "High",
+    "rootCause": "Signal loss from privacy changes, complex modeling requirements, and long refresh cycles for MMM.",
+    "currentState": "Attribution models updated quarterly. Results often contested. Difficult to translate to daily optimization.",
+    "mitigations": [
+      {
+        "id": "mit-008-01",
+        "description": "Deploy always-on incrementality testing framework",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Experimentation infrastructure", "Statistical expertise"]
+      },
+      {
+        "id": "mit-008-02",
+        "description": "Implement AI-powered causal inference models with faster refresh",
+        "effort": "High",
+        "impact": "High",
+        "timeline": "Long-term",
+        "dependencies": ["Data infrastructure", "ML resources"]
+      },
+      {
+        "id": "mit-008-03",
+        "description": "Establish triangulation framework combining multiple measurement approaches",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Short-term"
+      }
+    ],
+    "estimatedImpact": "Faster budget decisions, 10-20% improvement in marketing efficiency from better allocation"
+  },
+  {
+    "id": "bn-009",
+    "name": "Knowledge Silos and Tribal Knowledge",
+    "description": "Critical campaign knowledge, best practices, and client history live in individual minds rather than accessible systems.",
+    "workflowStage": "Plan",
+    "impactedRoles": ["role-001", "role-009", "role-007", "role-011"],
+    "severity": "Medium",
+    "rootCause": "Lack of knowledge management systems, high turnover, and no systematic capture of learnings.",
+    "currentState": "New team members take 6+ months to become effective. Key insights lost when employees leave.",
+    "mitigations": [
+      {
+        "id": "mit-009-01",
+        "description": "Deploy AI-powered knowledge management and retrieval system",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Knowledge base content", "LLM integration"]
+      },
+      {
+        "id": "mit-009-02",
+        "description": "Implement automated learning capture from campaign retrospectives",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Short-term"
+      },
+      {
+        "id": "mit-009-03",
+        "description": "Create role-specific onboarding assistants using AI",
+        "effort": "Medium",
+        "impact": "Medium",
+        "timeline": "Short-term",
+        "dependencies": ["Training content", "LLM integration"]
+      }
+    ],
+    "estimatedImpact": "50% faster onboarding, reduced knowledge loss from turnover"
+  },
+  {
+    "id": "bn-010",
+    "name": "Client Communication Overhead",
+    "description": "Account teams spend excessive time on routine client communications, status updates, and meeting preparation.",
+    "workflowStage": "Plan",
+    "impactedRoles": ["role-009", "role-001", "role-011"],
+    "severity": "Medium",
+    "rootCause": "Manual communication processes, lack of self-service client portals, and over-reliance on meetings.",
+    "currentState": "Account managers spend 40-50% of time on communication logistics. Clients want more access to real-time data.",
+    "mitigations": [
+      {
+        "id": "mit-010-01",
+        "description": "Deploy AI-assisted client communication drafting and summarization",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Immediate",
+        "dependencies": ["LLM integration", "Email system access"]
+      },
+      {
+        "id": "mit-010-02",
+        "description": "Implement self-service client dashboards with real-time data",
+        "effort": "Medium",
+        "impact": "High",
+        "timeline": "Medium-term",
+        "dependencies": ["Data infrastructure", "Security review"]
+      },
+      {
+        "id": "mit-010-03",
+        "description": "Automate status report generation and distribution",
+        "effort": "Low",
+        "impact": "Medium",
+        "timeline": "Short-term"
+      }
+    ],
+    "estimatedImpact": "30% reduction in communication overhead, improved client satisfaction from faster access"
+  }
+]

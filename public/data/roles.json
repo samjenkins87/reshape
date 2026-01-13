@@ -1,0 +1,994 @@
+[
+  {
+    "id": "role-001",
+    "name": "Media Planner",
+    "family": "Strategy & Planning",
+    "description": "Develops comprehensive media strategies and plans to reach target audiences across multiple channels, optimizing for client KPIs and budget efficiency.",
+    "seniority": "Mid",
+    "headcountEstimate": "15-20%",
+    "keyResponsibilities": [
+      "Develop integrated media plans across channels",
+      "Analyze audience data and market research",
+      "Recommend media mix and budget allocation",
+      "Present strategies to clients"
+    ],
+    "tasks": [
+      {
+        "id": "task-001-01",
+        "roleId": "role-001",
+        "name": "Audience Analysis",
+        "description": "Analyze target audience demographics, behaviors, and media consumption patterns using research tools",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 65, "future": 85 }
+      },
+      {
+        "id": "task-001-02",
+        "roleId": "role-001",
+        "name": "Competitive Media Analysis",
+        "description": "Review competitor media spend and strategy using syndicated tools",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-001-03",
+        "roleId": "role-001",
+        "name": "Media Mix Modeling",
+        "description": "Develop and optimize media mix recommendations based on historical performance data",
+        "frequency": "Monthly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-001-04",
+        "roleId": "role-001",
+        "name": "Budget Allocation",
+        "description": "Allocate media budgets across channels and tactics based on objectives",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 50, "future": 75 }
+      },
+      {
+        "id": "task-001-05",
+        "roleId": "role-001",
+        "name": "Client Presentation Prep",
+        "description": "Create presentation decks and materials for client strategy meetings",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 40, "future": 70 }
+      },
+      {
+        "id": "task-001-06",
+        "roleId": "role-001",
+        "name": "Flowchart Development",
+        "description": "Build detailed media flowcharts showing timing and spend by channel",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 75, "future": 90 }
+      },
+      {
+        "id": "task-001-07",
+        "roleId": "role-001",
+        "name": "RFP Development",
+        "description": "Create requests for proposals for media vendors and partners",
+        "frequency": "Quarterly",
+        "timeAllocation": 5,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-001-08",
+        "roleId": "role-001",
+        "name": "Vendor Negotiation Support",
+        "description": "Support negotiations with media vendors on rates and value-adds",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 20, "future": 40 }
+      },
+      {
+        "id": "task-001-09",
+        "roleId": "role-001",
+        "name": "Cross-functional Coordination",
+        "description": "Coordinate with creative, analytics, and account teams on campaign alignment",
+        "frequency": "Daily",
+        "timeAllocation": 5,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 15, "future": 35 }
+      }
+    ]
+  },
+  {
+    "id": "role-002",
+    "name": "Programmatic Trader",
+    "family": "Buying & Activation",
+    "description": "Executes programmatic media buys across DSPs, manages real-time bidding strategies, and optimizes campaign performance through algorithmic trading.",
+    "seniority": "Mid",
+    "headcountEstimate": "10-15%",
+    "keyResponsibilities": [
+      "Execute programmatic campaigns across DSPs",
+      "Manage bidding strategies and optimization",
+      "Monitor campaign pacing and performance",
+      "Troubleshoot delivery issues"
+    ],
+    "tasks": [
+      {
+        "id": "task-002-01",
+        "roleId": "role-002",
+        "name": "Campaign Setup",
+        "description": "Set up programmatic campaigns in DSPs including targeting, bidding, and creative trafficking",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-002-02",
+        "roleId": "role-002",
+        "name": "Bid Optimization",
+        "description": "Adjust bidding strategies based on performance data and market conditions",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 75, "future": 95 }
+      },
+      {
+        "id": "task-002-03",
+        "roleId": "role-002",
+        "name": "Pacing Management",
+        "description": "Monitor and adjust campaign pacing to ensure budget delivery",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 80, "future": 95 }
+      },
+      {
+        "id": "task-002-04",
+        "roleId": "role-002",
+        "name": "Audience Segment Management",
+        "description": "Create and manage audience segments for targeting",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-002-05",
+        "roleId": "role-002",
+        "name": "Creative Rotation",
+        "description": "Manage creative rotation and A/B testing within campaigns",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-002-06",
+        "roleId": "role-002",
+        "name": "Troubleshooting",
+        "description": "Diagnose and resolve campaign delivery or tracking issues",
+        "frequency": "Daily",
+        "timeAllocation": 10,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 40, "future": 65 }
+      },
+      {
+        "id": "task-002-07",
+        "roleId": "role-002",
+        "name": "Performance Reporting",
+        "description": "Pull and analyze campaign performance data for optimization decisions",
+        "frequency": "Daily",
+        "timeAllocation": 10,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 90, "future": 98 }
+      }
+    ]
+  },
+  {
+    "id": "role-003",
+    "name": "Search Marketing Specialist",
+    "family": "Buying & Activation",
+    "description": "Manages paid search campaigns across Google, Microsoft, and other search engines, optimizing for conversions and ROI.",
+    "seniority": "Mid",
+    "headcountEstimate": "8-12%",
+    "keyResponsibilities": [
+      "Manage SEM campaigns across search platforms",
+      "Conduct keyword research and optimization",
+      "Write and test ad copy",
+      "Monitor and optimize quality scores"
+    ],
+    "tasks": [
+      {
+        "id": "task-003-01",
+        "roleId": "role-003",
+        "name": "Keyword Research",
+        "description": "Research and identify high-value keywords for campaigns",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-003-02",
+        "roleId": "role-003",
+        "name": "Campaign Structure Setup",
+        "description": "Build campaign structure with ad groups, keywords, and targeting",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-003-03",
+        "roleId": "role-003",
+        "name": "Ad Copy Creation",
+        "description": "Write and test responsive search ads and extensions",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-003-04",
+        "roleId": "role-003",
+        "name": "Bid Management",
+        "description": "Adjust bids and bidding strategies for performance goals",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 80, "future": 95 }
+      },
+      {
+        "id": "task-003-05",
+        "roleId": "role-003",
+        "name": "Quality Score Optimization",
+        "description": "Improve quality scores through landing page and ad relevance",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 50, "future": 75 }
+      },
+      {
+        "id": "task-003-06",
+        "roleId": "role-003",
+        "name": "Negative Keyword Management",
+        "description": "Review search terms and add negative keywords to improve targeting",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 75, "future": 92 }
+      },
+      {
+        "id": "task-003-07",
+        "roleId": "role-003",
+        "name": "Performance Analysis",
+        "description": "Analyze campaign performance and identify optimization opportunities",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 88, "future": 96 }
+      },
+      {
+        "id": "task-003-08",
+        "roleId": "role-003",
+        "name": "Competitor Monitoring",
+        "description": "Monitor competitor search strategies and auction insights",
+        "frequency": "Weekly",
+        "timeAllocation": 5,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 75, "future": 90 }
+      }
+    ]
+  },
+  {
+    "id": "role-004",
+    "name": "Social Media Buyer",
+    "family": "Buying & Activation",
+    "description": "Plans and executes paid social media campaigns across Meta, TikTok, LinkedIn, and emerging platforms.",
+    "seniority": "Mid",
+    "headcountEstimate": "8-12%",
+    "keyResponsibilities": [
+      "Execute paid social campaigns",
+      "Manage creative testing and optimization",
+      "Monitor platform algorithm changes",
+      "Coordinate with organic social teams"
+    ],
+    "tasks": [
+      {
+        "id": "task-004-01",
+        "roleId": "role-004",
+        "name": "Campaign Setup",
+        "description": "Set up paid social campaigns with targeting and budgets",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-004-02",
+        "roleId": "role-004",
+        "name": "Audience Building",
+        "description": "Create and manage custom and lookalike audiences",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-004-03",
+        "roleId": "role-004",
+        "name": "Creative Testing",
+        "description": "Manage creative A/B tests and identify winning variants",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 65, "future": 88 }
+      },
+      {
+        "id": "task-004-04",
+        "roleId": "role-004",
+        "name": "Budget Optimization",
+        "description": "Reallocate budgets across campaigns and ad sets based on performance",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-004-05",
+        "roleId": "role-004",
+        "name": "Platform Updates Monitoring",
+        "description": "Stay current on platform features, policies, and algorithm changes",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 50, "future": 70 }
+      },
+      {
+        "id": "task-004-06",
+        "roleId": "role-004",
+        "name": "Conversion Tracking Setup",
+        "description": "Implement and troubleshoot pixel and conversion API tracking",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 45, "future": 70 }
+      },
+      {
+        "id": "task-004-07",
+        "roleId": "role-004",
+        "name": "Performance Reporting",
+        "description": "Generate and analyze social campaign performance reports",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 90, "future": 98 }
+      }
+    ]
+  },
+  {
+    "id": "role-005",
+    "name": "Data Analyst",
+    "family": "Data & Analytics",
+    "description": "Analyzes campaign and business data to derive insights, build reports, and support data-driven decision making across media operations.",
+    "seniority": "Mid",
+    "headcountEstimate": "8-10%",
+    "keyResponsibilities": [
+      "Build and maintain reporting dashboards",
+      "Conduct ad-hoc analysis and insights",
+      "Support attribution and measurement",
+      "Ensure data quality and governance"
+    ],
+    "tasks": [
+      {
+        "id": "task-005-01",
+        "roleId": "role-005",
+        "name": "Dashboard Development",
+        "description": "Build and maintain automated reporting dashboards",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 88, "future": 96 }
+      },
+      {
+        "id": "task-005-02",
+        "roleId": "role-005",
+        "name": "Data Integration",
+        "description": "Connect and transform data from multiple sources",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 85, "future": 95 }
+      },
+      {
+        "id": "task-005-03",
+        "roleId": "role-005",
+        "name": "Ad-hoc Analysis",
+        "description": "Conduct custom analysis to answer specific business questions",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 40, "future": 70 }
+      },
+      {
+        "id": "task-005-04",
+        "roleId": "role-005",
+        "name": "Attribution Analysis",
+        "description": "Analyze multi-touch attribution and conversion paths",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-005-05",
+        "roleId": "role-005",
+        "name": "Data Quality Monitoring",
+        "description": "Monitor data pipelines and resolve quality issues",
+        "frequency": "Daily",
+        "timeAllocation": 10,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 88, "future": 96 }
+      },
+      {
+        "id": "task-005-06",
+        "roleId": "role-005",
+        "name": "Insight Generation",
+        "description": "Synthesize data findings into actionable recommendations",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 35, "future": 65 }
+      }
+    ]
+  },
+  {
+    "id": "role-006",
+    "name": "Marketing Scientist",
+    "family": "Data & Analytics",
+    "description": "Applies advanced statistical and ML methods to measure marketing effectiveness, including MMM, MTA, and experimentation.",
+    "seniority": "Senior",
+    "headcountEstimate": "3-5%",
+    "keyResponsibilities": [
+      "Build and maintain MMM models",
+      "Design and analyze experiments",
+      "Develop predictive models",
+      "Translate complex findings for stakeholders"
+    ],
+    "tasks": [
+      {
+        "id": "task-006-01",
+        "roleId": "role-006",
+        "name": "MMM Development",
+        "description": "Build and maintain marketing mix models",
+        "frequency": "Quarterly",
+        "timeAllocation": 25,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 45, "future": 70 }
+      },
+      {
+        "id": "task-006-02",
+        "roleId": "role-006",
+        "name": "Experiment Design",
+        "description": "Design incrementality tests and geo experiments",
+        "frequency": "Monthly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 35, "future": 60 }
+      },
+      {
+        "id": "task-006-03",
+        "roleId": "role-006",
+        "name": "Statistical Analysis",
+        "description": "Conduct statistical analysis of experiment results",
+        "frequency": "Monthly",
+        "timeAllocation": 20,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-006-04",
+        "roleId": "role-006",
+        "name": "Model Validation",
+        "description": "Validate and calibrate models against holdout data",
+        "frequency": "Quarterly",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 50, "future": 75 }
+      },
+      {
+        "id": "task-006-05",
+        "roleId": "role-006",
+        "name": "Stakeholder Presentation",
+        "description": "Present findings and recommendations to clients and leadership",
+        "frequency": "Monthly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 25, "future": 50 }
+      },
+      {
+        "id": "task-006-06",
+        "roleId": "role-006",
+        "name": "Research & Development",
+        "description": "Research new methodologies and tools for measurement",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 30, "future": 55 }
+      }
+    ]
+  },
+  {
+    "id": "role-007",
+    "name": "Creative Strategist",
+    "family": "Creative & Content",
+    "description": "Develops creative strategies and briefs that align with media plans, ensuring consistent brand messaging across channels.",
+    "seniority": "Senior",
+    "headcountEstimate": "5-8%",
+    "keyResponsibilities": [
+      "Develop creative strategies and briefs",
+      "Ensure brand consistency across channels",
+      "Collaborate with creative production teams",
+      "Analyze creative performance"
+    ],
+    "tasks": [
+      {
+        "id": "task-007-01",
+        "roleId": "role-007",
+        "name": "Brief Development",
+        "description": "Create creative briefs for campaigns",
+        "frequency": "Weekly",
+        "timeAllocation": 25,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 30, "future": 55 }
+      },
+      {
+        "id": "task-007-02",
+        "roleId": "role-007",
+        "name": "Creative Review",
+        "description": "Review and approve creative executions",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 20, "future": 45 }
+      },
+      {
+        "id": "task-007-03",
+        "roleId": "role-007",
+        "name": "Competitive Analysis",
+        "description": "Analyze competitor creative approaches and trends",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-007-04",
+        "roleId": "role-007",
+        "name": "Performance Analysis",
+        "description": "Analyze creative performance data to inform strategy",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-007-05",
+        "roleId": "role-007",
+        "name": "Stakeholder Collaboration",
+        "description": "Collaborate with media, production, and client teams",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 15, "future": 35 }
+      },
+      {
+        "id": "task-007-06",
+        "roleId": "role-007",
+        "name": "Trend Research",
+        "description": "Research creative trends and cultural insights",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 50, "future": 75 }
+      }
+    ]
+  },
+  {
+    "id": "role-008",
+    "name": "Ad Operations Specialist",
+    "family": "Technology & Operations",
+    "description": "Manages technical aspects of campaign execution including trafficking, tagging, and QA across ad servers and platforms.",
+    "seniority": "Mid",
+    "headcountEstimate": "5-8%",
+    "keyResponsibilities": [
+      "Traffic creative assets to ad servers",
+      "Implement tracking and measurement tags",
+      "Conduct campaign QA",
+      "Troubleshoot technical issues"
+    ],
+    "tasks": [
+      {
+        "id": "task-008-01",
+        "roleId": "role-008",
+        "name": "Creative Trafficking",
+        "description": "Traffic creative assets to ad servers and platforms",
+        "frequency": "Daily",
+        "timeAllocation": 30,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-008-02",
+        "roleId": "role-008",
+        "name": "Tag Implementation",
+        "description": "Implement tracking pixels and tags across campaigns",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 65, "future": 88 }
+      },
+      {
+        "id": "task-008-03",
+        "roleId": "role-008",
+        "name": "Campaign QA",
+        "description": "Quality assurance testing before campaign launch",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Launch",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-008-04",
+        "roleId": "role-008",
+        "name": "Troubleshooting",
+        "description": "Diagnose and resolve technical delivery issues",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 40, "future": 65 }
+      },
+      {
+        "id": "task-008-05",
+        "roleId": "role-008",
+        "name": "Documentation",
+        "description": "Maintain trafficking and tracking documentation",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-008-06",
+        "roleId": "role-008",
+        "name": "Platform Updates",
+        "description": "Stay current on ad tech platform changes and updates",
+        "frequency": "Weekly",
+        "timeAllocation": 5,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 50, "future": 75 }
+      }
+    ]
+  },
+  {
+    "id": "role-009",
+    "name": "Account Manager",
+    "family": "Client Services",
+    "description": "Serves as the primary client relationship owner, managing communications, project timelines, and ensuring client satisfaction.",
+    "seniority": "Mid",
+    "headcountEstimate": "10-15%",
+    "keyResponsibilities": [
+      "Manage day-to-day client communications",
+      "Coordinate internal team activities",
+      "Oversee project timelines and deliverables",
+      "Identify growth opportunities"
+    ],
+    "tasks": [
+      {
+        "id": "task-009-01",
+        "roleId": "role-009",
+        "name": "Client Communication",
+        "description": "Manage daily client emails, calls, and updates",
+        "frequency": "Daily",
+        "timeAllocation": 30,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 25, "future": 50 }
+      },
+      {
+        "id": "task-009-02",
+        "roleId": "role-009",
+        "name": "Status Reporting",
+        "description": "Prepare and deliver regular status updates to clients",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 90, "future": 97 }
+      },
+      {
+        "id": "task-009-03",
+        "roleId": "role-009",
+        "name": "Meeting Coordination",
+        "description": "Schedule and organize client and internal meetings",
+        "frequency": "Daily",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-009-04",
+        "roleId": "role-009",
+        "name": "Project Management",
+        "description": "Track project timelines and coordinate deliverables",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 50, "future": 75 }
+      },
+      {
+        "id": "task-009-05",
+        "roleId": "role-009",
+        "name": "Issue Resolution",
+        "description": "Identify and resolve client concerns and issues",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 20, "future": 45 }
+      },
+      {
+        "id": "task-009-06",
+        "roleId": "role-009",
+        "name": "Relationship Building",
+        "description": "Build and maintain strong client relationships",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 10, "future": 25 }
+      }
+    ]
+  },
+  {
+    "id": "role-010",
+    "name": "Finance Coordinator",
+    "family": "Finance & Administration",
+    "description": "Manages campaign budgets, billing, and financial reconciliation across media investments.",
+    "seniority": "Junior",
+    "headcountEstimate": "3-5%",
+    "keyResponsibilities": [
+      "Track and manage campaign budgets",
+      "Process vendor invoices",
+      "Reconcile media spend",
+      "Generate financial reports"
+    ],
+    "tasks": [
+      {
+        "id": "task-010-01",
+        "roleId": "role-010",
+        "name": "Budget Tracking",
+        "description": "Track campaign budgets and spending against forecasts",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 88, "future": 96 }
+      },
+      {
+        "id": "task-010-02",
+        "roleId": "role-010",
+        "name": "Invoice Processing",
+        "description": "Process and validate vendor invoices",
+        "frequency": "Weekly",
+        "timeAllocation": 25,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 65, "future": 88 }
+      },
+      {
+        "id": "task-010-03",
+        "roleId": "role-010",
+        "name": "Spend Reconciliation",
+        "description": "Reconcile actual spend against planned budgets",
+        "frequency": "Monthly",
+        "timeAllocation": 20,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 60, "future": 85 }
+      },
+      {
+        "id": "task-010-04",
+        "roleId": "role-010",
+        "name": "Financial Reporting",
+        "description": "Generate financial reports for clients and leadership",
+        "frequency": "Monthly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 90, "future": 98 }
+      },
+      {
+        "id": "task-010-05",
+        "roleId": "role-010",
+        "name": "Vendor Management",
+        "description": "Coordinate with vendors on billing questions",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 35, "future": 60 }
+      },
+      {
+        "id": "task-010-06",
+        "roleId": "role-010",
+        "name": "Forecasting",
+        "description": "Support budget forecasting and planning",
+        "frequency": "Monthly",
+        "timeAllocation": 5,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 55, "future": 80 }
+      }
+    ]
+  },
+  {
+    "id": "role-011",
+    "name": "Investment Director",
+    "family": "Strategy & Planning",
+    "description": "Leads media investment strategy and negotiations, managing agency-client relationships and driving value across portfolios.",
+    "seniority": "Director",
+    "headcountEstimate": "3-5%",
+    "keyResponsibilities": [
+      "Lead investment strategy across client portfolio",
+      "Negotiate major media deals",
+      "Build publisher and platform relationships",
+      "Drive innovation and best practices"
+    ],
+    "tasks": [
+      {
+        "id": "task-011-01",
+        "roleId": "role-011",
+        "name": "Negotiation",
+        "description": "Negotiate major media partnerships and deals",
+        "frequency": "Monthly",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 15, "future": 35 }
+      },
+      {
+        "id": "task-011-02",
+        "roleId": "role-011",
+        "name": "Strategy Development",
+        "description": "Develop investment strategies for client portfolios",
+        "frequency": "Quarterly",
+        "timeAllocation": 20,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 30, "future": 55 }
+      },
+      {
+        "id": "task-011-03",
+        "roleId": "role-011",
+        "name": "Relationship Management",
+        "description": "Manage relationships with key publishers and platforms",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-011-04",
+        "roleId": "role-011",
+        "name": "Market Analysis",
+        "description": "Analyze market trends and investment opportunities",
+        "frequency": "Monthly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-011-05",
+        "roleId": "role-011",
+        "name": "Team Leadership",
+        "description": "Lead and develop investment team members",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-011-06",
+        "roleId": "role-011",
+        "name": "Executive Presentations",
+        "description": "Present to clients and agency leadership",
+        "frequency": "Monthly",
+        "timeAllocation": 5,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 20, "future": 45 }
+      }
+    ]
+  },
+  {
+    "id": "role-012",
+    "name": "Retail Media Specialist",
+    "family": "Buying & Activation",
+    "description": "Manages advertising campaigns across retail media networks including Amazon, Walmart, Target, and other retailer platforms.",
+    "seniority": "Mid",
+    "headcountEstimate": "5-8%",
+    "keyResponsibilities": [
+      "Execute retail media campaigns",
+      "Manage product catalog and listings",
+      "Optimize for ROAS and share of voice",
+      "Coordinate with e-commerce teams"
+    ],
+    "tasks": [
+      {
+        "id": "task-012-01",
+        "roleId": "role-012",
+        "name": "Campaign Management",
+        "description": "Set up and manage retail media campaigns",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 55, "future": 80 }
+      },
+      {
+        "id": "task-012-02",
+        "roleId": "role-012",
+        "name": "Bid Optimization",
+        "description": "Optimize bids for product and keyword targets",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 75, "future": 92 }
+      },
+      {
+        "id": "task-012-03",
+        "roleId": "role-012",
+        "name": "Catalog Management",
+        "description": "Manage product catalog and ensure listing quality",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 50, "future": 75 }
+      },
+      {
+        "id": "task-012-04",
+        "roleId": "role-012",
+        "name": "Share of Voice Analysis",
+        "description": "Monitor and optimize share of voice metrics",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-012-05",
+        "roleId": "role-012",
+        "name": "Performance Reporting",
+        "description": "Generate retail media performance reports",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 90, "future": 98 }
+      },
+      {
+        "id": "task-012-06",
+        "roleId": "role-012",
+        "name": "Cross-channel Coordination",
+        "description": "Coordinate with e-commerce and supply chain teams",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 25, "future": 50 }
+      },
+      {
+        "id": "task-012-07",
+        "roleId": "role-012",
+        "name": "Platform Beta Testing",
+        "description": "Test new retail media platform features",
+        "frequency": "Monthly",
+        "timeAllocation": 5,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 30, "future": 55 }
+      }
+    ]
+  }
+]

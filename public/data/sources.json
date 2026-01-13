@@ -1,0 +1,92 @@
+[
+  {
+    "id": "src-001",
+    "title": "Anthropic Careers - Solutions Engineering",
+    "url": "https://anthropic.com/careers",
+    "type": "Job Posting",
+    "company": "Anthropic",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Hiring Signals", "AI Roles"]
+  },
+  {
+    "id": "src-002",
+    "title": "Google Ads Help Center - Performance Max",
+    "url": "https://support.google.com/google-ads/answer/10724817",
+    "type": "Documentation",
+    "company": "Google",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Search Marketing", "AI Automation"]
+  },
+  {
+    "id": "src-003",
+    "title": "Meta Business Help - Advantage+ Campaigns",
+    "url": "https://www.facebook.com/business/help",
+    "type": "Documentation",
+    "company": "Meta",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Social Media", "AI Automation"]
+  },
+  {
+    "id": "src-004",
+    "title": "IAB State of Data 2024 Report",
+    "url": "https://www.iab.com/insights/state-of-data-2024",
+    "type": "Industry Report",
+    "company": "IAB",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Data Analytics", "Industry Trends"]
+  },
+  {
+    "id": "src-005",
+    "title": "Digiday - Agency AI Adoption Survey",
+    "url": "https://digiday.com",
+    "type": "Article",
+    "company": "Digiday",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["AI Adoption", "Agency Operations"]
+  },
+  {
+    "id": "src-006",
+    "title": "The Trade Desk Kokai Platform Launch",
+    "url": "https://thetradedesk.com/kokai",
+    "type": "Documentation",
+    "company": "The Trade Desk",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Programmatic", "AI Platforms"]
+  },
+  {
+    "id": "src-007",
+    "title": "WPP Annual Report 2024 - AI Investments",
+    "url": "https://wpp.com/investors",
+    "type": "Industry Report",
+    "company": "WPP",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Holding Companies", "AI Strategy"]
+  },
+  {
+    "id": "src-008",
+    "title": "Omnicom Omni Platform Documentation",
+    "url": "https://omnicomgroup.com/omni",
+    "type": "Documentation",
+    "company": "Omnicom",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Holding Companies", "Technology Platforms"]
+  },
+  {
+    "id": "src-009",
+    "title": "Amazon Advertising API Documentation",
+    "url": "https://advertising.amazon.com/API",
+    "type": "Documentation",
+    "company": "Amazon",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Retail Media", "API Automation"]
+  },
+  {
+    "id": "src-010",
+    "title": "McKinsey - AI in Marketing and Sales",
+    "url": "https://mckinsey.com",
+    "type": "Industry Report",
+    "company": "McKinsey",
+    "dateAccessed": "2025-01-10",
+    "relevance": ["Industry Trends", "AI Adoption"]
+  }
+]

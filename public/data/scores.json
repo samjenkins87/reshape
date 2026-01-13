@@ -1,0 +1,254 @@
+[
+  {
+    "roleId": "role-001",
+    "roleName": "Media Planner",
+    "roleFamily": "Strategy & Planning",
+    "dimensions": {
+      "repeatability": 3,
+      "dataAvailability": 4,
+      "toolMaturity": 3,
+      "humanJudgment": 4,
+      "stakeholderInteraction": 4,
+      "complianceRisk": 2,
+      "accountability": 3
+    },
+    "compositeScore": { "now": 48, "future": 68 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Implement AI-powered audience analysis tools",
+      "Automate flowchart generation from media plans",
+      "Deploy competitive intelligence monitoring systems"
+    ]
+  },
+  {
+    "roleId": "role-002",
+    "roleName": "Programmatic Trader",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 5,
+      "dataAvailability": 5,
+      "toolMaturity": 4,
+      "humanJudgment": 2,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 72, "future": 88 },
+    "redesignPriority": "Critical",
+    "recommendations": [
+      "Transition to AI-driven automated bidding systems",
+      "Implement predictive pacing algorithms",
+      "Deploy anomaly detection for campaign troubleshooting"
+    ]
+  },
+  {
+    "roleId": "role-003",
+    "roleName": "Search Marketing Specialist",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 4,
+      "dataAvailability": 5,
+      "toolMaturity": 5,
+      "humanJudgment": 3,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 70, "future": 86 },
+    "redesignPriority": "Critical",
+    "recommendations": [
+      "Leverage Google's Performance Max for automated campaigns",
+      "Implement AI ad copy generation at scale",
+      "Deploy automated negative keyword management"
+    ]
+  },
+  {
+    "roleId": "role-004",
+    "roleName": "Social Media Buyer",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 4,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 3,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 65, "future": 82 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Adopt Meta Advantage+ and similar AI campaign tools",
+      "Implement AI-driven creative testing frameworks",
+      "Automate audience building and optimization"
+    ]
+  },
+  {
+    "roleId": "role-005",
+    "roleName": "Data Analyst",
+    "roleFamily": "Data & Analytics",
+    "dimensions": {
+      "repeatability": 4,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 3,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 2,
+      "accountability": 3
+    },
+    "compositeScore": { "now": 60, "future": 78 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Deploy AI-powered insight generation tools",
+      "Implement natural language query interfaces",
+      "Automate report generation and distribution"
+    ]
+  },
+  {
+    "roleId": "role-006",
+    "roleName": "Marketing Scientist",
+    "roleFamily": "Data & Analytics",
+    "dimensions": {
+      "repeatability": 3,
+      "dataAvailability": 3,
+      "toolMaturity": 3,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 4,
+      "complianceRisk": 3,
+      "accountability": 4
+    },
+    "compositeScore": { "now": 38, "future": 58 },
+    "redesignPriority": "Medium",
+    "recommendations": [
+      "Leverage automated MMM platforms",
+      "Implement AI-assisted experiment analysis",
+      "Deploy model monitoring and validation systems"
+    ]
+  },
+  {
+    "roleId": "role-007",
+    "roleName": "Creative Strategist",
+    "roleFamily": "Creative & Content",
+    "dimensions": {
+      "repeatability": 2,
+      "dataAvailability": 3,
+      "toolMaturity": 3,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 2,
+      "accountability": 4
+    },
+    "compositeScore": { "now": 32, "future": 52 },
+    "redesignPriority": "Medium",
+    "recommendations": [
+      "Implement AI creative analysis and benchmarking tools",
+      "Deploy trend monitoring and cultural intelligence systems",
+      "Use AI for initial brief generation and iteration"
+    ]
+  },
+  {
+    "roleId": "role-008",
+    "roleName": "Ad Operations Specialist",
+    "roleFamily": "Technology & Operations",
+    "dimensions": {
+      "repeatability": 5,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 2,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 68, "future": 85 },
+    "redesignPriority": "Critical",
+    "recommendations": [
+      "Implement automated trafficking workflows",
+      "Deploy AI-powered QA and validation systems",
+      "Automate tag management and troubleshooting"
+    ]
+  },
+  {
+    "roleId": "role-009",
+    "roleName": "Account Manager",
+    "roleFamily": "Client Services",
+    "dimensions": {
+      "repeatability": 3,
+      "dataAvailability": 3,
+      "toolMaturity": 3,
+      "humanJudgment": 4,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 2,
+      "accountability": 4
+    },
+    "compositeScore": { "now": 35, "future": 55 },
+    "redesignPriority": "Medium",
+    "recommendations": [
+      "Deploy AI-assisted client communication tools",
+      "Automate status reporting and meeting prep",
+      "Implement intelligent project management systems"
+    ]
+  },
+  {
+    "roleId": "role-010",
+    "roleName": "Finance Coordinator",
+    "roleFamily": "Finance & Administration",
+    "dimensions": {
+      "repeatability": 5,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 2,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 3,
+      "accountability": 3
+    },
+    "compositeScore": { "now": 62, "future": 82 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Implement automated invoice processing systems",
+      "Deploy AI-powered budget forecasting",
+      "Automate spend reconciliation workflows"
+    ]
+  },
+  {
+    "roleId": "role-011",
+    "roleName": "Investment Director",
+    "roleFamily": "Strategy & Planning",
+    "dimensions": {
+      "repeatability": 2,
+      "dataAvailability": 3,
+      "toolMaturity": 2,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 3,
+      "accountability": 5
+    },
+    "compositeScore": { "now": 25, "future": 42 },
+    "redesignPriority": "Low",
+    "recommendations": [
+      "Implement AI-powered market intelligence systems",
+      "Deploy negotiation support and benchmarking tools",
+      "Use AI for deal analysis and scenario modeling"
+    ]
+  },
+  {
+    "roleId": "role-012",
+    "roleName": "Retail Media Specialist",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 4,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 3,
+      "stakeholderInteraction": 3,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 62, "future": 80 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Adopt retail-specific AI bidding tools",
+      "Implement automated catalog optimization",
+      "Deploy cross-retailer performance consolidation"
+    ]
+  }
+]
