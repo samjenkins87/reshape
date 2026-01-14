@@ -100,7 +100,7 @@ export default function ScenarioPage() {
     staffCost: 6600550,
     revenue: 11904526,
     avgSalary: 143490,
-    aiInvestment: 264022, // 20% of savings at 20% reduction
+    aiInvestment: 528044, // 20% of savings at 40% reduction
   })
 
   // Load saved scenarios from localStorage

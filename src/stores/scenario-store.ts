@@ -9,9 +9,9 @@ interface ScenarioState {
 }
 
 export const useScenarioStore = create<ScenarioState>((set) => ({
-  reductionPercentage: 20,
+  reductionPercentage: 40,
   timelineMonths: 12,
   setReductionPercentage: (value) => set({ reductionPercentage: value }),
   setTimelineMonths: (value) => set({ timelineMonths: value }),
-  reset: () => set({ reductionPercentage: 20, timelineMonths: 12 }),
+  reset: () => set({ reductionPercentage: 40, timelineMonths: 12 }),
 }))
