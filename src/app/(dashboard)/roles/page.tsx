@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { loadRoles, loadScores, filterRolesByFamily, searchRoles } from '@/lib/data'
 import { getScoreBgColor, getPriorityColor } from '@/lib/scoring'
 import { Role, RoleScore, RoleFamily } from '@/types'
-import { Search, Users, ArrowRight, Filter, DollarSign, Briefcase } from 'lucide-react'
+import { Search, Users, ArrowRight, Filter, DollarSign, Briefcase, Link2 } from 'lucide-react'
 import { cn, formatCurrency } from '@/lib/utils'
 
 const ROLE_FAMILIES: RoleFamily[] = [
@@ -45,6 +45,7 @@ export default function RolesPage() {
   const [selectedFamily, setSelectedFamily] = useState<string>('all')
   const [selectedSubgroup, setSelectedSubgroup] = useState<string>('all')
   const [showSalary, setShowSalary] = useState(true)
+  const [showMccannOnly, setShowMccannOnly] = useState(false)
 
   useEffect(() => {
     async function loadData() {
@@ -75,8 +76,11 @@ export default function RolesPage() {
     if (searchQuery) {
       result = searchRoles(result, searchQuery)
     }
+    if (showMccannOnly) {
+      result = result.filter(r => r.mccannMapping && r.mccannMapping.length > 0)
+    }
     return result
-  }, [roles, selectedFamily, selectedSubgroup, searchQuery])
+  }, [roles, selectedFamily, selectedSubgroup, searchQuery, showMccannOnly])
 
   // Get available subgroups based on selected family
   const availableSubgroups = useMemo(() => {
@@ -142,6 +146,15 @@ export default function RolesPage() {
           >
             <DollarSign className="h-4 w-4 mr-1" />
             Salary
+          </Button>
+          <Button
+            variant={showMccannOnly ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setShowMccannOnly(!showMccannOnly)}
+            className="w-fit"
+          >
+            <Link2 className="h-4 w-4 mr-1" />
+            McCann Only
           </Button>
         </div>
 

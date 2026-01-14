@@ -100,7 +100,7 @@ export default function ScenarioPage() {
     staffCost: 6600550,
     revenue: 11904526,
     avgSalary: 143490,
-    aiInvestment: 250000,
+    aiInvestment: 264022, // 20% of savings at 20% reduction
   })
 
   // Load saved scenarios from localStorage
@@ -116,6 +116,15 @@ export default function ScenarioPage() {
   }, [])
 
   const { reductionPercentage, timelineMonths, setReductionPercentage, setTimelineMonths, reset } = useScenarioStore()
+
+  // Update AI investment to 20% of savings when reduction percentage changes
+  useEffect(() => {
+    if (inputs.staffCost > 0) {
+      const savings = inputs.staffCost * (reductionPercentage / 100)
+      const newAiInvestment = Math.round(savings * 0.2)
+      setInputs(prev => ({ ...prev, aiInvestment: newAiInvestment }))
+    }
+  }, [reductionPercentage, inputs.staffCost])
 
   useEffect(() => {
     async function loadData() {
@@ -138,13 +147,16 @@ export default function ScenarioPage() {
   const loadPreset = (presetId: string) => {
     const preset = PRESET_SCENARIOS.find(p => p.id === presetId)
     if (preset) {
+      // Calculate AI investment as 20% of savings (savings = staffCost * reductionPercentage/100)
+      const savings = preset.staffCost * (reductionPercentage / 100)
+      const aiInvestment = Math.round(savings * 0.2)
       setInputs({
         name: preset.name,
         fte: preset.fte,
         staffCost: preset.staffCost,
         revenue: preset.revenue,
         avgSalary: preset.avgSalary,
-        aiInvestment: preset.aiInvestment,
+        aiInvestment: aiInvestment,
       })
       setActivePreset(presetId)
       setIsEditing(false)
@@ -381,7 +393,7 @@ export default function ScenarioPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Preset Scenarios */}
               {PRESET_SCENARIOS.map((preset) => {
-                const potentialSavings = preset.staffCost * 0.25
+                const potentialSavings = preset.staffCost * (reductionPercentage / 100)
                 const formatMillions = (value: number) => {
                   if (value >= 1000000) {
                     return `$${(value / 1000000).toFixed(value >= 10000000 ? 0 : 2)}M`
