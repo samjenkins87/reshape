@@ -73,6 +73,7 @@ export type Seniority =
   | "Director"
   | "VP"
   | "C-Level"
+  | "Executive"
 
 export type PriorityLevel = "Critical" | "High" | "Medium" | "Low"
 

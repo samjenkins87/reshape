@@ -1098,5 +1098,572 @@
         "automationPotential": { "now": 30, "future": 55 }
       }
     ]
+  },
+  {
+    "id": "role-013",
+    "name": "Account Executive",
+    "family": "Client Services",
+    "subgroup": "Account Management",
+    "description": "Entry-level account role handling day-to-day client administration, scheduling, and coordination tasks. Primarily commoditised work with high automation potential.",
+    "seniority": "Junior",
+    "headcountEstimate": "5-8%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 65000 },
+      "intermediate": { "min": 65000, "mid": 70000, "max": 75000 },
+      "senior": { "min": 75000, "mid": 85000, "max": 95000 },
+      "lead": { "min": 95000, "mid": 110000, "max": 125000 },
+      "director": { "min": 125000, "mid": 150000, "max": 175000 }
+    },
+    "mccannMapping": ["Account Executive", "Sr Account Executive"],
+    "taskBreakdown": {
+      "commoditisedPct": 77.3,
+      "semiJudgementalPct": 22.1,
+      "highlyJudgementalPct": 0.6
+    },
+    "automationWave": "wave1",
+    "keyResponsibilities": [
+      "Manage client scheduling and meeting coordination",
+      "Prepare meeting agendas and notes",
+      "Handle routine client correspondence",
+      "Coordinate internal team activities"
+    ],
+    "tasks": [
+      {
+        "id": "task-013-01",
+        "roleId": "role-013",
+        "name": "Meeting Coordination",
+        "description": "Schedule and coordinate client meetings, prepare agendas",
+        "frequency": "Daily",
+        "timeAllocation": 30,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 85, "future": 95 }
+      },
+      {
+        "id": "task-013-02",
+        "roleId": "role-013",
+        "name": "Client Correspondence",
+        "description": "Handle routine emails and follow-ups with clients",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 75, "future": 90 }
+      },
+      {
+        "id": "task-013-03",
+        "roleId": "role-013",
+        "name": "Status Updates",
+        "description": "Prepare and distribute project status updates",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 90, "future": 98 }
+      },
+      {
+        "id": "task-013-04",
+        "roleId": "role-013",
+        "name": "Document Management",
+        "description": "Organize and maintain project documentation",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 70, "future": 88 }
+      },
+      {
+        "id": "task-013-05",
+        "roleId": "role-013",
+        "name": "Internal Coordination",
+        "description": "Coordinate with internal teams on deliverables",
+        "frequency": "Daily",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 50, "future": 75 }
+      }
+    ]
+  },
+  {
+    "id": "role-014",
+    "name": "Activation Executive",
+    "family": "Buying & Activation",
+    "subgroup": "Programmatic",
+    "description": "Entry-level activation role executing media buys and campaign setups. Highly commoditised tasks with strong automation potential through AI-driven buying tools.",
+    "seniority": "Junior",
+    "headcountEstimate": "5-8%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 65000 },
+      "intermediate": { "min": 65000, "mid": 70000, "max": 80000 },
+      "senior": { "min": 80000, "mid": 95000, "max": 110000 },
+      "lead": { "min": 110000, "mid": 130000, "max": 150000 },
+      "director": { "min": 150000, "mid": 175000, "max": 225000 }
+    },
+    "mccannMapping": ["Activation Executive"],
+    "taskBreakdown": {
+      "commoditisedPct": 75.0,
+      "semiJudgementalPct": 25.0,
+      "highlyJudgementalPct": 0
+    },
+    "automationWave": "wave1",
+    "keyResponsibilities": [
+      "Execute media buys across platforms",
+      "Set up campaigns in DSPs and ad servers",
+      "Traffic creative assets",
+      "Monitor campaign pacing and delivery"
+    ],
+    "tasks": [
+      {
+        "id": "task-014-01",
+        "roleId": "role-014",
+        "name": "Campaign Setup",
+        "description": "Set up campaigns in platforms with targeting and budgets",
+        "frequency": "Daily",
+        "timeAllocation": 35,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 70, "future": 90 }
+      },
+      {
+        "id": "task-014-02",
+        "roleId": "role-014",
+        "name": "Creative Trafficking",
+        "description": "Traffic creative assets to ad servers",
+        "frequency": "Daily",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 80, "future": 95 }
+      },
+      {
+        "id": "task-014-03",
+        "roleId": "role-014",
+        "name": "Pacing Monitoring",
+        "description": "Monitor campaign pacing and flag delivery issues",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 85, "future": 95 }
+      },
+      {
+        "id": "task-014-04",
+        "roleId": "role-014",
+        "name": "Data Entry",
+        "description": "Enter campaign data and maintain tracking sheets",
+        "frequency": "Daily",
+        "timeAllocation": 15,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 90, "future": 98 }
+      },
+      {
+        "id": "task-014-05",
+        "roleId": "role-014",
+        "name": "QA Checks",
+        "description": "Perform quality assurance on campaign setup",
+        "frequency": "Daily",
+        "timeAllocation": 5,
+        "workflowStage": "Launch",
+        "automationPotential": { "now": 65, "future": 85 }
+      }
+    ]
+  },
+  {
+    "id": "role-015",
+    "name": "Senior Activation Executive",
+    "family": "Buying & Activation",
+    "subgroup": "Programmatic",
+    "description": "Mid-level activation role with increased responsibility for campaign optimization and junior team support. Mix of commoditised and semi-judgmental tasks.",
+    "seniority": "Mid",
+    "headcountEstimate": "3-5%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "lead": { "min": 130000, "mid": 150000, "max": 175000 },
+      "director": { "min": 150000, "mid": 175000, "max": 225000 }
+    },
+    "mccannMapping": ["Senior Activation Executive"],
+    "taskBreakdown": {
+      "commoditisedPct": 65.5,
+      "semiJudgementalPct": 34.5,
+      "highlyJudgementalPct": 0
+    },
+    "automationWave": "wave1",
+    "keyResponsibilities": [
+      "Oversee campaign execution and optimization",
+      "Support junior team members",
+      "Manage client-facing campaign updates",
+      "Identify optimization opportunities"
+    ],
+    "tasks": [
+      {
+        "id": "task-015-01",
+        "roleId": "role-015",
+        "name": "Campaign Optimization",
+        "description": "Optimize campaigns based on performance data",
+        "frequency": "Daily",
+        "timeAllocation": 30,
+        "workflowStage": "Optimize",
+        "automationPotential": { "now": 70, "future": 88 }
+      },
+      {
+        "id": "task-015-02",
+        "roleId": "role-015",
+        "name": "Team Support",
+        "description": "Train and support junior activation team members",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 25, "future": 45 }
+      },
+      {
+        "id": "task-015-03",
+        "roleId": "role-015",
+        "name": "Client Updates",
+        "description": "Prepare and deliver campaign performance updates",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 75, "future": 90 }
+      },
+      {
+        "id": "task-015-04",
+        "roleId": "role-015",
+        "name": "Performance Analysis",
+        "description": "Analyze campaign performance and identify improvements",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Measure",
+        "automationPotential": { "now": 65, "future": 85 }
+      },
+      {
+        "id": "task-015-05",
+        "roleId": "role-015",
+        "name": "Process Improvement",
+        "description": "Document and improve activation workflows",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 40, "future": 65 }
+      }
+    ]
+  },
+  {
+    "id": "role-016",
+    "name": "Associate Business Director",
+    "family": "Client Services",
+    "subgroup": "Account Management",
+    "description": "Senior account role bridging tactical execution and strategic leadership. Balanced mix of semi-judgmental and high-judgment work.",
+    "seniority": "Senior",
+    "headcountEstimate": "3-5%",
+    "salaryBands": {
+      "junior": { "min": 65000, "mid": 75000, "max": 85000 },
+      "intermediate": { "min": 85000, "mid": 100000, "max": 115000 },
+      "senior": { "min": 110000, "mid": 125000, "max": 145000 },
+      "lead": { "min": 140000, "mid": 160000, "max": 185000 },
+      "director": { "min": 175000, "mid": 200000, "max": 250000 }
+    },
+    "mccannMapping": ["Associate Business Director"],
+    "taskBreakdown": {
+      "commoditisedPct": 20.0,
+      "semiJudgementalPct": 50.5,
+      "highlyJudgementalPct": 29.5
+    },
+    "automationWave": "wave2",
+    "keyResponsibilities": [
+      "Lead client strategy development",
+      "Manage account team performance",
+      "Drive revenue growth opportunities",
+      "Present to senior client stakeholders"
+    ],
+    "tasks": [
+      {
+        "id": "task-016-01",
+        "roleId": "role-016",
+        "name": "Strategy Development",
+        "description": "Develop client strategies and media recommendations",
+        "frequency": "Weekly",
+        "timeAllocation": 25,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 35, "future": 55 }
+      },
+      {
+        "id": "task-016-02",
+        "roleId": "role-016",
+        "name": "Team Leadership",
+        "description": "Lead and develop account team members",
+        "frequency": "Daily",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 15, "future": 30 }
+      },
+      {
+        "id": "task-016-03",
+        "roleId": "role-016",
+        "name": "Client Presentations",
+        "description": "Present strategies and results to client leadership",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 40, "future": 60 }
+      },
+      {
+        "id": "task-016-04",
+        "roleId": "role-016",
+        "name": "Revenue Planning",
+        "description": "Identify and develop growth opportunities",
+        "frequency": "Monthly",
+        "timeAllocation": 20,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 30, "future": 50 }
+      },
+      {
+        "id": "task-016-05",
+        "roleId": "role-016",
+        "name": "Stakeholder Management",
+        "description": "Manage relationships with senior client stakeholders",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 15, "future": 30 }
+      }
+    ]
+  },
+  {
+    "id": "role-017",
+    "name": "Group Business Director",
+    "family": "Client Services",
+    "subgroup": "Account Management",
+    "description": "Executive account leader managing major client portfolios with strategic oversight. Predominantly high-judgment work requiring human expertise.",
+    "seniority": "Director",
+    "headcountEstimate": "2-3%",
+    "salaryBands": {
+      "junior": { "min": 85000, "mid": 100000, "max": 115000 },
+      "intermediate": { "min": 115000, "mid": 135000, "max": 155000 },
+      "senior": { "min": 150000, "mid": 175000, "max": 200000 },
+      "lead": { "min": 185000, "mid": 210000, "max": 250000 },
+      "director": { "min": 225000, "mid": 275000, "max": 350000 }
+    },
+    "mccannMapping": ["Group Business Director"],
+    "taskBreakdown": {
+      "commoditisedPct": 4.9,
+      "semiJudgementalPct": 18.1,
+      "highlyJudgementalPct": 77.0
+    },
+    "automationWave": "retained",
+    "keyResponsibilities": [
+      "Lead major client portfolio strategy",
+      "Drive business development and pitches",
+      "Mentor senior account leaders",
+      "Shape agency service offerings"
+    ],
+    "tasks": [
+      {
+        "id": "task-017-01",
+        "roleId": "role-017",
+        "name": "Portfolio Strategy",
+        "description": "Define strategic direction for client portfolio",
+        "frequency": "Monthly",
+        "timeAllocation": 25,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 20, "future": 40 }
+      },
+      {
+        "id": "task-017-02",
+        "roleId": "role-017",
+        "name": "Business Development",
+        "description": "Lead new business pitches and proposals",
+        "frequency": "Monthly",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 25, "future": 45 }
+      },
+      {
+        "id": "task-017-03",
+        "roleId": "role-017",
+        "name": "Executive Relationships",
+        "description": "Manage C-level client relationships",
+        "frequency": "Weekly",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-017-04",
+        "roleId": "role-017",
+        "name": "Team Mentorship",
+        "description": "Coach and develop senior account leaders",
+        "frequency": "Weekly",
+        "timeAllocation": 15,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-017-05",
+        "roleId": "role-017",
+        "name": "Agency Leadership",
+        "description": "Contribute to agency strategy and service innovation",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 15, "future": 35 }
+      }
+    ]
+  },
+  {
+    "id": "role-018",
+    "name": "Chief Investment Officer",
+    "family": "Strategy & Planning",
+    "subgroup": "Media Investment",
+    "description": "C-level investment leader overseeing all media partnerships and trading. Strategic role with minimal automation potential - human judgment essential.",
+    "seniority": "C-Level",
+    "headcountEstimate": "1%",
+    "salaryBands": {
+      "junior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "intermediate": { "min": 130000, "mid": 155000, "max": 180000 },
+      "senior": { "min": 175000, "mid": 210000, "max": 250000 },
+      "lead": { "min": 225000, "mid": 275000, "max": 325000 },
+      "director": { "min": 300000, "mid": 375000, "max": 500000 }
+    },
+    "mccannMapping": ["Chief Investment Officer"],
+    "taskBreakdown": {
+      "commoditisedPct": 2.8,
+      "semiJudgementalPct": 29.0,
+      "highlyJudgementalPct": 68.3
+    },
+    "automationWave": "retained",
+    "keyResponsibilities": [
+      "Define agency investment strategy",
+      "Negotiate major media partnerships",
+      "Lead investment team vision",
+      "Represent agency at industry level"
+    ],
+    "tasks": [
+      {
+        "id": "task-018-01",
+        "roleId": "role-018",
+        "name": "Investment Strategy",
+        "description": "Define and communicate agency investment philosophy",
+        "frequency": "Quarterly",
+        "timeAllocation": 25,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 15, "future": 30 }
+      },
+      {
+        "id": "task-018-02",
+        "roleId": "role-018",
+        "name": "Major Negotiations",
+        "description": "Lead agency-wide media partnership negotiations",
+        "frequency": "Quarterly",
+        "timeAllocation": 25,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-018-03",
+        "roleId": "role-018",
+        "name": "Industry Leadership",
+        "description": "Represent agency at industry events and forums",
+        "frequency": "Monthly",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 20 }
+      },
+      {
+        "id": "task-018-04",
+        "roleId": "role-018",
+        "name": "Team Vision",
+        "description": "Set direction and develop investment leadership team",
+        "frequency": "Weekly",
+        "timeAllocation": 20,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-018-05",
+        "roleId": "role-018",
+        "name": "Executive Reporting",
+        "description": "Report to holding company and client C-suite",
+        "frequency": "Monthly",
+        "timeAllocation": 10,
+        "workflowStage": "Report",
+        "automationPotential": { "now": 35, "future": 55 }
+      }
+    ]
+  },
+  {
+    "id": "role-019",
+    "name": "Communications Design Director",
+    "family": "Strategy & Planning",
+    "subgroup": "Planning",
+    "description": "Senior strategy leader defining communications architecture across channels. Highly creative role with 90% high-judgment work - minimal automation potential.",
+    "seniority": "Director",
+    "headcountEstimate": "1-2%",
+    "salaryBands": {
+      "junior": { "min": 75000, "mid": 90000, "max": 105000 },
+      "intermediate": { "min": 105000, "mid": 125000, "max": 145000 },
+      "senior": { "min": 140000, "mid": 165000, "max": 190000 },
+      "lead": { "min": 180000, "mid": 210000, "max": 250000 },
+      "director": { "min": 225000, "mid": 275000, "max": 350000 }
+    },
+    "mccannMapping": ["Communications Design Director"],
+    "taskBreakdown": {
+      "commoditisedPct": 0,
+      "semiJudgementalPct": 10.0,
+      "highlyJudgementalPct": 90.0
+    },
+    "automationWave": "retained",
+    "keyResponsibilities": [
+      "Define communications strategy frameworks",
+      "Lead creative-media integration",
+      "Shape channel architecture and sequencing",
+      "Drive strategic innovation"
+    ],
+    "tasks": [
+      {
+        "id": "task-019-01",
+        "roleId": "role-019",
+        "name": "Strategy Framework",
+        "description": "Develop communications strategy frameworks for clients",
+        "frequency": "Monthly",
+        "timeAllocation": 30,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 15, "future": 35 }
+      },
+      {
+        "id": "task-019-02",
+        "roleId": "role-019",
+        "name": "Creative Integration",
+        "description": "Lead creative-media strategy integration",
+        "frequency": "Weekly",
+        "timeAllocation": 25,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 15, "future": 30 }
+      },
+      {
+        "id": "task-019-03",
+        "roleId": "role-019",
+        "name": "Channel Architecture",
+        "description": "Design channel strategies and connection planning",
+        "frequency": "Monthly",
+        "timeAllocation": 20,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 20, "future": 40 }
+      },
+      {
+        "id": "task-019-04",
+        "roleId": "role-019",
+        "name": "Strategic Innovation",
+        "description": "Pioneer new strategic approaches and methodologies",
+        "frequency": "Quarterly",
+        "timeAllocation": 15,
+        "workflowStage": "Plan",
+        "automationPotential": { "now": 10, "future": 25 }
+      },
+      {
+        "id": "task-019-05",
+        "roleId": "role-019",
+        "name": "Client Consulting",
+        "description": "Provide strategic consulting to senior clients",
+        "frequency": "Weekly",
+        "timeAllocation": 10,
+        "workflowStage": "Build",
+        "automationPotential": { "now": 10, "future": 25 }
+      }
+    ]
   }
 ]
