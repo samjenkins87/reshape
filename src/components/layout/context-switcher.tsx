@@ -13,16 +13,16 @@ const DEMO_DATA = {
   ],
   agencies: {
     omnicom: [
-      { id: 'fcb-nz', name: 'FCB New Zealand', region: 'NZ' },
-      { id: 'fcb-au', name: 'FCB Australia', region: 'AU' },
+      { id: 'mccann-nz', name: 'McCann New Zealand', region: 'NZ' },
+      { id: 'mccann-au', name: 'McCann Australia', region: 'AU' },
       { id: 'ddb-nz', name: 'DDB New Zealand', region: 'NZ' },
     ],
   },
   businessUnits: {
-    'fcb-nz': [
-      { id: 'fcb-nz-media', name: 'Media', type: 'media' },
-      { id: 'fcb-nz-production', name: 'Production', type: 'production' },
-      { id: 'fcb-nz-creative', name: 'Creative', type: 'creative' },
+    'mccann-nz': [
+      { id: 'mccann-nz-media', name: 'Media', type: 'media' },
+      { id: 'mccann-nz-production', name: 'Production', type: 'production' },
+      { id: 'mccann-nz-creative', name: 'Creative', type: 'creative' },
     ],
   },
 }

@@ -20,11 +20,43 @@ import {
   Zap,
   Target,
   Users,
-  Download
+  Download,
+  Lock,
+  Unlock,
+  DollarSign,
+  TrendingUp,
+  Building2,
+  Briefcase,
+  Bot,
+  GraduationCap,
+  ArrowRight,
+  Check,
+  FileText
 } from 'lucide-react'
 
-// Phase configuration based on PRD
-const PHASES = [
+interface CostItem {
+  category: string
+  description: string
+  amount: number
+  type: 'investment' | 'recurring' | 'savings'
+}
+
+interface PhaseConfig {
+  id: string
+  name: string
+  subtitle: string
+  months: string
+  status: 'completed' | 'in-progress' | 'pending'
+  progress: number
+  milestones: { name: string; status: string; week: number }[]
+  roleImpact: string[]
+  costs: CostItem[]
+  fteImpact: { before: number; after: number }
+  keyDeliverables: string[]
+}
+
+// Enhanced phase configuration with detailed cost breakdowns
+const PHASES: PhaseConfig[] = [
   {
     id: 'phase-1',
     name: 'Phase 1: Foundation',
@@ -40,7 +72,20 @@ const PHASES = [
       { name: 'Initial Efficiency Metrics', status: 'pending', week: 8 },
     ],
     roleImpact: ['Traffic Coordinator', 'Report Analyst', 'Data Entry Specialist'],
-    savings: 180000,
+    fteImpact: { before: 8.5, after: 4.2 },
+    costs: [
+      { category: 'AI Tools', description: 'Claude Team, Copilot licenses', amount: 15000, type: 'investment' },
+      { category: 'Infrastructure', description: 'Cloud compute, API costs', amount: 8000, type: 'recurring' },
+      { category: 'Training', description: 'Staff upskilling program', amount: 25000, type: 'investment' },
+      { category: 'Consulting', description: 'Implementation support', amount: 40000, type: 'investment' },
+      { category: 'Headcount', description: 'FTE reduction (4.3 FTE)', amount: -180000, type: 'savings' },
+    ],
+    keyDeliverables: [
+      'Automated weekly reporting pipeline',
+      'AI-assisted traffic coordination system',
+      'Foundation training completed for all staff',
+      'Baseline metrics established',
+    ],
   },
   {
     id: 'phase-2',
@@ -57,7 +102,20 @@ const PHASES = [
       { name: 'Mid-Program Review', status: 'pending', week: 24 },
     ],
     roleImpact: ['Media Buyer', 'Campaign Manager', 'Performance Analyst'],
-    savings: 320000,
+    fteImpact: { before: 12, after: 5.5 },
+    costs: [
+      { category: 'AI Tools', description: 'Campaign optimization suite', amount: 35000, type: 'investment' },
+      { category: 'Infrastructure', description: 'Enhanced compute capacity', amount: 12000, type: 'recurring' },
+      { category: 'Integration', description: 'Platform API connections', amount: 20000, type: 'investment' },
+      { category: 'Training', description: 'Advanced AI workflows', amount: 15000, type: 'investment' },
+      { category: 'Headcount', description: 'FTE optimization (6.5 FTE)', amount: -320000, type: 'savings' },
+    ],
+    keyDeliverables: [
+      'Automated campaign setup and optimization',
+      'Real-time bidding AI integration',
+      'Self-service performance dashboards',
+      'Automated client reporting suite',
+    ],
   },
   {
     id: 'phase-3',
@@ -74,7 +132,20 @@ const PHASES = [
       { name: 'Pod Structure Implementation', status: 'pending', week: 36 },
     ],
     roleImpact: ['Media Strategist', 'Creative Coordinator', 'Channel Lead'],
-    savings: 280000,
+    fteImpact: { before: 9, after: 4.8 },
+    costs: [
+      { category: 'AI Tools', description: 'Strategy & creative AI suite', amount: 45000, type: 'investment' },
+      { category: 'Infrastructure', description: 'ML model hosting', amount: 18000, type: 'recurring' },
+      { category: 'Development', description: 'Custom AI integrations', amount: 60000, type: 'investment' },
+      { category: 'Change Mgmt', description: 'Pod transition support', amount: 30000, type: 'investment' },
+      { category: 'Headcount', description: 'Role evolution (4.2 FTE)', amount: -280000, type: 'savings' },
+    ],
+    keyDeliverables: [
+      'AI-powered strategy recommendations',
+      'Automated creative brief generation',
+      'Cross-channel performance optimization',
+      'Pod operating model implemented',
+    ],
   },
   {
     id: 'phase-4',
@@ -91,7 +162,20 @@ const PHASES = [
       { name: 'Year 2 Planning', status: 'pending', week: 52 },
     ],
     roleImpact: ['Account Director', 'Client Partner', 'Operations Lead'],
-    savings: 220000,
+    fteImpact: { before: 6, after: 3.5 },
+    costs: [
+      { category: 'AI Tools', description: 'Enterprise AI platform', amount: 25000, type: 'investment' },
+      { category: 'Infrastructure', description: 'Scaled operations', amount: 15000, type: 'recurring' },
+      { category: 'Portal Dev', description: 'Client self-service build', amount: 80000, type: 'investment' },
+      { category: 'Documentation', description: 'Process & training materials', amount: 15000, type: 'investment' },
+      { category: 'Headcount', description: 'Efficiency gains (2.5 FTE)', amount: -220000, type: 'savings' },
+    ],
+    keyDeliverables: [
+      'Fully integrated AI platform',
+      'Client self-service portal live',
+      'Continuous improvement framework',
+      'Year 2 transformation roadmap',
+    ],
   },
 ]
 
@@ -100,6 +184,8 @@ export default function TimelinePage() {
   const [scores, setScores] = useState<RoleScore[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedPhase, setSelectedPhase] = useState<string | null>('phase-1')
+  const [planLocked, setPlanLocked] = useState(false)
+  const [viewMode, setViewMode] = useState<'timeline' | 'costs' | 'plan'>('timeline')
 
   const { timelineMonths } = useScenarioStore()
 
@@ -121,7 +207,7 @@ export default function TimelinePage() {
     loadData()
   }, [])
 
-  // Calculate timeline metrics
+  // Calculate timeline and cost metrics
   const metrics = useMemo(() => {
     const totalMilestones = PHASES.reduce((sum, phase) => sum + phase.milestones.length, 0)
     const completedMilestones = PHASES.reduce(
@@ -132,15 +218,40 @@ export default function TimelinePage() {
       (sum, phase) => sum + phase.milestones.filter(m => m.status === 'in-progress').length,
       0
     )
-    const totalSavings = PHASES.reduce((sum, phase) => sum + phase.savings, 0)
+
+    // Calculate costs
+    const totalInvestment = PHASES.reduce((sum, phase) =>
+      sum + phase.costs.filter(c => c.type === 'investment').reduce((s, c) => s + c.amount, 0), 0
+    )
+    const annualRecurring = PHASES.reduce((sum, phase) =>
+      sum + phase.costs.filter(c => c.type === 'recurring').reduce((s, c) => s + c.amount, 0), 0
+    ) * 4 // Annualized
+    const annualSavings = Math.abs(PHASES.reduce((sum, phase) =>
+      sum + phase.costs.filter(c => c.type === 'savings').reduce((s, c) => s + c.amount, 0), 0
+    ))
+    const netBenefit = annualSavings - totalInvestment - annualRecurring
+    const paybackMonths = Math.round((totalInvestment / (annualSavings / 12)) * 10) / 10
+
+    // FTE impact
+    const totalFTEBefore = PHASES.reduce((sum, phase) => sum + phase.fteImpact.before, 0)
+    const totalFTEAfter = PHASES.reduce((sum, phase) => sum + phase.fteImpact.after, 0)
+    const fteReduction = totalFTEBefore - totalFTEAfter
+
     const overallProgress = Math.round((completedMilestones / totalMilestones) * 100)
 
     return {
       totalMilestones,
       completedMilestones,
       inProgressMilestones,
-      totalSavings,
       overallProgress,
+      totalInvestment,
+      annualRecurring,
+      annualSavings,
+      netBenefit,
+      paybackMonths,
+      totalFTEBefore,
+      totalFTEAfter,
+      fteReduction,
     }
   }, [])
 
@@ -167,12 +278,13 @@ export default function TimelinePage() {
   }
 
   const formatCurrency = (value: number) => {
+    const absValue = Math.abs(value)
     return new Intl.NumberFormat('en-NZ', {
       style: 'currency',
       currency: 'NZD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(value)
+    }).format(absValue)
   }
 
   if (loading) {
@@ -184,6 +296,8 @@ export default function TimelinePage() {
     )
   }
 
+  const selectedPhaseData = PHASES.find(p => p.id === selectedPhase)
+
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -191,251 +305,599 @@ export default function TimelinePage() {
         <div>
           <h1 className="text-2xl font-semibold">Transformation Timeline</h1>
           <p className="text-muted-foreground mt-1">
-            12-month implementation roadmap with milestones and deliverables
+            12-month implementation roadmap with milestones, costs, and deliverables
           </p>
         </div>
-        <Button>
-          <Download className="h-4 w-4 mr-2" />
-          Export Plan
-        </Button>
-      </div>
-
-      {/* Summary Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-muted">
-                <CalendarClock className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{PHASES.length}</p>
-                <p className="text-sm text-muted-foreground">Phases</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-muted">
-                <Target className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metrics.totalMilestones}</p>
-                <p className="text-sm text-muted-foreground">Milestones</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-success/5 border-success/20">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-success/10">
-                <CheckCircle className="h-5 w-5 text-success" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metrics.completedMilestones}</p>
-                <p className="text-sm text-muted-foreground">Completed</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-accent/10">
-                <Clock className="h-5 w-5 text-accent" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metrics.inProgressMilestones}</p>
-                <p className="text-sm text-muted-foreground">In Progress</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-muted">
-                <Zap className="h-5 w-5 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold">{metrics.overallProgress}%</p>
-                <p className="text-sm text-muted-foreground">Progress</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Overall Progress */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium">Overall Transformation Progress</span>
-              <span className="text-muted-foreground">{metrics.overallProgress}% complete</span>
-            </div>
-            <Progress value={metrics.overallProgress} className="h-3" />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>Month 1</span>
-              <span>Month 3</span>
-              <span>Month 6</span>
-              <span>Month 9</span>
-              <span>Month 12</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Phase Timeline */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {PHASES.map((phase, index) => (
-          <Card
-            key={phase.id}
-            className={cn(
-              'cursor-pointer transition-all',
-              selectedPhase === phase.id ? 'ring-2 ring-accent' : 'hover:border-accent/50',
-              phase.status === 'completed' && 'bg-success/5',
-              phase.status === 'in-progress' && 'bg-accent/5'
-            )}
-            onClick={() => setSelectedPhase(selectedPhase === phase.id ? null : phase.id)}
+        <div className="flex items-center gap-2">
+          <Button
+            variant={planLocked ? 'default' : 'outline'}
+            onClick={() => setPlanLocked(!planLocked)}
+            className={cn(planLocked && 'bg-success hover:bg-success/90')}
           >
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <Badge className={getStatusColor(phase.status)}>
-                  {phase.status === 'in-progress' ? 'In Progress' : phase.status === 'completed' ? 'Completed' : 'Upcoming'}
-                </Badge>
-                <span className="text-xs text-muted-foreground">M{phase.months}</span>
-              </div>
-              <CardTitle className="text-base">{phase.name}</CardTitle>
-              <CardDescription className="text-xs">{phase.subtitle}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Progress value={phase.progress} className="h-2" />
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>{phase.milestones.filter(m => m.status === 'completed').length}/{phase.milestones.length} milestones</span>
-                <span className="text-success font-medium">{formatCurrency(phase.savings)}</span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+            {planLocked ? <Lock className="h-4 w-4 mr-2" /> : <Unlock className="h-4 w-4 mr-2" />}
+            {planLocked ? 'Plan Locked' : 'Lock Plan'}
+          </Button>
+          <Button variant="outline">
+            <Download className="h-4 w-4 mr-2" />
+            Export
+          </Button>
+        </div>
       </div>
 
-      {/* Selected Phase Details */}
-      {selectedPhase && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-lg">
-                  {PHASES.find(p => p.id === selectedPhase)?.name}
-                </CardTitle>
-                <CardDescription>
-                  {PHASES.find(p => p.id === selectedPhase)?.subtitle}
-                </CardDescription>
+      {/* Locked Plan Banner */}
+      {planLocked && (
+        <Card className="border-success bg-success/5">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-full bg-success/20">
+                <Check className="h-5 w-5 text-success" />
               </div>
-              <Badge className={getStatusColor(PHASES.find(p => p.id === selectedPhase)?.status || '')}>
-                {PHASES.find(p => p.id === selectedPhase)?.status === 'in-progress' ? 'In Progress' :
-                 PHASES.find(p => p.id === selectedPhase)?.status === 'completed' ? 'Completed' : 'Upcoming'}
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Milestones */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium">Milestones</h4>
-              <div className="space-y-2">
-                {PHASES.find(p => p.id === selectedPhase)?.milestones.map((milestone, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
-                  >
-                    <div className="flex items-center gap-3">
-                      {getStatusIcon(milestone.status)}
-                      <span className={cn(
-                        'text-sm',
-                        milestone.status === 'completed' && 'line-through text-muted-foreground'
-                      )}>
-                        {milestone.name}
-                      </span>
-                    </div>
-                    <Badge variant="outline" className="text-xs">
-                      Week {milestone.week}
-                    </Badge>
-                  </div>
-                ))}
+              <div className="flex-1">
+                <p className="font-medium text-success">Transformation Plan Approved & Locked</p>
+                <p className="text-sm text-muted-foreground">
+                  Locked on {new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' })} -
+                  Total investment: {formatCurrency(metrics.totalInvestment)} |
+                  Annual savings: {formatCurrency(metrics.annualSavings)} |
+                  Payback: {metrics.paybackMonths} months
+                </p>
               </div>
-            </div>
-
-            {/* Role Impact */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium">Impacted Roles</h4>
-              <div className="flex flex-wrap gap-2">
-                {PHASES.find(p => p.id === selectedPhase)?.roleImpact.map((role) => (
-                  <Badge key={role} variant="outline">
-                    <Users className="h-3 w-3 mr-1" />
-                    {role}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            {/* Savings */}
-            <div className="p-4 rounded-lg bg-success/5 border border-success/20">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-success" />
-                  <span className="font-medium">Projected Savings</span>
-                </div>
-                <span className="text-xl font-bold text-success">
-                  {formatCurrency(PHASES.find(p => p.id === selectedPhase)?.savings || 0)}
-                </span>
-              </div>
+              <Button variant="ghost" size="sm" className="text-success">
+                <FileText className="h-4 w-4 mr-1" />
+                View Summary
+              </Button>
             </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Cumulative Savings */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Cumulative Savings Projection</CardTitle>
-          <CardDescription>
-            Expected cost savings over the 12-month transformation period
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {PHASES.map((phase, index) => {
-              const cumulativeSavings = PHASES.slice(0, index + 1).reduce((sum, p) => sum + p.savings, 0)
-              const percentage = (cumulativeSavings / metrics.totalSavings) * 100
+      {/* View Mode Tabs */}
+      <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as typeof viewMode)}>
+        <TabsList>
+          <TabsTrigger value="timeline">
+            <CalendarClock className="h-4 w-4 mr-2" />
+            Timeline
+          </TabsTrigger>
+          <TabsTrigger value="costs">
+            <DollarSign className="h-4 w-4 mr-2" />
+            Cost Breakdown
+          </TabsTrigger>
+          <TabsTrigger value="plan">
+            <FileText className="h-4 w-4 mr-2" />
+            Full Plan
+          </TabsTrigger>
+        </TabsList>
 
-              return (
-                <div key={phase.id} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium">After {phase.name.split(':')[0]}</span>
-                    <span className="text-success font-medium">{formatCurrency(cumulativeSavings)}</span>
+        {/* Timeline View */}
+        <TabsContent value="timeline" className="space-y-6 mt-6">
+          {/* Summary Metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-muted">
+                    <CalendarClock className="h-5 w-5 text-muted-foreground" />
                   </div>
-                  <div className="h-2 bg-muted rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-success rounded-full transition-all"
-                      style={{ width: `${percentage}%` }}
-                    />
+                  <div>
+                    <p className="text-2xl font-bold">{PHASES.length}</p>
+                    <p className="text-sm text-muted-foreground">Phases</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-muted">
+                    <Target className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{metrics.totalMilestones}</p>
+                    <p className="text-sm text-muted-foreground">Milestones</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="bg-success/5 border-success/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-success/10">
+                    <CheckCircle className="h-5 w-5 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{metrics.completedMilestones}</p>
+                    <p className="text-sm text-muted-foreground">Completed</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-accent/10">
+                    <Clock className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{metrics.inProgressMilestones}</p>
+                    <p className="text-sm text-muted-foreground">In Progress</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-muted">
+                    <Users className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{metrics.fteReduction.toFixed(1)}</p>
+                    <p className="text-sm text-muted-foreground">FTE Reduced</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-muted">
+                    <Zap className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{metrics.overallProgress}%</p>
+                    <p className="text-sm text-muted-foreground">Progress</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Overall Progress */}
+          <Card>
+            <CardContent className="p-4">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">Overall Transformation Progress</span>
+                  <span className="text-muted-foreground">{metrics.overallProgress}% complete</span>
+                </div>
+                <Progress value={metrics.overallProgress} className="h-3" />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Month 1</span>
+                  <span>Month 3</span>
+                  <span>Month 6</span>
+                  <span>Month 9</span>
+                  <span>Month 12</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Phase Timeline */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            {PHASES.map((phase, index) => (
+              <Card
+                key={phase.id}
+                className={cn(
+                  'cursor-pointer transition-all',
+                  selectedPhase === phase.id ? 'ring-2 ring-accent' : 'hover:border-accent/50',
+                  phase.status === 'completed' && 'bg-success/5',
+                  phase.status === 'in-progress' && 'bg-accent/5'
+                )}
+                onClick={() => setSelectedPhase(selectedPhase === phase.id ? null : phase.id)}
+              >
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <Badge className={getStatusColor(phase.status)}>
+                      {phase.status === 'in-progress' ? 'In Progress' : phase.status === 'completed' ? 'Completed' : 'Upcoming'}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">M{phase.months}</span>
+                  </div>
+                  <CardTitle className="text-base">{phase.name}</CardTitle>
+                  <CardDescription className="text-xs">{phase.subtitle}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Progress value={phase.progress} className="h-2" />
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>{phase.milestones.filter(m => m.status === 'completed').length}/{phase.milestones.length} milestones</span>
+                  </div>
+                  <div className="pt-2 border-t border-border">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">Net Benefit</span>
+                      <span className="font-medium text-success">
+                        {formatCurrency(Math.abs(phase.costs.filter(c => c.type === 'savings').reduce((s, c) => s + c.amount, 0)) -
+                          phase.costs.filter(c => c.type !== 'savings').reduce((s, c) => s + c.amount, 0))}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Selected Phase Details */}
+          {selectedPhaseData && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-lg">{selectedPhaseData.name}</CardTitle>
+                    <CardDescription>{selectedPhaseData.subtitle}</CardDescription>
+                  </div>
+                  <Badge className={getStatusColor(selectedPhaseData.status)}>
+                    {selectedPhaseData.status === 'in-progress' ? 'In Progress' :
+                     selectedPhaseData.status === 'completed' ? 'Completed' : 'Upcoming'}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Milestones */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium">Milestones</h4>
+                    <div className="space-y-2">
+                      {selectedPhaseData.milestones.map((milestone, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                        >
+                          <div className="flex items-center gap-3">
+                            {getStatusIcon(milestone.status)}
+                            <span className={cn(
+                              'text-sm',
+                              milestone.status === 'completed' && 'line-through text-muted-foreground'
+                            )}>
+                              {milestone.name}
+                            </span>
+                          </div>
+                          <Badge variant="outline" className="text-xs">
+                            Week {milestone.week}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Key Deliverables */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium">Key Deliverables</h4>
+                    <div className="space-y-2">
+                      {selectedPhaseData.keyDeliverables.map((deliverable, idx) => (
+                        <div key={idx} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50">
+                          <Check className="h-4 w-4 text-success mt-0.5 shrink-0" />
+                          <span className="text-sm">{deliverable}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* FTE Impact */}
+                <div className="p-4 rounded-lg bg-muted/50">
+                  <h4 className="text-sm font-medium mb-3">FTE Impact</h4>
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1 text-center p-3 rounded-lg bg-background">
+                      <p className="text-2xl font-bold">{selectedPhaseData.fteImpact.before}</p>
+                      <p className="text-xs text-muted-foreground">Before</p>
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-muted-foreground" />
+                    <div className="flex-1 text-center p-3 rounded-lg bg-background">
+                      <p className="text-2xl font-bold text-success">{selectedPhaseData.fteImpact.after}</p>
+                      <p className="text-xs text-muted-foreground">After</p>
+                    </div>
+                    <div className="flex-1 text-center p-3 rounded-lg bg-success/10">
+                      <p className="text-2xl font-bold text-success">
+                        -{(selectedPhaseData.fteImpact.before - selectedPhaseData.fteImpact.after).toFixed(1)}
+                      </p>
+                      <p className="text-xs text-muted-foreground">Reduction</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Role Impact */}
+                <div className="space-y-3">
+                  <h4 className="text-sm font-medium">Impacted Roles</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPhaseData.roleImpact.map((role) => (
+                      <Badge key={role} variant="outline">
+                        <Users className="h-3 w-3 mr-1" />
+                        {role}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Cost Breakdown View */}
+        <TabsContent value="costs" className="space-y-6 mt-6">
+          {/* Cost Summary Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-destructive/10">
+                    <DollarSign className="h-5 w-5 text-destructive" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{formatCurrency(metrics.totalInvestment)}</p>
+                    <p className="text-sm text-muted-foreground">Total Investment</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-accent/10">
+                    <TrendingUp className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold">{formatCurrency(metrics.annualRecurring)}</p>
+                    <p className="text-sm text-muted-foreground">Annual Recurring</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="bg-success/5 border-success/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-success/10">
+                    <Zap className="h-5 w-5 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-success">{formatCurrency(metrics.annualSavings)}</p>
+                    <p className="text-sm text-muted-foreground">Annual Savings</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="bg-success/5 border-success/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-success/10">
+                    <Clock className="h-5 w-5 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-success">{metrics.paybackMonths} mo</p>
+                    <p className="text-sm text-muted-foreground">Payback Period</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Phase-by-Phase Cost Breakdown */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {PHASES.map((phase) => {
+              const phaseInvestment = phase.costs.filter(c => c.type === 'investment').reduce((s, c) => s + c.amount, 0)
+              const phaseRecurring = phase.costs.filter(c => c.type === 'recurring').reduce((s, c) => s + c.amount, 0)
+              const phaseSavings = Math.abs(phase.costs.filter(c => c.type === 'savings').reduce((s, c) => s + c.amount, 0))
+              const phaseNet = phaseSavings - phaseInvestment - phaseRecurring
+
+              return (
+                <Card key={phase.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">{phase.name}</CardTitle>
+                      <Badge className={getStatusColor(phase.status)}>M{phase.months}</Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {/* Cost Items */}
+                    <div className="space-y-2">
+                      {phase.costs.map((cost, idx) => (
+                        <div key={idx} className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-2">
+                            {cost.type === 'investment' && <Briefcase className="h-4 w-4 text-muted-foreground" />}
+                            {cost.type === 'recurring' && <TrendingUp className="h-4 w-4 text-muted-foreground" />}
+                            {cost.type === 'savings' && <Users className="h-4 w-4 text-success" />}
+                            <span className={cn(cost.type === 'savings' && 'text-success')}>
+                              {cost.category}
+                            </span>
+                          </div>
+                          <span className={cn(
+                            'font-medium',
+                            cost.type === 'savings' ? 'text-success' : ''
+                          )}>
+                            {cost.type === 'savings' ? '+' : '-'}{formatCurrency(Math.abs(cost.amount))}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Phase Summary */}
+                    <div className="pt-3 border-t border-border space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Investment</span>
+                        <span className="font-medium">-{formatCurrency(phaseInvestment)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Recurring (Q)</span>
+                        <span className="font-medium">-{formatCurrency(phaseRecurring)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Savings (Annual)</span>
+                        <span className="font-medium text-success">+{formatCurrency(phaseSavings)}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm pt-2 border-t border-border">
+                        <span className="font-medium">Net Benefit (Year 1)</span>
+                        <span className={cn('font-bold', phaseNet > 0 ? 'text-success' : 'text-destructive')}>
+                          {phaseNet > 0 ? '+' : ''}{formatCurrency(phaseNet)}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               )
             })}
           </div>
-          <div className="mt-6 p-4 rounded-lg bg-success/10 border border-success/20">
-            <div className="flex items-center justify-between">
-              <span className="font-medium">Total Annual Savings</span>
-              <span className="text-2xl font-bold text-success">{formatCurrency(metrics.totalSavings)}</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+
+          {/* Total Summary */}
+          <Card className="bg-success/5 border-success/20">
+            <CardHeader>
+              <CardTitle className="text-lg">12-Month Financial Summary</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Total Investment</p>
+                  <p className="text-2xl font-bold">{formatCurrency(metrics.totalInvestment)}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Annual Recurring</p>
+                  <p className="text-2xl font-bold">{formatCurrency(metrics.annualRecurring)}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Annual Savings</p>
+                  <p className="text-2xl font-bold text-success">{formatCurrency(metrics.annualSavings)}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Year 1 Net Benefit</p>
+                  <p className="text-2xl font-bold text-success">{formatCurrency(metrics.netBenefit)}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground mb-1">Payback Period</p>
+                  <p className="text-2xl font-bold text-success">{metrics.paybackMonths} months</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Full Plan View */}
+        <TabsContent value="plan" className="space-y-6 mt-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Transformation Plan Summary</CardTitle>
+                  <CardDescription>Complete overview of the 12-month transformation program</CardDescription>
+                </div>
+                {planLocked && (
+                  <Badge className="bg-success/10 text-success">
+                    <Lock className="h-3 w-3 mr-1" />
+                    Approved
+                  </Badge>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              {/* Executive Summary */}
+              <div className="p-6 rounded-lg bg-muted/50 space-y-4">
+                <h3 className="font-semibold">Executive Summary</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                  <div>
+                    <p className="text-3xl font-bold">{formatCurrency(metrics.totalInvestment)}</p>
+                    <p className="text-sm text-muted-foreground">Total Investment</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-success">{formatCurrency(metrics.annualSavings)}</p>
+                    <p className="text-sm text-muted-foreground">Annual Savings</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold">{metrics.fteReduction.toFixed(1)}</p>
+                    <p className="text-sm text-muted-foreground">FTE Reduction</p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-success">{metrics.paybackMonths} mo</p>
+                    <p className="text-sm text-muted-foreground">Payback Period</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase Details */}
+              {PHASES.map((phase, idx) => {
+                const phaseInvestment = phase.costs.filter(c => c.type === 'investment').reduce((s, c) => s + c.amount, 0)
+                const phaseSavings = Math.abs(phase.costs.filter(c => c.type === 'savings').reduce((s, c) => s + c.amount, 0))
+
+                return (
+                  <div key={phase.id} className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className={cn(
+                        'flex items-center justify-center w-10 h-10 rounded-full font-bold',
+                        phase.status === 'completed' ? 'bg-success text-success-foreground' :
+                        phase.status === 'in-progress' ? 'bg-accent text-accent-foreground' :
+                        'bg-muted text-muted-foreground'
+                      )}>
+                        {idx + 1}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{phase.name}</h3>
+                        <p className="text-sm text-muted-foreground">{phase.subtitle} • Months {phase.months}</p>
+                      </div>
+                      <Badge className={getStatusColor(phase.status)}>
+                        {phase.status === 'in-progress' ? 'In Progress' :
+                         phase.status === 'completed' ? 'Completed' : 'Upcoming'}
+                      </Badge>
+                    </div>
+
+                    <div className="ml-14 grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* Key Activities */}
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">Key Activities</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-1">
+                          {phase.milestones.slice(0, 3).map((m, i) => (
+                            <div key={i} className="flex items-center gap-2 text-sm">
+                              {getStatusIcon(m.status)}
+                              <span className="truncate">{m.name}</span>
+                            </div>
+                          ))}
+                          {phase.milestones.length > 3 && (
+                            <p className="text-xs text-muted-foreground">+{phase.milestones.length - 3} more</p>
+                          )}
+                        </CardContent>
+                      </Card>
+
+                      {/* FTE Impact */}
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">FTE Impact</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="flex items-center justify-between">
+                            <span className="text-2xl font-bold">{phase.fteImpact.before}</span>
+                            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-2xl font-bold text-success">{phase.fteImpact.after}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground text-center mt-1">
+                            {(phase.fteImpact.before - phase.fteImpact.after).toFixed(1)} FTE reduction
+                          </p>
+                        </CardContent>
+                      </Card>
+
+                      {/* Financial */}
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm font-medium">Financial</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-1 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Investment</span>
+                            <span>{formatCurrency(phaseInvestment)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Savings</span>
+                            <span className="text-success">{formatCurrency(phaseSavings)}</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {idx < PHASES.length - 1 && (
+                      <div className="ml-14 flex justify-center py-2">
+                        <ChevronRight className="h-5 w-5 text-muted-foreground rotate-90" />
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

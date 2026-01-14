@@ -2,15 +2,56 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { KPICard } from '@/components/cards/kpi-card'
 import { RoleCard } from '@/components/cards/role-card'
-import { loadRoles, loadScores, loadBottlenecks, loadHiringSignals, calculateKPIs, getTopAutomatableRoles, getHighestPriorityRoles, getAutomationTrends } from '@/lib/data'
-import { Role, RoleScore, Bottleneck, HiringSignal, AutomationTrend } from '@/types'
-import { Users, TrendingUp, AlertTriangle, Zap, SlidersHorizontal, ArrowRight } from 'lucide-react'
+import { loadRoles, loadScores, loadBottlenecks, loadHiringSignals, calculateKPIs, getTopAutomatableRoles, getAutomationTrends } from '@/lib/data'
+import { Role, RoleScore, Bottleneck, HiringSignal } from '@/types'
+import {
+  Users,
+  TrendingUp,
+  AlertTriangle,
+  Zap,
+  SlidersHorizontal,
+  ArrowRight,
+  Building2,
+  Network,
+  CalendarClock,
+  GraduationCap,
+  MapPin,
+  Briefcase,
+  ChevronRight
+} from 'lucide-react'
+
+// Scenario presets for quick access
+const SCENARIOS = [
+  {
+    id: 'mccann-media',
+    name: 'McCann Media',
+    description: 'Single agency unit',
+    fte: 46,
+    revenue: 11904526,
+    potential: '25%',
+  },
+  {
+    id: 'omnicom-oceania-media',
+    name: 'Omnicom Oceania Media',
+    description: 'Holding group division',
+    fte: 1200,
+    revenue: 320000000,
+    potential: '30%',
+  },
+]
+
+// Sample hiring signals for preview
+const HIRING_PREVIEW = [
+  { company: 'OMD New Zealand', role: 'Digital Campaign Manager', location: 'Auckland', trend: 'growing' },
+  { company: 'PHD Australia', role: 'Programmatic Lead', location: 'Sydney', trend: 'growing' },
+  { company: 'Dentsu NZ', role: 'Performance Analyst', location: 'Wellington', trend: 'stable' },
+]
 
 export default function OverviewPage() {
   const [roles, setRoles] = useState<Role[]>([])
@@ -59,9 +100,15 @@ export default function OverviewPage() {
   }
 
   const kpis = calculateKPIs(roles, scores, bottlenecks, hiringSignals)
-  const topRoles = getTopAutomatableRoles(scores, 4)
-  const priorityRoles = getHighestPriorityRoles(scores, 4)
+  const topRoles = getTopAutomatableRoles(scores, 3)
   const trends = getAutomationTrends(scores)
+
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `$${(value / 1000000).toFixed(0)}M`
+    }
+    return `$${(value / 1000).toFixed(0)}K`
+  }
 
   return (
     <div className="space-y-6">
@@ -70,15 +117,9 @@ export default function OverviewPage() {
         <div>
           <h1 className="text-2xl font-semibold">Overview</h1>
           <p className="text-muted-foreground mt-1">
-            FCB New Zealand - Media Business Unit
+            McCann New Zealand - Media Business Unit
           </p>
         </div>
-        <Button asChild>
-          <Link href="/scenario">
-            <SlidersHorizontal className="h-4 w-4 mr-2" />
-            Open Scenario Builder
-          </Link>
-        </Button>
       </div>
 
       {/* KPI Cards */}
@@ -111,50 +152,130 @@ export default function OverviewPage() {
         />
       </div>
 
-      {/* Automation Potential */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Automation Potential by Family</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {trends.map((trend) => (
-              <div key={trend.category} className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">{trend.category}</span>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <span>Now: {trend.now}%</span>
-                    <span>Future: {trend.future}%</span>
-                    <Badge variant="secondary" className="text-xs">
-                      +{trend.future - trend.now}%
-                    </Badge>
+      {/* Scenario Cards + Hiring Signals Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Scenario Cards */}
+        {SCENARIOS.map((scenario) => (
+          <Link key={scenario.id} href="/scenario">
+            <Card className="h-full hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-2 rounded-lg bg-accent/10">
+                      <Building2 className="h-4 w-4 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{scenario.name}</p>
+                      <p className="text-xs text-muted-foreground">{scenario.description}</p>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="p-2 rounded-lg bg-muted/50">
+                    <p className="text-lg font-bold">{scenario.fte}</p>
+                    <p className="text-[10px] text-muted-foreground">FTE</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-muted/50">
+                    <p className="text-lg font-bold">{formatCurrency(scenario.revenue)}</p>
+                    <p className="text-[10px] text-muted-foreground">Revenue</p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-success/10">
+                    <p className="text-lg font-bold text-success">{scenario.potential}</p>
+                    <p className="text-[10px] text-muted-foreground">Savings</p>
                   </div>
                 </div>
-                <div className="flex gap-1 h-2">
-                  <div
-                    className="bg-primary rounded-l"
-                    style={{ width: `${trend.now}%` }}
-                  />
-                  <div
-                    className="bg-primary/30 rounded-r"
-                    style={{ width: `${trend.future - trend.now}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
 
-      {/* Role Grids */}
+        {/* Hiring Signals Preview */}
+        <Link href="/hiring">
+          <Card className="h-full hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-accent/10">
+                    <TrendingUp className="h-4 w-4 text-accent" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Hiring Signals</p>
+                    <p className="text-xs text-muted-foreground">ANZ agency market</p>
+                  </div>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+              </div>
+              <div className="space-y-2">
+                {HIRING_PREVIEW.map((signal, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-sm p-2 rounded-lg bg-muted/50">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Briefcase className="h-3 w-3 text-muted-foreground shrink-0" />
+                      <span className="truncate">{signal.role}</span>
+                    </div>
+                    <Badge
+                      variant="outline"
+                      className={signal.trend === 'growing' ? 'text-success border-success/30' : 'text-muted-foreground'}
+                    >
+                      {signal.trend}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+      </div>
+
+      {/* Automation Potential + Top Roles */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Top Automatable */}
+        {/* Automation Potential */}
+        <Card>
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg">Automation Potential</CardTitle>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/scorecard">
+                  View All <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {trends.slice(0, 4).map((trend) => (
+                <div key={trend.category} className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">{trend.category}</span>
+                    <div className="flex items-center gap-2 text-muted-foreground">
+                      <span>{trend.now}%</span>
+                      <ArrowRight className="h-3 w-3" />
+                      <span className="text-success">{trend.future}%</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-1 h-2">
+                    <div
+                      className="bg-primary rounded-l"
+                      style={{ width: `${trend.now}%` }}
+                    />
+                    <div
+                      className="bg-primary/30 rounded-r"
+                      style={{ width: `${trend.future - trend.now}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Top Automatable Roles */}
         <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Top Automatable Roles</CardTitle>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/scorecard">
+                <Link href="/roles">
                   View All <ArrowRight className="h-4 w-4 ml-1" />
                 </Link>
               </Button>
@@ -166,55 +287,73 @@ export default function OverviewPage() {
             ))}
           </CardContent>
         </Card>
-
-        {/* Highest Priority */}
-        <Card>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">Highest Priority</CardTitle>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/scorecard">
-                  View All <ArrowRight className="h-4 w-4 ml-1" />
-                </Link>
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {priorityRoles.map((score) => (
-              <RoleCard key={score.roleId} score={score} showProgress={false} />
-            ))}
-          </CardContent>
-        </Card>
       </div>
 
-      {/* Quick Stats */}
+      {/* Quick Access Tiles */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="bg-success/5 border-success/20">
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-success">{kpis.avgFutureScore}%</p>
-            <p className="text-sm text-muted-foreground">Future Automation</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-accent/5 border-accent/20">
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-accent">{hiringSignals.length}</p>
-            <p className="text-sm text-muted-foreground">Hiring Signals</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-warning/5 border-warning/20">
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-warning">
-              {scores.filter(s => s.redesignPriority === 'Critical').length}
-            </p>
-            <p className="text-sm text-muted-foreground">Critical Roles</p>
-          </CardContent>
-        </Card>
-        <Card className="bg-destructive/5 border-destructive/20">
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-destructive">{bottlenecks.length}</p>
-            <p className="text-sm text-muted-foreground">Bottlenecks</p>
-          </CardContent>
-        </Card>
+        <Link href="/pods">
+          <Card className="hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <Network className="h-5 w-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium group-hover:text-accent transition-colors">Pods</p>
+                  <p className="text-xs text-muted-foreground">Team structures</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/timeline">
+          <Card className="hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <CalendarClock className="h-5 w-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium group-hover:text-accent transition-colors">Timeline</p>
+                  <p className="text-xs text-muted-foreground">Implementation</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/reskilling">
+          <Card className="hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-accent/10">
+                  <GraduationCap className="h-5 w-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium group-hover:text-accent transition-colors">Reskilling</p>
+                  <p className="text-xs text-muted-foreground">Training paths</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/bottlenecks">
+          <Card className="hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-warning/10">
+                  <AlertTriangle className="h-5 w-5 text-warning" />
+                </div>
+                <div>
+                  <p className="font-medium group-hover:text-accent transition-colors">Bottlenecks</p>
+                  <p className="text-xs text-muted-foreground">{bottlenecks.length} issues</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   )

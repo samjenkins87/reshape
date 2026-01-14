@@ -44,8 +44,8 @@ const BUSINESS_OVERHEAD_RATE = 0.13 // 13% of revenue
 // Preset scenarios
 const PRESET_SCENARIOS = [
   {
-    id: 'mccann-zed-media',
-    name: 'McCann Zed Media',
+    id: 'mccann-media',
+    name: 'McCann Media',
     description: 'Single agency business unit - NZ Media',
     fte: 46,
     staffCost: 6600550,  // Base $5.455M × 1.21 loading
@@ -84,13 +84,13 @@ export default function ScenarioPage() {
   const [scores, setScores] = useState<RoleScore[]>([])
   const [loading, setLoading] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
-  const [activePreset, setActivePreset] = useState<string>('mccann-zed-media')
+  const [activePreset, setActivePreset] = useState<string>('mccann-media')
   const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([])
   const [aiModalOpen, setAiModalOpen] = useState(false)
   const [showAssumptions, setShowAssumptions] = useState(false)
 
   const [inputs, setInputs] = useState<ScenarioInputs>({
-    name: 'McCann Zed Media',
+    name: 'McCann Media',
     fte: 46,
     staffCost: 6600550,
     revenue: 11904526,
@@ -190,7 +190,7 @@ export default function ScenarioPage() {
 
     // If we deleted the active scenario, switch to default
     if (activePreset === scenarioId) {
-      loadPreset('mccann-zed-media')
+      loadPreset('mccann-media')
     }
   }
 
@@ -353,7 +353,7 @@ export default function ScenarioPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => { reset(); loadPreset('mccann-zed-media'); }}>
+          <Button variant="outline" onClick={() => { reset(); loadPreset('mccann-media'); }}>
             <RotateCcw className="h-4 w-4 mr-2" />
             Reset
           </Button>
@@ -499,7 +499,7 @@ export default function ScenarioPage() {
                   size="sm"
                   onClick={() => {
                     setIsEditing(false)
-                    loadPreset('mccann-zed-media')
+                    loadPreset('mccann-media')
                   }}
                 >
                   Cancel
