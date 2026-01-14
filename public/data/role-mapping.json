@@ -1,0 +1,745 @@
+{
+  "departments": [
+    { "id": "strategy", "name": "Strategy", "color": "#8B5CF6" },
+    { "id": "account-service", "name": "Account Service", "color": "#3B82F6" },
+    { "id": "activation", "name": "Activation", "color": "#10B981" },
+    { "id": "investment", "name": "Investment & Partnerships", "color": "#F59E0B" }
+  ],
+  "subgroups": [
+    { "id": "strategy-leadership", "name": "Strategy Leadership", "department": "strategy" },
+    { "id": "planning", "name": "Planning", "department": "strategy" },
+    { "id": "account-management", "name": "Account Management", "department": "account-service" },
+    { "id": "business-development", "name": "Business Development", "department": "account-service" },
+    { "id": "search", "name": "Search & Performance", "department": "activation" },
+    { "id": "activation-execution", "name": "Activation Execution", "department": "activation" },
+    { "id": "digital-consulting", "name": "Digital Consulting", "department": "activation" },
+    { "id": "media-investment", "name": "Media Investment", "department": "investment" }
+  ],
+  "mappings": [
+    {
+      "id": "pos-001",
+      "mccannTitle": "Chief Strategy Officer",
+      "platformRoleId": null,
+      "seniority": "executive",
+      "department": "strategy",
+      "subgroup": "strategy-leadership",
+      "headcount": 1,
+      "salary": 250000,
+      "taskClassification": {
+        "commoditised": 0,
+        "semiJudgment": 0,
+        "highJudgment": 100
+      },
+      "platformAssessment": {
+        "now": 15,
+        "future": 30,
+        "rationale": "AI research, report generation, competitive analysis, market intelligence - all automatable. High-judgment strategy decisions remain human."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Chief Strategy Officer", "automationLevel": 15, "focusShift": ["AI strategy integration", "Data-driven planning"] },
+        "horizon24mo": { "title": "Chief Strategy & AI Officer", "automationLevel": 30, "focusShift": ["AI governance", "Predictive strategy"] }
+      }
+    },
+    {
+      "id": "pos-002",
+      "mccannTitle": "Group Strategy & Product Director",
+      "platformRoleId": null,
+      "seniority": "director",
+      "department": "strategy",
+      "subgroup": "strategy-leadership",
+      "headcount": 1,
+      "salary": 200000,
+      "taskClassification": {
+        "commoditised": 0,
+        "semiJudgment": 0,
+        "highJudgment": 100
+      },
+      "platformAssessment": {
+        "now": 25,
+        "future": 45,
+        "rationale": "Product roadmaps, documentation, competitive landscape analysis, vendor evaluations, proposal writing - significant AI augmentation potential."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Strategy & Product Director", "automationLevel": 25, "focusShift": ["Product innovation", "AI tool selection"] },
+        "horizon24mo": { "title": "Strategy & Innovation Director", "automationLevel": 45, "focusShift": ["AI product development", "Platform strategy"] }
+      }
+    },
+    {
+      "id": "pos-003",
+      "mccannTitle": "Group Business Director",
+      "platformRoleId": null,
+      "seniority": "director",
+      "department": "account-service",
+      "subgroup": "business-development",
+      "headcount": 4,
+      "salary": 175000,
+      "taskClassification": {
+        "commoditised": 4.9,
+        "semiJudgment": 18.1,
+        "highJudgment": 77.0
+      },
+      "platformAssessment": {
+        "now": 25,
+        "future": 50,
+        "rationale": "Client reports, status updates, pitch decks, market analysis, meeting prep - all highly automatable. Relationship management remains human."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Group Business Director", "automationLevel": 25, "focusShift": ["Strategic client partnerships", "Growth strategy"] },
+        "horizon24mo": { "title": "Client Partnership Director", "automationLevel": 50, "focusShift": ["AI-augmented client insights", "Portfolio strategy"] }
+      }
+    },
+    {
+      "id": "pos-004",
+      "mccannTitle": "Communications Design Director",
+      "platformRoleId": "role-007",
+      "seniority": "director",
+      "department": "account-service",
+      "subgroup": "business-development",
+      "headcount": 1,
+      "salary": 150000,
+      "taskClassification": {
+        "commoditised": 0,
+        "semiJudgment": 10.0,
+        "highJudgment": 90.0
+      },
+      "platformAssessment": {
+        "now": 35,
+        "future": 55,
+        "rationale": "Brief writing, creative concept generation, design iteration, asset production - AI tools like Midjourney/DALL-E transforming this space rapidly."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Communications Design Director", "automationLevel": 35, "focusShift": ["Creative AI tools", "Design systems"] },
+        "horizon24mo": { "title": "Creative Experience Director", "automationLevel": 55, "focusShift": ["AI-generated creative", "Brand automation"] }
+      }
+    },
+    {
+      "id": "pos-005",
+      "mccannTitle": "Group Digital Planning Director",
+      "platformRoleId": "role-001",
+      "seniority": "director",
+      "department": "account-service",
+      "subgroup": "planning",
+      "headcount": 1,
+      "salary": 150000,
+      "taskClassification": {
+        "commoditised": 7.9,
+        "semiJudgment": 38.4,
+        "highJudgment": 53.7
+      },
+      "platformAssessment": {
+        "now": 40,
+        "future": 65,
+        "rationale": "Media plans, audience research, channel recommendations, budget allocation, performance forecasting - AI already doing this well. Strategic oversight remains human."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Digital Planning Director", "automationLevel": 40, "focusShift": ["AI planning tools", "Predictive modeling"] },
+        "horizon24mo": { "title": "Integrated Planning Director", "automationLevel": 65, "focusShift": ["Autonomous planning", "Cross-channel optimization"] }
+      }
+    },
+    {
+      "id": "pos-006",
+      "mccannTitle": "Business Director",
+      "platformRoleId": null,
+      "seniority": "lead",
+      "department": "account-service",
+      "subgroup": "business-development",
+      "headcount": 3,
+      "salary": 125000,
+      "taskClassification": {
+        "commoditised": 6.7,
+        "semiJudgment": 39.4,
+        "highJudgment": 54.0
+      },
+      "platformAssessment": {
+        "now": 30,
+        "future": 55,
+        "rationale": "Status reports, client comms, proposal writing, meeting notes, presentation prep - substantial admin burden automatable."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Business Director", "automationLevel": 30, "focusShift": ["Client strategy", "Team leadership"] },
+        "horizon24mo": { "title": "Client Success Director", "automationLevel": 55, "focusShift": ["AI-driven insights", "Strategic partnerships"] }
+      }
+    },
+    {
+      "id": "pos-007",
+      "mccannTitle": "Associate Business Director",
+      "platformRoleId": null,
+      "seniority": "lead",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 4,
+      "salary": 110000,
+      "taskClassification": {
+        "commoditised": 20.0,
+        "semiJudgment": 50.5,
+        "highJudgment": 29.5
+      },
+      "platformAssessment": {
+        "now": 40,
+        "future": 60,
+        "rationale": "Heavy admin load - timeline management, status updates, reporting, brief coordination. AI handles 40%+ today with proper tooling."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Associate Business Director", "automationLevel": 40, "focusShift": ["AI workflow management", "Client engagement"] },
+        "horizon24mo": { "title": "Client Engagement Lead", "automationLevel": 60, "focusShift": ["Automated reporting", "Strategic oversight"] }
+      }
+    },
+    {
+      "id": "pos-008",
+      "mccannTitle": "Digital Director",
+      "platformRoleId": "role-002",
+      "seniority": "lead",
+      "department": "activation",
+      "subgroup": "digital-consulting",
+      "headcount": 1,
+      "salary": 150000,
+      "taskClassification": {
+        "commoditised": 34.3,
+        "semiJudgment": 52.5,
+        "highJudgment": 13.2
+      },
+      "platformAssessment": {
+        "now": 50,
+        "future": 70,
+        "rationale": "Campaign setup, reporting, optimization recommendations, performance analysis - core digital operations highly automatable today."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Digital Director", "automationLevel": 50, "focusShift": ["AI platform strategy", "Automation leadership"] },
+        "horizon24mo": { "title": "Digital Automation Director", "automationLevel": 70, "focusShift": ["AI agent oversight", "Platform optimization"] }
+      }
+    },
+    {
+      "id": "pos-009",
+      "mccannTitle": "Account Director",
+      "platformRoleId": "role-009",
+      "seniority": "senior",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 2,
+      "salary": 100000,
+      "taskClassification": {
+        "commoditised": 19.4,
+        "semiJudgment": 56.6,
+        "highJudgment": 24.1
+      },
+      "platformAssessment": {
+        "now": 40,
+        "future": 60,
+        "rationale": "Meeting coordination, status reports, presentation creation, email drafting - significant time freed up with AI assistants."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Account Director", "automationLevel": 40, "focusShift": ["AI-assisted client comms", "Strategic planning"] },
+        "horizon24mo": { "title": "Client Experience Director", "automationLevel": 60, "focusShift": ["Automated status reporting", "Relationship strategy"] }
+      }
+    },
+    {
+      "id": "pos-010",
+      "mccannTitle": "Senior Account Manager",
+      "platformRoleId": "role-009",
+      "seniority": "senior",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 1,
+      "salary": 85000,
+      "taskClassification": {
+        "commoditised": 8.4,
+        "semiJudgment": 74.2,
+        "highJudgment": 17.4
+      },
+      "platformAssessment": {
+        "now": 45,
+        "future": 65,
+        "rationale": "Semi-judgmental work like campaign reviews, brief interpretation, timeline management - AI augments significantly with human oversight."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Senior Account Manager", "automationLevel": 45, "focusShift": ["AI-powered scheduling", "Client insights"] },
+        "horizon24mo": { "title": "Client Success Manager", "automationLevel": 65, "focusShift": ["Proactive AI alerts", "Relationship building"] }
+      }
+    },
+    {
+      "id": "pos-011",
+      "mccannTitle": "Account Manager",
+      "platformRoleId": "role-009",
+      "seniority": "intermediate",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 3,
+      "salary": 75000,
+      "taskClassification": {
+        "commoditised": 44.1,
+        "semiJudgment": 54.3,
+        "highJudgment": 1.6
+      },
+      "platformAssessment": {
+        "now": 55,
+        "future": 75,
+        "rationale": "Majority of work is coordination, scheduling, reporting - AI agents handle this now. Role shifts to client relationship focus."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "AI-Augmented Account Manager", "automationLevel": 55, "focusShift": ["AI drafts & summaries", "Focused client time"] },
+        "horizon24mo": { "title": "Client Coordinator", "automationLevel": 75, "focusShift": ["AI handles routine", "Strategic conversations"] }
+      }
+    },
+    {
+      "id": "pos-012",
+      "mccannTitle": "Digital Account Manager",
+      "platformRoleId": "role-009",
+      "seniority": "intermediate",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 1,
+      "salary": 80000,
+      "taskClassification": {
+        "commoditised": 19.0,
+        "semiJudgment": 81.0,
+        "highJudgment": 0
+      },
+      "platformAssessment": {
+        "now": 50,
+        "future": 70,
+        "rationale": "Digital platform management, campaign coordination, reporting - highly structured work well-suited to AI automation."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Digital Account Manager", "automationLevel": 50, "focusShift": ["Platform expertise", "AI tool training"] },
+        "horizon24mo": { "title": "Digital Client Specialist", "automationLevel": 70, "focusShift": ["AI platform management", "Client digital strategy"] }
+      }
+    },
+    {
+      "id": "pos-013",
+      "mccannTitle": "Sr Account Executive",
+      "platformRoleId": "role-009",
+      "seniority": "intermediate",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 2,
+      "salary": 70000,
+      "taskClassification": {
+        "commoditised": 65.0,
+        "semiJudgment": 30.0,
+        "highJudgment": 5.0
+      },
+      "platformAssessment": {
+        "now": 70,
+        "future": 85,
+        "rationale": "Admin-heavy role - scheduling, trafficking, status updates, data entry. AI handles 70% today, trending to near-full automation."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Account Coordinator", "automationLevel": 70, "focusShift": ["AI handles admin", "Client support focus"] },
+        "horizon24mo": { "title": "Client Support Specialist", "automationLevel": 85, "focusShift": ["Exception handling", "Relationship nurturing"] }
+      }
+    },
+    {
+      "id": "pos-014",
+      "mccannTitle": "Account Executive",
+      "platformRoleId": "role-009",
+      "seniority": "junior",
+      "department": "account-service",
+      "subgroup": "account-management",
+      "headcount": 5,
+      "salary": 60000,
+      "taskClassification": {
+        "commoditised": 77.3,
+        "semiJudgment": 22.1,
+        "highJudgment": 0.6
+      },
+      "platformAssessment": {
+        "now": 80,
+        "future": 92,
+        "rationale": "Entry-level admin role - data entry, scheduling, reporting, trafficking. AI does this today. Role requires reskilling path."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "AI Operations Assistant", "automationLevel": 80, "focusShift": ["AI tool operation", "Quality checking"] },
+        "horizon24mo": { "title": "Reskilled to higher-value role or exits", "automationLevel": 92, "focusShift": ["Role transformation required"] }
+      }
+    },
+    {
+      "id": "pos-015",
+      "mccannTitle": "General Manager, Digital Consulting",
+      "platformRoleId": null,
+      "seniority": "executive",
+      "department": "activation",
+      "subgroup": "digital-consulting",
+      "headcount": 1,
+      "salary": 225000,
+      "taskClassification": {
+        "commoditised": 0,
+        "semiJudgment": 0,
+        "highJudgment": 100
+      },
+      "platformAssessment": {
+        "now": 20,
+        "future": 40,
+        "rationale": "Leadership role but substantial consulting prep, market analysis, proposal writing automatable. Client relationships remain human."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "GM Digital Consulting", "automationLevel": 20, "focusShift": ["AI strategy", "Team transformation"] },
+        "horizon24mo": { "title": "Chief Digital & AI Officer", "automationLevel": 40, "focusShift": ["AI governance", "Digital innovation"] }
+      }
+    },
+    {
+      "id": "pos-016",
+      "mccannTitle": "Sr Search Director",
+      "platformRoleId": "role-003",
+      "seniority": "director",
+      "department": "activation",
+      "subgroup": "search",
+      "headcount": 1,
+      "salary": 125000,
+      "taskClassification": {
+        "commoditised": 20.0,
+        "semiJudgment": 70.0,
+        "highJudgment": 10.0
+      },
+      "platformAssessment": {
+        "now": 55,
+        "future": 75,
+        "rationale": "Bid management, campaign optimization, performance reporting - core search ops heavily automatable. Strategy and vendor relations remain."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Sr Search Director", "automationLevel": 55, "focusShift": ["AI bid strategies", "Platform partnerships"] },
+        "horizon24mo": { "title": "Search & AI Strategy Director", "automationLevel": 75, "focusShift": ["AI agent management", "Cross-platform optimization"] }
+      }
+    },
+    {
+      "id": "pos-017",
+      "mccannTitle": "Search Director",
+      "platformRoleId": "role-003",
+      "seniority": "lead",
+      "department": "activation",
+      "subgroup": "search",
+      "headcount": 2,
+      "salary": 105000,
+      "taskClassification": {
+        "commoditised": 20.0,
+        "semiJudgment": 70.0,
+        "highJudgment": 10.0
+      },
+      "platformAssessment": {
+        "now": 55,
+        "future": 75,
+        "rationale": "Google/Meta AI bidding already automated. Role becomes AI oversight and exception handling. High automation trajectory."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Search Director", "automationLevel": 55, "focusShift": ["AI-powered optimization", "Strategy focus"] },
+        "horizon24mo": { "title": "Performance Strategy Lead", "automationLevel": 75, "focusShift": ["AI oversight", "Client consultation"] }
+      }
+    },
+    {
+      "id": "pos-018",
+      "mccannTitle": "Head of Performance",
+      "platformRoleId": "role-002",
+      "seniority": "director",
+      "department": "activation",
+      "subgroup": "search",
+      "headcount": 1,
+      "salary": 150000,
+      "taskClassification": {
+        "commoditised": 5.0,
+        "semiJudgment": 71.8,
+        "highJudgment": 23.2
+      },
+      "platformAssessment": {
+        "now": 40,
+        "future": 60,
+        "rationale": "Performance analysis, forecasting, reporting all automatable. Team leadership and strategy development less so."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Head of Performance", "automationLevel": 40, "focusShift": ["AI strategy", "Team development"] },
+        "horizon24mo": { "title": "Head of AI Performance", "automationLevel": 60, "focusShift": ["AI agent fleet management", "Performance innovation"] }
+      }
+    },
+    {
+      "id": "pos-019",
+      "mccannTitle": "Activation Manager",
+      "platformRoleId": "role-002",
+      "seniority": "intermediate",
+      "department": "activation",
+      "subgroup": "activation-execution",
+      "headcount": 1,
+      "salary": 80000,
+      "taskClassification": {
+        "commoditised": 0.6,
+        "semiJudgment": 99.4,
+        "highJudgment": 0
+      },
+      "platformAssessment": {
+        "now": 50,
+        "future": 70,
+        "rationale": "Campaign trafficking, setup, QA - all highly structured. Semi-judgment tasks like campaign reviews become AI-assisted."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Activation Manager", "automationLevel": 50, "focusShift": ["AI workflow design", "Quality assurance"] },
+        "horizon24mo": { "title": "Activation Operations Lead", "automationLevel": 70, "focusShift": ["AI orchestration", "Process optimization"] }
+      }
+    },
+    {
+      "id": "pos-020",
+      "mccannTitle": "Performance Manager",
+      "platformRoleId": "role-002",
+      "seniority": "intermediate",
+      "department": "activation",
+      "subgroup": "search",
+      "headcount": 1,
+      "salary": 80000,
+      "taskClassification": {
+        "commoditised": 7.5,
+        "semiJudgment": 92.5,
+        "highJudgment": 0
+      },
+      "platformAssessment": {
+        "now": 55,
+        "future": 75,
+        "rationale": "Performance analysis, optimization recommendations, reporting - AI handles bulk of this. Role shifts to insight synthesis."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Performance Manager", "automationLevel": 55, "focusShift": ["AI-assisted analysis", "Optimization strategy"] },
+        "horizon24mo": { "title": "Performance Intelligence Lead", "automationLevel": 75, "focusShift": ["AI insights interpretation", "Strategy recommendations"] }
+      }
+    },
+    {
+      "id": "pos-021",
+      "mccannTitle": "Senior Activation Planner",
+      "platformRoleId": "role-001",
+      "seniority": "senior",
+      "department": "activation",
+      "subgroup": "activation-execution",
+      "headcount": 2,
+      "salary": 95000,
+      "taskClassification": {
+        "commoditised": 15.0,
+        "semiJudgment": 70.0,
+        "highJudgment": 15.0
+      },
+      "platformAssessment": {
+        "now": 50,
+        "future": 70,
+        "rationale": "Media planning, budget allocation, channel mix - AI tools do this now. Human oversight for client context."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Senior Activation Planner", "automationLevel": 50, "focusShift": ["AI planning tools", "Strategic oversight"] },
+        "horizon24mo": { "title": "Activation Strategy Lead", "automationLevel": 70, "focusShift": ["AI-generated plans", "Client consultation"] }
+      }
+    },
+    {
+      "id": "pos-022",
+      "mccannTitle": "Senior Activation Executive",
+      "platformRoleId": "role-002",
+      "seniority": "intermediate",
+      "department": "activation",
+      "subgroup": "activation-execution",
+      "headcount": 1,
+      "salary": 70000,
+      "taskClassification": {
+        "commoditised": 65.5,
+        "semiJudgment": 34.5,
+        "highJudgment": 0
+      },
+      "platformAssessment": {
+        "now": 70,
+        "future": 85,
+        "rationale": "Campaign setup, trafficking, QA checks - highly automatable today. Role transforms to AI operator."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "AI-Augmented Activation Exec", "automationLevel": 70, "focusShift": ["AI campaign setup", "Quality control"] },
+        "horizon24mo": { "title": "Activation Quality Specialist", "automationLevel": 85, "focusShift": ["Exception handling", "AI training"] }
+      }
+    },
+    {
+      "id": "pos-023",
+      "mccannTitle": "Activation Executive",
+      "platformRoleId": "role-002",
+      "seniority": "junior",
+      "department": "activation",
+      "subgroup": "activation-execution",
+      "headcount": 1,
+      "salary": 60000,
+      "taskClassification": {
+        "commoditised": 75.0,
+        "semiJudgment": 25.0,
+        "highJudgment": 0
+      },
+      "platformAssessment": {
+        "now": 80,
+        "future": 92,
+        "rationale": "Entry-level trafficking, setup, data entry - AI handles today. Clear reskilling candidate."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "AI Operations Assistant", "automationLevel": 80, "focusShift": ["AI tool operation", "Data validation"] },
+        "horizon24mo": { "title": "Reskilled to higher-value role", "automationLevel": 92, "focusShift": ["Role transformation required"] }
+      }
+    },
+    {
+      "id": "pos-024",
+      "mccannTitle": "Chief Investment Officer",
+      "platformRoleId": "role-011",
+      "seniority": "executive",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 1,
+      "salary": 250000,
+      "taskClassification": {
+        "commoditised": 2.8,
+        "semiJudgment": 29.0,
+        "highJudgment": 68.3
+      },
+      "platformAssessment": {
+        "now": 25,
+        "future": 45,
+        "rationale": "Market analysis, rate benchmarking, deal tracking, reporting - substantial AI augmentation. Negotiations and relationships remain human."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Chief Investment Officer", "automationLevel": 25, "focusShift": ["AI market analysis", "Strategic partnerships"] },
+        "horizon24mo": { "title": "Chief Investment & AI Strategy Officer", "automationLevel": 45, "focusShift": ["AI-driven market intelligence", "Platform negotiations"] }
+      }
+    },
+    {
+      "id": "pos-025",
+      "mccannTitle": "Investment & Partnerships Director",
+      "platformRoleId": "role-011",
+      "seniority": "director",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 1,
+      "salary": 125000,
+      "taskClassification": {
+        "commoditised": 19.1,
+        "semiJudgment": 27.1,
+        "highJudgment": 53.8
+      },
+      "platformAssessment": {
+        "now": 40,
+        "future": 60,
+        "rationale": "Rate analysis, vendor performance tracking, proposal prep, market intelligence - AI handles bulk of research and analysis."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Investment Director", "automationLevel": 40, "focusShift": ["AI-assisted analysis", "Vendor relationships"] },
+        "horizon24mo": { "title": "Strategic Investment Lead", "automationLevel": 60, "focusShift": ["AI market intelligence", "Partnership strategy"] }
+      }
+    },
+    {
+      "id": "pos-026",
+      "mccannTitle": "Associate Investment & Partnerships Director",
+      "platformRoleId": "role-011",
+      "seniority": "lead",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 2,
+      "salary": 110000,
+      "taskClassification": {
+        "commoditised": 21.3,
+        "semiJudgment": 25.6,
+        "highJudgment": 53.1
+      },
+      "platformAssessment": {
+        "now": 45,
+        "future": 65,
+        "rationale": "Deal analysis, forecasting, rate card management, vendor coordination - significant process automation potential."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Associate Investment Director", "automationLevel": 45, "focusShift": ["AI-powered forecasting", "Deal structuring"] },
+        "horizon24mo": { "title": "Investment Strategy Manager", "automationLevel": 65, "focusShift": ["AI negotiation support", "Portfolio optimization"] }
+      }
+    },
+    {
+      "id": "pos-027",
+      "mccannTitle": "Investment Manager",
+      "platformRoleId": "role-011",
+      "seniority": "intermediate",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 1,
+      "salary": 80000,
+      "taskClassification": {
+        "commoditised": 21.1,
+        "semiJudgment": 21.0,
+        "highJudgment": 57.9
+      },
+      "platformAssessment": {
+        "now": 50,
+        "future": 70,
+        "rationale": "Rate tracking, market research, performance analysis, reporting - core functions automatable. Vendor relationships remain."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Investment Manager", "automationLevel": 50, "focusShift": ["AI market research", "Rate analysis"] },
+        "horizon24mo": { "title": "Media Investment Analyst", "automationLevel": 70, "focusShift": ["AI-driven insights", "Vendor coordination"] }
+      }
+    },
+    {
+      "id": "pos-028",
+      "mccannTitle": "Sr Investment Executive",
+      "platformRoleId": "role-011",
+      "seniority": "intermediate",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 1,
+      "salary": 70000,
+      "taskClassification": {
+        "commoditised": 23.4,
+        "semiJudgment": 27.6,
+        "highJudgment": 49.0
+      },
+      "platformAssessment": {
+        "now": 55,
+        "future": 75,
+        "rationale": "Data entry, rate tracking, vendor comms drafting, reporting - substantial admin load automatable."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Sr Investment Executive", "automationLevel": 55, "focusShift": ["AI rate analysis", "Vendor communications"] },
+        "horizon24mo": { "title": "Investment Coordinator", "automationLevel": 75, "focusShift": ["AI-assisted negotiations", "Process management"] }
+      }
+    },
+    {
+      "id": "pos-029",
+      "mccannTitle": "Investment Executive",
+      "platformRoleId": "role-011",
+      "seniority": "junior",
+      "department": "investment",
+      "subgroup": "media-investment",
+      "headcount": 2,
+      "salary": 60000,
+      "taskClassification": {
+        "commoditised": 29.2,
+        "semiJudgment": 22.1,
+        "highJudgment": 48.7
+      },
+      "platformAssessment": {
+        "now": 60,
+        "future": 80,
+        "rationale": "Entry-level data entry, rate tracking, research - AI handles efficiently. Role evolves or reskills."
+      },
+      "evolution": {
+        "horizon12mo": { "title": "Investment Assistant", "automationLevel": 60, "focusShift": ["AI data entry", "Research support"] },
+        "horizon24mo": { "title": "Investment Operations Specialist", "automationLevel": 80, "focusShift": ["AI tool operation", "Quality assurance"] }
+      }
+    }
+  ],
+  "seniorityLevels": [
+    { "id": "junior", "name": "Junior", "yearsExperience": "0-2", "order": 1 },
+    { "id": "intermediate", "name": "Intermediate", "yearsExperience": "2-5", "order": 2 },
+    { "id": "senior", "name": "Senior", "yearsExperience": "5-8", "order": 3 },
+    { "id": "lead", "name": "Lead/Manager", "yearsExperience": "8-12", "order": 4 },
+    { "id": "director", "name": "Director", "yearsExperience": "12-18", "order": 5 },
+    { "id": "executive", "name": "Executive", "yearsExperience": "18+", "order": 6 }
+  ],
+  "summary": {
+    "totalPositions": 46,
+    "totalHeadcount": 46,
+    "avgSalary": 118500,
+    "totalSalaryCost": 5455000,
+    "loadedCost": 6600550,
+    "byDepartment": {
+      "strategy": { "headcount": 2, "avgSalary": 225000 },
+      "account-service": { "headcount": 23, "avgSalary": 96000 },
+      "activation": { "headcount": 12, "avgSalary": 102000 },
+      "investment": { "headcount": 9, "avgSalary": 115000 }
+    },
+    "bySeniority": {
+      "junior": { "headcount": 8, "avgSalary": 60000, "avgCommoditised": 68 },
+      "intermediate": { "headcount": 11, "avgSalary": 76000, "avgCommoditised": 35 },
+      "senior": { "headcount": 5, "avgSalary": 93000, "avgCommoditised": 14 },
+      "lead": { "headcount": 9, "avgSalary": 113000, "avgCommoditised": 15 },
+      "director": { "headcount": 8, "avgSalary": 150000, "avgCommoditised": 8 },
+      "executive": { "headcount": 3, "avgSalary": 242000, "avgCommoditised": 1 }
+    }
+  }
+}

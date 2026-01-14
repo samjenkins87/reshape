@@ -24,8 +24,15 @@ import {
   Bot,
   User,
   Users,
-  Target
+  Target,
+  DollarSign,
+  ArrowRight,
+  Briefcase,
+  Calendar,
+  GraduationCap
 } from 'lucide-react'
+import { formatCurrency } from '@/lib/utils'
+import { PositionMapping, RoleMappingData } from '@/types'
 
 export default function RoleDetailPage() {
   const params = useParams()
@@ -35,15 +42,18 @@ export default function RoleDetailPage() {
   const [role, setRole] = useState<Role | null>(null)
   const [score, setScore] = useState<RoleScore | null>(null)
   const [bottlenecks, setBottlenecks] = useState<Bottleneck[]>([])
+  const [mappings, setMappings] = useState<PositionMapping[]>([])
   const [loading, setLoading] = useState(true)
+  const [showMccannMappings, setShowMccannMappings] = useState(false)
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [rolesData, scoresData, bottlenecksData] = await Promise.all([
+        const [rolesData, scoresData, bottlenecksData, mappingData] = await Promise.all([
           loadRoles(),
           loadScores(),
           loadBottlenecks(),
+          fetch('/data/role-mapping.json').then(r => r.json()) as Promise<RoleMappingData>,
         ])
 
         const foundRole = rolesData.find((r) => r.id === roleId)
@@ -51,10 +61,14 @@ export default function RoleDetailPage() {
         const relatedBottlenecks = bottlenecksData.filter((b) =>
           b.impactedRoles.includes(roleId)
         )
+        const relatedMappings = mappingData.mappings.filter(
+          (m) => m.platformRoleId === roleId
+        )
 
         setRole(foundRole || null)
         setScore(foundScore || null)
         setBottlenecks(relatedBottlenecks)
+        setMappings(relatedMappings)
       } catch (error) {
         console.error('Error loading data:', error)
       } finally {
@@ -190,6 +204,175 @@ export default function RoleDetailPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Salary Bands */}
+      {role.salaryBands && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <DollarSign className="h-5 w-5" />
+              Salary Bands
+            </CardTitle>
+            <CardDescription>
+              Compensation ranges by seniority level
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {(['junior', 'intermediate', 'senior', 'lead', 'director'] as const).map((level) => {
+                const band = role.salaryBands![level]
+                return (
+                  <div key={level} className="p-3 rounded-lg border border-border">
+                    <p className="text-xs text-muted-foreground capitalize mb-2">{level}</p>
+                    <p className="text-sm font-medium">{formatCurrency(band.mid)}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatCurrency(band.min)} - {formatCurrency(band.max)}
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* McCann Position Mappings - Opt-in */}
+      {mappings.length > 0 && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Briefcase className="h-5 w-5" />
+                  McCann Position Mappings
+                </CardTitle>
+                <CardDescription>
+                  {mappings.length} position{mappings.length !== 1 ? 's' : ''} map to this role
+                </CardDescription>
+              </div>
+              <Button
+                variant={showMccannMappings ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setShowMccannMappings(!showMccannMappings)}
+              >
+                {showMccannMappings ? 'Hide' : 'Show'} Mappings
+              </Button>
+            </div>
+          </CardHeader>
+          {showMccannMappings && (
+            <CardContent>
+              <div className="space-y-3">
+                {mappings.map((mapping) => (
+                  <div key={mapping.id} className="p-4 rounded-lg border border-border">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <h4 className="font-medium">{mapping.mccannTitle}</h4>
+                          <Badge variant="outline" className="text-xs capitalize">
+                            {mapping.seniority}
+                          </Badge>
+                        </div>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            {mapping.headcount} FTE
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <DollarSign className="h-3 w-3" />
+                            {formatCurrency(mapping.salary)}
+                          </span>
+                        </div>
+
+                        {/* Dual Scoring: McCann Internal vs Platform Assessment */}
+                        <div className="mt-4 grid grid-cols-2 gap-3">
+                          {/* McCann Internal Assessment */}
+                          <div className="p-3 rounded-lg border border-border bg-muted/30">
+                            <p className="text-xs font-medium text-muted-foreground mb-2">McCann Internal Audit</p>
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden flex">
+                                <div
+                                  className="bg-destructive/70"
+                                  style={{ width: `${mapping.taskClassification.commoditised}%` }}
+                                />
+                                <div
+                                  className="bg-warning/70"
+                                  style={{ width: `${mapping.taskClassification.semiJudgment}%` }}
+                                />
+                                <div
+                                  className="bg-success/70"
+                                  style={{ width: `${mapping.taskClassification.highJudgment}%` }}
+                                />
+                              </div>
+                            </div>
+                            <p className="text-sm">
+                              <span className="font-semibold">{mapping.taskClassification.commoditised.toFixed(0)}%</span>
+                              <span className="text-muted-foreground"> commoditised</span>
+                            </p>
+                          </div>
+
+                          {/* Platform Assessment */}
+                          {mapping.platformAssessment && (
+                            <div className="p-3 rounded-lg border border-accent/30 bg-accent/5">
+                              <p className="text-xs font-medium text-accent mb-2">Platform Assessment</p>
+                              <div className="flex items-center gap-2 text-sm mb-1">
+                                <span className="font-semibold text-accent">{mapping.platformAssessment.now}%</span>
+                                <ArrowRight className="h-3 w-3 text-muted-foreground" />
+                                <span className="font-semibold text-success">{mapping.platformAssessment.future}%</span>
+                              </div>
+                              <p className="text-xs text-muted-foreground">Now → 24 months</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Platform Rationale */}
+                        {mapping.platformAssessment && (
+                          <p className="mt-2 text-xs text-muted-foreground italic">
+                            {mapping.platformAssessment.rationale}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Role Evolution */}
+                    <div className="mt-4 pt-3 border-t border-border">
+                      <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        Role Evolution
+                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="p-2 rounded bg-muted/50">
+                          <p className="text-xs text-muted-foreground">12 Months</p>
+                          <p className="text-sm font-medium">{mapping.evolution.horizon12mo.title}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {mapping.evolution.horizon12mo.automationLevel}% automated
+                          </p>
+                        </div>
+                        <div className="p-2 rounded bg-muted/50">
+                          <p className="text-xs text-muted-foreground">24 Months</p>
+                          <p className="text-sm font-medium">{mapping.evolution.horizon24mo.title}</p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {mapping.evolution.horizon24mo.automationLevel}% automated
+                          </p>
+                        </div>
+                      </div>
+                      {mapping.evolution.horizon12mo.focusShift.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {mapping.evolution.horizon12mo.focusShift.map((shift, i) => (
+                            <Badge key={i} variant="outline" className="text-xs">
+                              <GraduationCap className="h-3 w-3 mr-1" />
+                              {shift}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          )}
+        </Card>
+      )}
 
       {/* Tabs */}
       <Tabs defaultValue="dimensions">

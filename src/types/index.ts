@@ -76,11 +76,26 @@ export type Seniority =
 
 export type PriorityLevel = "Critical" | "High" | "Medium" | "Low"
 
+export interface SalaryBand {
+  min: number
+  mid: number
+  max: number
+}
+
+export interface SalaryBands {
+  junior: SalaryBand
+  intermediate: SalaryBand
+  senior: SalaryBand
+  lead: SalaryBand
+  director: SalaryBand
+}
+
 export interface Role {
   id: string
   businessUnitId?: string
   name: string
   family: RoleFamily
+  subgroup?: string
   description: string
   seniority: Seniority
   headcountEstimate?: string
@@ -88,6 +103,8 @@ export interface Role {
   annualCost?: number
   keyResponsibilities: string[]
   tasks: Task[]
+  salaryBands?: SalaryBands
+  mccannMapping?: string[]
   taskBreakdown?: {
     commoditisedPct: number
     semiJudgementalPct: number
@@ -118,6 +135,75 @@ export interface Client {
   name: string
   revenue: number
   podAssignment?: string
+}
+
+// ============================================================
+// ROLE MAPPING (McCann positions to platform roles)
+// ============================================================
+
+export interface TaskClassification {
+  commoditised: number
+  semiJudgment: number
+  highJudgment: number
+}
+
+export interface RoleEvolutionHorizon {
+  title: string
+  automationLevel: number
+  focusShift: string[]
+}
+
+export interface RoleEvolution {
+  horizon12mo: RoleEvolutionHorizon
+  horizon24mo: RoleEvolutionHorizon
+}
+
+export interface PlatformAssessment {
+  now: number
+  future: number
+  rationale: string
+}
+
+export interface PositionMapping {
+  id: string
+  mccannTitle: string
+  platformRoleId: string | null
+  seniority: 'junior' | 'intermediate' | 'senior' | 'lead' | 'director' | 'executive'
+  department: string
+  subgroup: string
+  headcount: number
+  salary: number
+  taskClassification: TaskClassification
+  platformAssessment?: PlatformAssessment
+  evolution: RoleEvolution
+}
+
+export interface Department {
+  id: string
+  name: string
+  color: string
+}
+
+export interface Subgroup {
+  id: string
+  name: string
+  department: string
+}
+
+export interface RoleMappingData {
+  departments: Department[]
+  subgroups: Subgroup[]
+  mappings: PositionMapping[]
+  seniorityLevels: { id: string; name: string; yearsExperience: string; order: number }[]
+  summary: {
+    totalPositions: number
+    totalHeadcount: number
+    avgSalary: number
+    totalSalaryCost: number
+    loadedCost: number
+    byDepartment: Record<string, { headcount: number; avgSalary: number }>
+    bySeniority: Record<string, { headcount: number; avgSalary: number; avgCommoditised: number }>
+  }
 }
 
 // ============================================================

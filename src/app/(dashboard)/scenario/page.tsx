@@ -13,6 +13,7 @@ import { Role, RoleScore } from '@/types'
 import { useScenarioStore } from '@/stores/scenario-store'
 import { formatCurrency } from '@/lib/utils'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 import {
   Users,
   DollarSign,
@@ -52,6 +53,8 @@ const PRESET_SCENARIOS = [
     revenue: 11904526,
     avgSalary: 143490,   // $6.6M / 46 FTE
     aiInvestment: 250000,
+    logo: '/mccann_logo.png',
+    color: '#0066CC',
   },
   {
     id: 'omnicom-oceania-media',
@@ -62,6 +65,8 @@ const PRESET_SCENARIOS = [
     revenue: 320000000,
     avgSalary: 120000,
     aiInvestment: 6000000,
+    logo: '/omnicom_logo.png',
+    color: '#1A1A1A',
   },
 ]
 
@@ -373,36 +378,63 @@ export default function ScenarioPage() {
         <CardContent>
           {!isEditing ? (
             <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Preset Scenarios */}
-              {PRESET_SCENARIOS.map((preset) => (
-                <button
-                  key={preset.id}
-                  onClick={() => loadPreset(preset.id)}
-                  className={cn(
-                    'p-4 rounded-lg border text-left transition-all',
-                    activePreset === preset.id
-                      ? 'border-accent bg-accent/5 ring-2 ring-accent'
-                      : 'border-border hover:border-accent/50 hover:bg-muted/50'
-                  )}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Building2 className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium">{preset.name}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mb-3">{preset.description}</p>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <span className="text-muted-foreground">FTE:</span>{' '}
-                      <span className="font-medium">{preset.fte.toLocaleString()}</span>
+              {PRESET_SCENARIOS.map((preset) => {
+                const potentialSavings = preset.staffCost * 0.25
+                const formatMillions = (value: number) => {
+                  if (value >= 1000000) {
+                    return `$${(value / 1000000).toFixed(value >= 10000000 ? 0 : 2)}M`
+                  }
+                  return `$${(value / 1000).toFixed(0)}K`
+                }
+
+                return (
+                  <button
+                    key={preset.id}
+                    onClick={() => loadPreset(preset.id)}
+                    className={cn(
+                      'relative overflow-hidden rounded-xl border text-left transition-all',
+                      activePreset === preset.id
+                        ? 'border-accent ring-2 ring-accent shadow-lg'
+                        : 'border-border hover:border-accent/50 hover:shadow-md'
+                    )}
+                  >
+                    {/* Compact Header: Logo left, text right */}
+                    <div className="p-4 flex items-center gap-4">
+                      <Image
+                        src={preset.logo}
+                        alt={preset.name}
+                        width={100}
+                        height={50}
+                        className="object-contain h-10 w-auto shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate">{preset.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{preset.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-muted-foreground">Revenue:</span>{' '}
-                      <span className="font-medium">{formatCurrency(preset.revenue)}</span>
+
+                    {/* Stats Row */}
+                    <div className="px-4 pb-4">
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="text-center p-2 rounded-lg bg-muted/50">
+                          <p className="text-lg font-bold">{preset.fte.toLocaleString()}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wide">FTE</p>
+                        </div>
+                        <div className="text-center p-2 rounded-lg bg-muted/50">
+                          <p className="text-lg font-bold">{formatMillions(preset.revenue)}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Revenue</p>
+                        </div>
+                        <div className="text-center p-2 rounded-lg bg-success/10">
+                          <p className="text-lg font-bold text-success">{formatMillions(potentialSavings)}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Savings</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                )
+              })}
 
               {/* Saved Custom Scenarios */}
               {savedScenarios.map((scenario) => (
@@ -558,6 +590,9 @@ export default function ScenarioPage() {
                     onChange={(e) => setInputs({ ...inputs, aiInvestment: parseInt(e.target.value) || 0 })}
                     placeholder="e.g., 500000"
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Suggested: {formatCurrency(Math.round(inputs.staffCost * 0.25 * 0.2))} (20% of potential savings)
+                  </p>
                 </div>
               </div>
               {inputs.name && inputs.fte > 0 && (
@@ -621,6 +656,40 @@ export default function ScenarioPage() {
                   {months} months
                 </Button>
               ))}
+            </div>
+          </div>
+
+          {/* AI Investment - defaults to 20% of savings */}
+          <div className="space-y-3 pt-4 border-t border-border">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <Zap className="h-4 w-4 text-accent" />
+                AI Investment
+              </label>
+              <div className="text-right">
+                <span className="text-2xl font-bold">{formatCurrency(inputs.aiInvestment)}</span>
+                <p className="text-xs text-muted-foreground">
+                  {scenario.savings > 0 ? `${((inputs.aiInvestment / scenario.savings) * 100).toFixed(0)}% of savings` : '-'}
+                </p>
+              </div>
+            </div>
+            <Slider
+              value={[inputs.aiInvestment]}
+              onValueChange={(v) => setInputs({ ...inputs, aiInvestment: v[0] })}
+              min={0}
+              max={Math.max(scenario.savings * 0.5, inputs.aiInvestment * 1.5, 500000)}
+              step={10000}
+              className="w-full"
+            />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>$0</span>
+              <button
+                onClick={() => setInputs({ ...inputs, aiInvestment: Math.round(scenario.savings * 0.2) })}
+                className="text-accent hover:underline"
+              >
+                Set to 20% of savings ({formatCurrency(Math.round(scenario.savings * 0.2))})
+              </button>
+              <span>{formatCurrency(Math.max(scenario.savings * 0.5, 500000))}</span>
             </div>
           </div>
         </CardContent>

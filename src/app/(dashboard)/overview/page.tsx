@@ -10,6 +10,7 @@ import { KPICard } from '@/components/cards/kpi-card'
 import { RoleCard } from '@/components/cards/role-card'
 import { loadRoles, loadScores, loadBottlenecks, loadHiringSignals, calculateKPIs, getTopAutomatableRoles, getAutomationTrends } from '@/lib/data'
 import { Role, RoleScore, Bottleneck, HiringSignal } from '@/types'
+import Image from 'next/image'
 import {
   Users,
   TrendingUp,
@@ -34,7 +35,9 @@ const SCENARIOS = [
     description: 'Single agency unit',
     fte: 46,
     revenue: 11904526,
-    potential: '25%',
+    staffCost: 6600550,
+    logo: '/mccann_logo.png',
+    color: '#0066CC',
   },
   {
     id: 'omnicom-oceania-media',
@@ -42,9 +45,19 @@ const SCENARIOS = [
     description: 'Holding group division',
     fte: 1200,
     revenue: 320000000,
-    potential: '30%',
+    staffCost: 144000000,
+    logo: '/omnicom_logo.png',
+    color: '#1A1A1A',
   },
 ]
+
+// Format large numbers as millions
+const formatMillions = (value: number) => {
+  if (value >= 1000000) {
+    return `$${(value / 1000000).toFixed(value >= 10000000 ? 0 : 2)}M`
+  }
+  return `$${(value / 1000).toFixed(0)}K`
+}
 
 // Sample hiring signals for preview
 const HIRING_PREVIEW = [
@@ -155,40 +168,49 @@ export default function OverviewPage() {
       {/* Scenario Cards + Hiring Signals Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Scenario Cards */}
-        {SCENARIOS.map((scenario) => (
-          <Link key={scenario.id} href="/scenario">
-            <Card className="h-full hover:border-accent/50 hover:bg-accent/5 transition-all cursor-pointer group">
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 rounded-lg bg-accent/10">
-                      <Building2 className="h-4 w-4 text-accent" />
-                    </div>
-                    <div>
-                      <p className="font-medium">{scenario.name}</p>
-                      <p className="text-xs text-muted-foreground">{scenario.description}</p>
-                    </div>
-                  </div>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+        {SCENARIOS.map((scenario) => {
+          const potentialSavings = scenario.staffCost * 0.25
+          return (
+            <Link key={scenario.id} href="/scenario">
+              <Card className="h-full overflow-hidden hover:shadow-md transition-all cursor-pointer group border-border hover:border-accent/50">
+                {/* Header: Logo left, arrow right */}
+                <div className="p-4 pb-3 flex items-center justify-between">
+                  <Image
+                    src={scenario.logo}
+                    alt={scenario.name}
+                    width={100}
+                    height={50}
+                    className="object-contain h-10 w-auto"
+                  />
+                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors shrink-0" />
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2 rounded-lg bg-muted/50">
-                    <p className="text-lg font-bold">{scenario.fte}</p>
-                    <p className="text-[10px] text-muted-foreground">FTE</p>
+
+                {/* Stats Row */}
+                <CardContent className="px-4 pb-3 pt-0">
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="p-2 rounded-lg bg-muted/50">
+                      <p className="text-lg font-bold">{scenario.fte.toLocaleString()}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide">FTE</p>
+                    </div>
+                    <div className="p-2 rounded-lg bg-muted/50">
+                      <p className="text-lg font-bold">{formatMillions(scenario.revenue)}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Revenue</p>
+                    </div>
+                    <div className="p-2 rounded-lg bg-success/10">
+                      <p className="text-lg font-bold text-success">{formatMillions(potentialSavings)}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Savings</p>
+                    </div>
                   </div>
-                  <div className="p-2 rounded-lg bg-muted/50">
-                    <p className="text-lg font-bold">{formatCurrency(scenario.revenue)}</p>
-                    <p className="text-[10px] text-muted-foreground">Revenue</p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-success/10">
-                    <p className="text-lg font-bold text-success">{scenario.potential}</p>
-                    <p className="text-[10px] text-muted-foreground">Savings</p>
-                  </div>
+                </CardContent>
+
+                {/* Description footer */}
+                <div className="px-4 pb-4 pt-1">
+                  <p className="text-xs text-muted-foreground">{scenario.name} &middot; {scenario.description}</p>
                 </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+              </Card>
+            </Link>
+          )
+        })}
 
         {/* Hiring Signals Preview */}
         <Link href="/hiring">

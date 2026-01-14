@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import { loadRoles, loadScores, filterRolesByFamily, searchRoles } from '@/lib/data'
 import { getScoreBgColor, getPriorityColor } from '@/lib/scoring'
 import { Role, RoleScore, RoleFamily } from '@/types'
-import { Search, Users, ArrowRight, Filter } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { Search, Users, ArrowRight, Filter, DollarSign, Briefcase } from 'lucide-react'
+import { cn, formatCurrency } from '@/lib/utils'
 
 const ROLE_FAMILIES: RoleFamily[] = [
   'Strategy & Planning',
@@ -22,12 +22,29 @@ const ROLE_FAMILIES: RoleFamily[] = [
   'Finance & Administration',
 ]
 
+const SUBGROUPS = [
+  'Planning',
+  'Programmatic',
+  'Search & Performance',
+  'Social',
+  'Reporting',
+  'Marketing Science',
+  'Creative Strategy',
+  'Ad Ops',
+  'Account Management',
+  'Billing & Reconciliation',
+  'Media Investment',
+  'Retail Media',
+]
+
 export default function RolesPage() {
   const [roles, setRoles] = useState<Role[]>([])
   const [scores, setScores] = useState<RoleScore[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedFamily, setSelectedFamily] = useState<string>('all')
+  const [selectedSubgroup, setSelectedSubgroup] = useState<string>('all')
+  const [showSalary, setShowSalary] = useState(true)
 
   useEffect(() => {
     async function loadData() {
@@ -52,11 +69,26 @@ export default function RolesPage() {
     if (selectedFamily !== 'all') {
       result = filterRolesByFamily(result, selectedFamily)
     }
+    if (selectedSubgroup !== 'all') {
+      result = result.filter(r => r.subgroup === selectedSubgroup)
+    }
     if (searchQuery) {
       result = searchRoles(result, searchQuery)
     }
     return result
-  }, [roles, selectedFamily, searchQuery])
+  }, [roles, selectedFamily, selectedSubgroup, searchQuery])
+
+  // Get available subgroups based on selected family
+  const availableSubgroups = useMemo(() => {
+    const subgroups = new Set<string>()
+    const filteredByFamily = selectedFamily === 'all'
+      ? roles
+      : roles.filter(r => r.family === selectedFamily)
+    filteredByFamily.forEach(r => {
+      if (r.subgroup) subgroups.add(r.subgroup)
+    })
+    return Array.from(subgroups).sort()
+  }, [roles, selectedFamily])
 
   const getScoreForRole = (roleId: string) => {
     return scores.find((s) => s.roleId === roleId)
@@ -91,37 +123,75 @@ export default function RolesPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search roles..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
-          />
+      <div className="space-y-3">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search roles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+          <Button
+            variant={showSalary ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setShowSalary(!showSalary)}
+            className="w-fit"
+          >
+            <DollarSign className="h-4 w-4 mr-1" />
+            Salary
+          </Button>
         </div>
+
+        {/* Family Filter */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
           <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
           <Button
             variant={selectedFamily === 'all' ? 'default' : 'outline'}
             size="sm"
-            onClick={() => setSelectedFamily('all')}
+            onClick={() => { setSelectedFamily('all'); setSelectedSubgroup('all') }}
           >
-            All
+            All Families
           </Button>
           {ROLE_FAMILIES.map((family) => (
             <Button
               key={family}
               variant={selectedFamily === family ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setSelectedFamily(family)}
+              onClick={() => { setSelectedFamily(family); setSelectedSubgroup('all') }}
               className="whitespace-nowrap"
             >
               {family.split(' ')[0]}
             </Button>
           ))}
         </div>
+
+        {/* Subgroup Filter */}
+        {availableSubgroups.length > 0 && (
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
+            <Briefcase className="h-4 w-4 text-muted-foreground shrink-0" />
+            <Button
+              variant={selectedSubgroup === 'all' ? 'secondary' : 'ghost'}
+              size="sm"
+              onClick={() => setSelectedSubgroup('all')}
+            >
+              All Subgroups
+            </Button>
+            {availableSubgroups.map((subgroup) => (
+              <Button
+                key={subgroup}
+                variant={selectedSubgroup === subgroup ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => setSelectedSubgroup(subgroup)}
+                className="whitespace-nowrap"
+              >
+                {subgroup}
+              </Button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Results count */}
@@ -160,20 +230,33 @@ export default function RolesPage() {
                     {role.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <span className="text-muted-foreground">Seniority: </span>
-                        <span className="font-medium">{role.seniority}</span>
-                      </div>
-                      {role.headcountEstimate && (
-                        <div>
-                          <span className="text-muted-foreground">Headcount: </span>
-                          <span className="font-medium">{role.headcountEstimate}</span>
-                        </div>
-                      )}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+                    {role.subgroup && (
+                      <Badge variant="outline" className="text-xs font-normal">
+                        {role.subgroup}
+                      </Badge>
+                    )}
+                    <div>
+                      <span className="text-muted-foreground">Seniority: </span>
+                      <span className="font-medium">{role.seniority}</span>
                     </div>
+                    {showSalary && role.salaryBands && (
+                      <div className="flex items-center gap-1">
+                        <DollarSign className="h-3 w-3 text-muted-foreground" />
+                        <span className="text-muted-foreground">
+                          {formatCurrency(role.salaryBands.junior.min)} - {formatCurrency(role.salaryBands.director.max)}
+                        </span>
+                      </div>
+                    )}
                   </div>
+
+                  {role.mccannMapping && role.mccannMapping.length > 0 && (
+                    <div className="mt-2 text-xs text-muted-foreground">
+                      <span>Maps to: </span>
+                      <span className="text-foreground">{role.mccannMapping.slice(0, 3).join(', ')}</span>
+                      {role.mccannMapping.length > 3 && <span> +{role.mccannMapping.length - 3} more</span>}
+                    </div>
+                  )}
 
                   {score && (
                     <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">

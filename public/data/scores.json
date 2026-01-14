@@ -264,6 +264,11 @@
       "complianceRisk": 1,
       "accountability": 2
     },
+    "taskClassification": {
+      "commoditised": 77.3,
+      "semiJudgment": 22.1,
+      "highJudgment": 0.6
+    },
     "compositeScore": { "now": 77, "future": 90 },
     "redesignPriority": "Critical",
     "recommendations": [
@@ -284,6 +289,11 @@
       "stakeholderInteraction": 2,
       "complianceRisk": 1,
       "accountability": 2
+    },
+    "taskClassification": {
+      "commoditised": 75.0,
+      "semiJudgment": 25.0,
+      "highJudgment": 0
     },
     "compositeScore": { "now": 75, "future": 90 },
     "redesignPriority": "Critical",
@@ -306,6 +316,11 @@
       "complianceRisk": 2,
       "accountability": 2
     },
+    "taskClassification": {
+      "commoditised": 65.5,
+      "semiJudgment": 34.5,
+      "highJudgment": 0
+    },
     "compositeScore": { "now": 65, "future": 82 },
     "redesignPriority": "High",
     "recommendations": [
@@ -326,6 +341,11 @@
       "stakeholderInteraction": 4,
       "complianceRisk": 2,
       "accountability": 4
+    },
+    "taskClassification": {
+      "commoditised": 20.0,
+      "semiJudgment": 50.5,
+      "highJudgment": 29.5
     },
     "compositeScore": { "now": 35, "future": 52 },
     "redesignPriority": "Medium",
@@ -348,6 +368,11 @@
       "complianceRisk": 3,
       "accountability": 5
     },
+    "taskClassification": {
+      "commoditised": 4.9,
+      "semiJudgment": 18.1,
+      "highJudgment": 77.0
+    },
     "compositeScore": { "now": 20, "future": 35 },
     "redesignPriority": "Low",
     "recommendations": [
@@ -369,6 +394,11 @@
       "complianceRisk": 4,
       "accountability": 5
     },
+    "taskClassification": {
+      "commoditised": 2.8,
+      "semiJudgment": 29.0,
+      "highJudgment": 68.3
+    },
     "compositeScore": { "now": 18, "future": 32 },
     "redesignPriority": "Low",
     "recommendations": [
@@ -389,6 +419,11 @@
       "stakeholderInteraction": 5,
       "complianceRisk": 2,
       "accountability": 5
+    },
+    "taskClassification": {
+      "commoditised": 0,
+      "semiJudgment": 10.0,
+      "highJudgment": 90.0
     },
     "compositeScore": { "now": 15, "future": 30 },
     "redesignPriority": "Low",

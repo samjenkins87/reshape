@@ -3,9 +3,18 @@
     "id": "role-001",
     "name": "Media Planner",
     "family": "Strategy & Planning",
+    "subgroup": "Planning",
     "description": "Develops comprehensive media strategies and plans to reach target audiences across multiple channels, optimizing for client KPIs and budget efficiency.",
     "seniority": "Mid",
     "headcountEstimate": "15-20%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "lead": { "min": 130000, "mid": 150000, "max": 175000 },
+      "director": { "min": 150000, "mid": 175000, "max": 200000 }
+    },
+    "mccannMapping": ["Senior Activation Planner", "Group Digital Planning Director"],
     "keyResponsibilities": [
       "Develop integrated media plans across channels",
       "Analyze audience data and market research",
@@ -109,9 +118,18 @@
     "id": "role-002",
     "name": "Programmatic Trader",
     "family": "Buying & Activation",
+    "subgroup": "Programmatic",
     "description": "Executes programmatic media buys across DSPs, manages real-time bidding strategies, and optimizes campaign performance through algorithmic trading.",
     "seniority": "Mid",
     "headcountEstimate": "10-15%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "lead": { "min": 130000, "mid": 150000, "max": 175000 },
+      "director": { "min": 150000, "mid": 175000, "max": 225000 }
+    },
+    "mccannMapping": ["Activation Executive", "Senior Activation Executive", "Activation Manager", "Head of Performance", "Digital Director"],
     "keyResponsibilities": [
       "Execute programmatic campaigns across DSPs",
       "Manage bidding strategies and optimization",
@@ -195,9 +213,18 @@
     "id": "role-003",
     "name": "Search Marketing Specialist",
     "family": "Buying & Activation",
+    "subgroup": "Search & Performance",
     "description": "Manages paid search campaigns across Google, Microsoft, and other search engines, optimizing for conversions and ROI.",
     "seniority": "Mid",
     "headcountEstimate": "8-12%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 105000, "max": 125000 },
+      "lead": { "min": 105000, "mid": 125000, "max": 150000 },
+      "director": { "min": 125000, "mid": 150000, "max": 175000 }
+    },
+    "mccannMapping": ["Search Director", "Sr Search Director", "Performance Manager"],
     "keyResponsibilities": [
       "Manage SEM campaigns across search platforms",
       "Conduct keyword research and optimization",
@@ -291,9 +318,18 @@
     "id": "role-004",
     "name": "Social Media Buyer",
     "family": "Buying & Activation",
+    "subgroup": "Social",
     "description": "Plans and executes paid social media campaigns across Meta, TikTok, LinkedIn, and emerging platforms.",
     "seniority": "Mid",
     "headcountEstimate": "8-12%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 125000 },
+      "lead": { "min": 110000, "mid": 130000, "max": 150000 },
+      "director": { "min": 130000, "mid": 150000, "max": 175000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Execute paid social campaigns",
       "Manage creative testing and optimization",
@@ -377,9 +413,18 @@
     "id": "role-005",
     "name": "Data Analyst",
     "family": "Data & Analytics",
+    "subgroup": "Reporting",
     "description": "Analyzes campaign and business data to derive insights, build reports, and support data-driven decision making across media operations.",
     "seniority": "Mid",
     "headcountEstimate": "8-10%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 65000, "max": 75000 },
+      "intermediate": { "min": 75000, "mid": 85000, "max": 100000 },
+      "senior": { "min": 100000, "mid": 115000, "max": 135000 },
+      "lead": { "min": 125000, "mid": 145000, "max": 165000 },
+      "director": { "min": 150000, "mid": 175000, "max": 200000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Build and maintain reporting dashboards",
       "Conduct ad-hoc analysis and insights",
@@ -453,9 +498,18 @@
     "id": "role-006",
     "name": "Marketing Scientist",
     "family": "Data & Analytics",
+    "subgroup": "Marketing Science",
     "description": "Applies advanced statistical and ML methods to measure marketing effectiveness, including MMM, MTA, and experimentation.",
     "seniority": "Senior",
     "headcountEstimate": "3-5%",
+    "salaryBands": {
+      "junior": { "min": 70000, "mid": 80000, "max": 95000 },
+      "intermediate": { "min": 95000, "mid": 110000, "max": 130000 },
+      "senior": { "min": 130000, "mid": 150000, "max": 175000 },
+      "lead": { "min": 160000, "mid": 180000, "max": 200000 },
+      "director": { "min": 180000, "mid": 210000, "max": 250000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Build and maintain MMM models",
       "Design and analyze experiments",
@@ -529,9 +583,18 @@
     "id": "role-007",
     "name": "Creative Strategist",
     "family": "Creative & Content",
+    "subgroup": "Creative Strategy",
     "description": "Develops creative strategies and briefs that align with media plans, ensuring consistent brand messaging across channels.",
     "seniority": "Senior",
     "headcountEstimate": "5-8%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 65000, "max": 75000 },
+      "intermediate": { "min": 75000, "mid": 90000, "max": 105000 },
+      "senior": { "min": 105000, "mid": 125000, "max": 150000 },
+      "lead": { "min": 130000, "mid": 150000, "max": 175000 },
+      "director": { "min": 150000, "mid": 175000, "max": 200000 }
+    },
+    "mccannMapping": ["Communications Design Director"],
     "keyResponsibilities": [
       "Develop creative strategies and briefs",
       "Ensure brand consistency across channels",
@@ -605,9 +668,18 @@
     "id": "role-008",
     "name": "Ad Operations Specialist",
     "family": "Technology & Operations",
+    "subgroup": "Ad Ops",
     "description": "Manages technical aspects of campaign execution including trafficking, tagging, and QA across ad servers and platforms.",
     "seniority": "Mid",
     "headcountEstimate": "5-8%",
+    "salaryBands": {
+      "junior": { "min": 50000, "mid": 58000, "max": 65000 },
+      "intermediate": { "min": 65000, "mid": 75000, "max": 85000 },
+      "senior": { "min": 85000, "mid": 95000, "max": 110000 },
+      "lead": { "min": 100000, "mid": 115000, "max": 130000 },
+      "director": { "min": 120000, "mid": 140000, "max": 160000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Traffic creative assets to ad servers",
       "Implement tracking and measurement tags",
@@ -681,9 +753,18 @@
     "id": "role-009",
     "name": "Account Manager",
     "family": "Client Services",
+    "subgroup": "Account Management",
     "description": "Serves as the primary client relationship owner, managing communications, project timelines, and ensuring client satisfaction.",
     "seniority": "Mid",
     "headcountEstimate": "10-15%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 90000 },
+      "senior": { "min": 85000, "mid": 100000, "max": 115000 },
+      "lead": { "min": 110000, "mid": 125000, "max": 150000 },
+      "director": { "min": 150000, "mid": 175000, "max": 200000 }
+    },
+    "mccannMapping": ["Account Executive", "Sr Account Executive", "Account Manager", "Senior Account Manager", "Account Director", "Digital Account Manager"],
     "keyResponsibilities": [
       "Manage day-to-day client communications",
       "Coordinate internal team activities",
@@ -757,9 +838,18 @@
     "id": "role-010",
     "name": "Finance Coordinator",
     "family": "Finance & Administration",
+    "subgroup": "Billing & Reconciliation",
     "description": "Manages campaign budgets, billing, and financial reconciliation across media investments.",
     "seniority": "Junior",
     "headcountEstimate": "3-5%",
+    "salaryBands": {
+      "junior": { "min": 50000, "mid": 55000, "max": 65000 },
+      "intermediate": { "min": 65000, "mid": 75000, "max": 85000 },
+      "senior": { "min": 85000, "mid": 95000, "max": 110000 },
+      "lead": { "min": 100000, "mid": 115000, "max": 130000 },
+      "director": { "min": 130000, "mid": 150000, "max": 175000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Track and manage campaign budgets",
       "Process vendor invoices",
@@ -833,9 +923,18 @@
     "id": "role-011",
     "name": "Investment Director",
     "family": "Strategy & Planning",
+    "subgroup": "Media Investment",
     "description": "Leads media investment strategy and negotiations, managing agency-client relationships and driving value across portfolios.",
     "seniority": "Director",
     "headcountEstimate": "3-5%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "lead": { "min": 110000, "mid": 125000, "max": 150000 },
+      "director": { "min": 125000, "mid": 150000, "max": 250000 }
+    },
+    "mccannMapping": ["Investment Executive", "Sr Investment Executive", "Investment Manager", "Associate Investment & Partnerships Director", "Investment & Partnerships Director", "Chief Investment Officer"],
     "keyResponsibilities": [
       "Lead investment strategy across client portfolio",
       "Negotiate major media deals",
@@ -909,9 +1008,18 @@
     "id": "role-012",
     "name": "Retail Media Specialist",
     "family": "Buying & Activation",
+    "subgroup": "Retail Media",
     "description": "Manages advertising campaigns across retail media networks including Amazon, Walmart, Target, and other retailer platforms.",
     "seniority": "Mid",
     "headcountEstimate": "5-8%",
+    "salaryBands": {
+      "junior": { "min": 55000, "mid": 60000, "max": 70000 },
+      "intermediate": { "min": 70000, "mid": 80000, "max": 95000 },
+      "senior": { "min": 95000, "mid": 110000, "max": 130000 },
+      "lead": { "min": 120000, "mid": 140000, "max": 160000 },
+      "director": { "min": 140000, "mid": 165000, "max": 190000 }
+    },
+    "mccannMapping": [],
     "keyResponsibilities": [
       "Execute retail media campaigns",
       "Manage product catalog and listings",
