@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
@@ -15,8 +16,8 @@ import {
   CalendarClock,
   Menu,
   X,
-  Hexagon,
-  LucideIcon
+  LucideIcon,
+  BookOpen
 } from 'lucide-react'
 import { useUIStore } from '@/stores/ui-store'
 import { Button } from '@/components/ui/button'
@@ -39,6 +40,8 @@ const navigation: NavItem[] = [
   { name: 'Reskilling', href: '/reskilling', icon: GraduationCap },
   { name: 'Pods', href: '/pods', icon: Network },
   { name: 'Timeline', href: '/timeline', icon: CalendarClock },
+  { type: 'separator' },
+  { name: 'Methodology', href: '/methodology', icon: BookOpen },
 ]
 
 export function Sidebar() {
@@ -65,8 +68,14 @@ export function Sidebar() {
         )}
       >
         {/* Logo */}
-        <div className="flex h-16 items-center gap-2 px-6 border-b border-border">
-          <Hexagon className="h-6 w-6 text-primary" />
+        <div className="flex h-16 items-center gap-3 px-6 border-b border-border">
+          <Image
+            src="/momentus_avatar.png"
+            alt="Momentus"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
           <div className="flex flex-col">
             <span className="text-sm font-semibold">Momentus</span>
             <span className="text-xs text-muted-foreground">Reshape</span>

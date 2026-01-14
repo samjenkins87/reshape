@@ -180,8 +180,8 @@
       "complianceRisk": 2,
       "accountability": 4
     },
-    "compositeScore": { "now": 35, "future": 55 },
-    "redesignPriority": "Medium",
+    "compositeScore": { "now": 44, "future": 58 },
+    "redesignPriority": "High",
     "recommendations": [
       "Deploy AI-assisted client communication tools",
       "Automate status reporting and meeting prep",
@@ -249,6 +249,153 @@
       "Adopt retail-specific AI bidding tools",
       "Implement automated catalog optimization",
       "Deploy cross-retailer performance consolidation"
+    ]
+  },
+  {
+    "roleId": "role-013",
+    "roleName": "Account Executive",
+    "roleFamily": "Client Services",
+    "dimensions": {
+      "repeatability": 5,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 2,
+      "stakeholderInteraction": 3,
+      "complianceRisk": 1,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 77, "future": 90 },
+    "redesignPriority": "Critical",
+    "recommendations": [
+      "Automate routine client coordination tasks",
+      "Implement AI-powered meeting scheduling and follow-ups",
+      "Deploy automated status update generation"
+    ]
+  },
+  {
+    "roleId": "role-014",
+    "roleName": "Activation Executive",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 5,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 2,
+      "stakeholderInteraction": 2,
+      "complianceRisk": 1,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 75, "future": 90 },
+    "redesignPriority": "Critical",
+    "recommendations": [
+      "Automate campaign activation workflows",
+      "Implement AI-driven media buying execution",
+      "Deploy automated trafficking and QA systems"
+    ]
+  },
+  {
+    "roleId": "role-015",
+    "roleName": "Senior Activation Executive",
+    "roleFamily": "Buying & Activation",
+    "dimensions": {
+      "repeatability": 4,
+      "dataAvailability": 4,
+      "toolMaturity": 4,
+      "humanJudgment": 3,
+      "stakeholderInteraction": 3,
+      "complianceRisk": 2,
+      "accountability": 2
+    },
+    "compositeScore": { "now": 65, "future": 82 },
+    "redesignPriority": "High",
+    "recommendations": [
+      "Implement AI-augmented campaign management",
+      "Deploy automated optimization recommendations",
+      "Use AI for cross-channel coordination"
+    ]
+  },
+  {
+    "roleId": "role-016",
+    "roleName": "Associate Business Director",
+    "roleFamily": "Client Services",
+    "dimensions": {
+      "repeatability": 2,
+      "dataAvailability": 3,
+      "toolMaturity": 3,
+      "humanJudgment": 4,
+      "stakeholderInteraction": 4,
+      "complianceRisk": 2,
+      "accountability": 4
+    },
+    "compositeScore": { "now": 35, "future": 52 },
+    "redesignPriority": "Medium",
+    "recommendations": [
+      "Deploy AI-assisted strategic planning tools",
+      "Implement automated reporting and insights",
+      "Use AI for client presentation preparation"
+    ]
+  },
+  {
+    "roleId": "role-017",
+    "roleName": "Group Business Director",
+    "roleFamily": "Client Services",
+    "dimensions": {
+      "repeatability": 1,
+      "dataAvailability": 3,
+      "toolMaturity": 2,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 3,
+      "accountability": 5
+    },
+    "compositeScore": { "now": 20, "future": 35 },
+    "redesignPriority": "Low",
+    "recommendations": [
+      "Implement AI-powered market intelligence",
+      "Deploy strategic scenario modeling tools",
+      "Use AI for competitive analysis and benchmarking"
+    ]
+  },
+  {
+    "roleId": "role-018",
+    "roleName": "Chief Investment Officer",
+    "roleFamily": "Strategy & Planning",
+    "dimensions": {
+      "repeatability": 1,
+      "dataAvailability": 3,
+      "toolMaturity": 2,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 4,
+      "accountability": 5
+    },
+    "compositeScore": { "now": 18, "future": 32 },
+    "redesignPriority": "Low",
+    "recommendations": [
+      "Deploy AI-powered investment analysis tools",
+      "Implement automated market monitoring",
+      "Use AI for deal evaluation and negotiation support"
+    ]
+  },
+  {
+    "roleId": "role-019",
+    "roleName": "Communications Design Director",
+    "roleFamily": "Strategy & Planning",
+    "dimensions": {
+      "repeatability": 1,
+      "dataAvailability": 2,
+      "toolMaturity": 2,
+      "humanJudgment": 5,
+      "stakeholderInteraction": 5,
+      "complianceRisk": 2,
+      "accountability": 5
+    },
+    "compositeScore": { "now": 15, "future": 30 },
+    "redesignPriority": "Low",
+    "recommendations": [
+      "Implement AI-assisted creative concepting tools",
+      "Deploy trend monitoring and cultural intelligence",
+      "Use AI for audience insight generation"
     ]
   }
 ]

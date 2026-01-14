@@ -17,7 +17,6 @@ import {
   Users,
   DollarSign,
   TrendingUp,
-  TrendingDown,
   AlertTriangle,
   Download,
   RotateCcw,
@@ -30,24 +29,29 @@ import {
   PiggyBank,
   Target,
   ArrowRight,
-  CheckCircle,
-  Edit3,
   Trash2,
-  Sparkles
+  Sparkles,
+  Info,
+  ChevronDown,
+  ChevronUp,
+  FileText
 } from 'lucide-react'
 import { AIScenarioModal } from '@/components/scenario/AIScenarioModal'
+
+// Business overhead assumption (staff costs already include 21% loading in preset data)
+const BUSINESS_OVERHEAD_RATE = 0.13 // 13% of revenue
 
 // Preset scenarios
 const PRESET_SCENARIOS = [
   {
-    id: 'fcb-nz-media',
-    name: 'FCB NZ Media',
-    description: 'Single agency business unit',
-    fte: 33,
-    staffCost: 3960000,
-    revenue: 11900000,
-    avgSalary: 120000,
-    aiInvestment: 200000,
+    id: 'mccann-zed-media',
+    name: 'McCann Zed Media',
+    description: 'Single agency business unit - NZ Media',
+    fte: 46,
+    staffCost: 6600550,  // Base $5.455M × 1.21 loading
+    revenue: 11904526,
+    avgSalary: 143490,   // $6.6M / 46 FTE
+    aiInvestment: 250000,
   },
   {
     id: 'omnicom-oceania-media',
@@ -76,21 +80,22 @@ interface SavedScenario extends ScenarioInputs {
 }
 
 export default function ScenarioPage() {
-  const [roles, setRoles] = useState<Role[]>([])
+  const [, setRoles] = useState<Role[]>([])
   const [scores, setScores] = useState<RoleScore[]>([])
   const [loading, setLoading] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
-  const [activePreset, setActivePreset] = useState<string>('fcb-nz-media')
+  const [activePreset, setActivePreset] = useState<string>('mccann-zed-media')
   const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([])
   const [aiModalOpen, setAiModalOpen] = useState(false)
+  const [showAssumptions, setShowAssumptions] = useState(false)
 
   const [inputs, setInputs] = useState<ScenarioInputs>({
-    name: 'FCB NZ Media',
-    fte: 33,
-    staffCost: 3960000,
-    revenue: 11900000,
-    avgSalary: 120000,
-    aiInvestment: 200000,
+    name: 'McCann Zed Media',
+    fte: 46,
+    staffCost: 6600550,
+    revenue: 11904526,
+    avgSalary: 143490,
+    aiInvestment: 250000,
   })
 
   // Load saved scenarios from localStorage
@@ -185,7 +190,7 @@ export default function ScenarioPage() {
 
     // If we deleted the active scenario, switch to default
     if (activePreset === scenarioId) {
-      loadPreset('fcb-nz-media')
+      loadPreset('mccann-zed-media')
     }
   }
 
@@ -228,8 +233,19 @@ export default function ScenarioPage() {
     const targetAvgSalary = targetFTE > 0 ? targetStaffCost / targetFTE : 0
     const targetRevenuePerFTE = targetFTE > 0 ? inputs.revenue / targetFTE : 0
     const currentRevenuePerFTE = inputs.fte > 0 ? inputs.revenue / inputs.fte : 0
-    const currentMargin = inputs.revenue > 0 ? (inputs.revenue - inputs.staffCost) / inputs.revenue : 0
-    const targetMargin = inputs.revenue > 0 ? (inputs.revenue - targetStaffCost) / inputs.revenue : 0
+
+    // Calculate overhead based on revenue (13%)
+    const currentOverhead = inputs.revenue * BUSINESS_OVERHEAD_RATE
+    const targetOverhead = inputs.revenue * BUSINESS_OVERHEAD_RATE * 0.95 // Slight reduction due to efficiency
+
+    // Gross margin = (Revenue - Staff Cost) / Revenue
+    const currentGrossMargin = inputs.revenue > 0 ? (inputs.revenue - inputs.staffCost) / inputs.revenue : 0
+    const targetGrossMargin = inputs.revenue > 0 ? (inputs.revenue - targetStaffCost) / inputs.revenue : 0
+
+    // Operating margin = (Revenue - Staff Cost - Overhead) / Revenue
+    const currentMargin = inputs.revenue > 0 ? (inputs.revenue - inputs.staffCost - currentOverhead) / inputs.revenue : 0
+    const targetMargin = inputs.revenue > 0 ? (inputs.revenue - targetStaffCost - targetOverhead) / inputs.revenue : 0
+
     const savings = inputs.staffCost - targetStaffCost
     const netBenefit = savings - inputs.aiInvestment
     const roi = inputs.aiInvestment > 0 ? netBenefit / inputs.aiInvestment : 0
@@ -242,7 +258,9 @@ export default function ScenarioPage() {
         avgSalary: inputs.avgSalary,
         revenue: inputs.revenue,
         revenuePerFTE: currentRevenuePerFTE,
+        grossMargin: currentGrossMargin,
         operatingMargin: currentMargin,
+        overhead: currentOverhead,
       },
       target: {
         fte: targetFTE,
@@ -250,7 +268,9 @@ export default function ScenarioPage() {
         avgSalary: targetAvgSalary,
         revenue: inputs.revenue,
         revenuePerFTE: targetRevenuePerFTE,
+        grossMargin: targetGrossMargin,
         operatingMargin: targetMargin,
+        overhead: targetOverhead,
       },
       fteReduction,
       savings,
@@ -333,7 +353,7 @@ export default function ScenarioPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => { reset(); loadPreset('fcb-nz-media'); }}>
+          <Button variant="outline" onClick={() => { reset(); loadPreset('mccann-zed-media'); }}>
             <RotateCcw className="h-4 w-4 mr-2" />
             Reset
           </Button>
@@ -479,7 +499,7 @@ export default function ScenarioPage() {
                   size="sm"
                   onClick={() => {
                     setIsEditing(false)
-                    loadPreset('fcb-nz-media')
+                    loadPreset('mccann-zed-media')
                   }}
                 >
                   Cancel
@@ -812,6 +832,132 @@ export default function ScenarioPage() {
             </table>
           </div>
         </CardContent>
+      </Card>
+
+      {/* Assumptions & Methodology Panel */}
+      <Card>
+        <CardHeader className="cursor-pointer" onClick={() => setShowAssumptions(!showAssumptions)}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-muted-foreground" />
+              <CardTitle className="text-lg">Assumptions & Methodology</CardTitle>
+            </div>
+            <Button variant="ghost" size="sm">
+              {showAssumptions ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </Button>
+          </div>
+          <CardDescription>
+            Financial model assumptions and data sources
+          </CardDescription>
+        </CardHeader>
+        {showAssumptions && (
+          <CardContent className="space-y-6">
+            {/* Staff Loading */}
+            <div>
+              <h4 className="font-medium mb-3 flex items-center gap-2">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                Staff Loading (21% on base salaries)
+              </h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">KiwiSaver</p>
+                  <p className="font-medium">3.0%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Bonuses & Incentives</p>
+                  <p className="font-medium">10.0%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">ACC Levy (NZ)</p>
+                  <p className="font-medium">1.5%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Leave & Other</p>
+                  <p className="font-medium">6.5%</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+                <Info className="h-3 w-3" />
+                Formula: Total Staff Cost = Base Salaries × 1.21
+              </p>
+            </div>
+
+            {/* Business Overhead */}
+            <div>
+              <h4 className="font-medium mb-3 flex items-center gap-2">
+                <Building2 className="h-4 w-4 text-muted-foreground" />
+                Business Overhead (13% of revenue)
+              </h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Rent & Facilities</p>
+                  <p className="font-medium">4.0%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Technology & Software</p>
+                  <p className="font-medium">3.0%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Travel & Entertainment</p>
+                  <p className="font-medium">1.5%</p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/50">
+                  <p className="text-sm text-muted-foreground">Other Operating</p>
+                  <p className="font-medium">4.5%</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+                <Info className="h-3 w-3" />
+                Current overhead: {formatCurrency(scenario.current.overhead)}
+              </p>
+            </div>
+
+            {/* Data Sources */}
+            <div>
+              <h4 className="font-medium mb-3 flex items-center gap-2">
+                <FileText className="h-4 w-4 text-muted-foreground" />
+                Data Sources
+              </h4>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                  <div>
+                    <p className="text-sm font-medium">FTE Count (46)</p>
+                    <p className="text-xs text-muted-foreground">Org Chart - Jan 2026</p>
+                  </div>
+                  <Badge className="bg-success/10 text-success">Verified</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                  <div>
+                    <p className="text-sm font-medium">Base Salary Data ($5.455M)</p>
+                    <p className="text-xs text-muted-foreground">AOTF Task Summary with Salaries</p>
+                  </div>
+                  <Badge className="bg-success/10 text-success">Verified</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                  <div>
+                    <p className="text-sm font-medium">2026 Revenue ($11.9M)</p>
+                    <p className="text-xs text-muted-foreground">Revenue Plan 2025 vs 2026</p>
+                  </div>
+                  <Badge className="bg-success/10 text-success">Verified</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                  <div>
+                    <p className="text-sm font-medium">Staff Loading (21%)</p>
+                    <p className="text-xs text-muted-foreground">Industry standard estimate</p>
+                  </div>
+                  <Badge className="bg-warning/10 text-warning">Assumption</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                  <div>
+                    <p className="text-sm font-medium">Business Overhead (13%)</p>
+                    <p className="text-xs text-muted-foreground">Industry standard estimate</p>
+                  </div>
+                  <Badge className="bg-warning/10 text-warning">Assumption</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        )}
       </Card>
 
       {/* Role Impact by Wave */}

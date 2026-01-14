@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -11,21 +11,20 @@ import { loadRoles, loadScores, loadBottlenecks } from '@/lib/data'
 import { getPriorityColor } from '@/lib/scoring'
 import { Role, RoleScore, Bottleneck } from '@/types'
 import { cn } from '@/lib/utils'
+import { AutomationScoreCard } from '@/components/cards'
 import {
   ArrowLeft,
-  Users,
   Zap,
   Clock,
-  Target,
   AlertTriangle,
   CheckCircle,
-  XCircle,
   TrendingUp,
   TrendingDown,
   BarChart3,
-  ListTodo,
   Bot,
-  User
+  User,
+  Users,
+  Target
 } from 'lucide-react'
 
 export default function RoleDetailPage() {
@@ -123,7 +122,7 @@ export default function RoleDetailPage() {
             <AlertTriangle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-lg font-medium">Role Not Found</h2>
             <p className="text-muted-foreground mt-2">
-              The role you're looking for doesn't exist or has been removed.
+              The role you are looking for does not exist or has been removed.
             </p>
           </CardContent>
         </Card>
@@ -142,37 +141,23 @@ export default function RoleDetailPage() {
       </Button>
 
       {/* Role Header */}
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <Badge variant="outline">{role.family}</Badge>
-            <Badge className={cn(getPriorityColor(score.redesignPriority))}>
-              {score.redesignPriority} Priority
-            </Badge>
-          </div>
-          <h1 className="text-2xl font-semibold">{role.name}</h1>
-          <p className="text-muted-foreground mt-1">{role.description}</p>
-        </div>
+      <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
-          <Card className={cn(
-            'px-4 py-3',
-            classification.color === 'destructive' && 'bg-destructive/10 border-destructive/20',
-            classification.color === 'warning' && 'bg-warning/10 border-warning/20',
-            classification.color === 'success' && 'bg-success/10 border-success/20'
-          )}>
-            <div className="text-center">
-              <p className="text-2xl font-bold">{score.compositeScore.now}%</p>
-              <p className="text-xs text-muted-foreground">Automation Score</p>
-            </div>
-          </Card>
-          <Card className="px-4 py-3">
-            <div className="text-center">
-              <p className="text-2xl font-bold">{score.compositeScore.future}%</p>
-              <p className="text-xs text-muted-foreground">Future Score</p>
-            </div>
-          </Card>
+          <Badge variant="outline">{role.family}</Badge>
+          <Badge variant="outline">{role.seniority}</Badge>
         </div>
+        <h1 className="text-2xl font-semibold">{role.name}</h1>
+        <p className="text-muted-foreground">{role.description}</p>
       </div>
+
+      {/* Automation Score Card (Manus-style) */}
+      <AutomationScoreCard
+        nowScore={score.compositeScore.now}
+        futureScore={score.compositeScore.future}
+        priority={score.redesignPriority}
+        dimensions={score.dimensions}
+        timeHorizon="12-18 Months"
+      />
 
       {/* Classification Banner */}
       <Card className={cn(
@@ -316,7 +301,7 @@ export default function RoleDetailPage() {
             <CardHeader>
               <CardTitle className="text-lg">Role Tasks</CardTitle>
               <CardDescription>
-                Key tasks and responsibilities within this role
+                Key tasks and responsibilities with automation potential
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -344,9 +329,30 @@ export default function RoleDetailPage() {
                         <h4 className="font-medium">{task.name}</h4>
                         <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium">{task.timeAllocation}%</p>
-                        <p className="text-xs text-muted-foreground">time allocation</p>
+                      <div className="text-right space-y-2">
+                        <div>
+                          <p className="text-sm font-medium">{task.timeAllocation}%</p>
+                          <p className="text-xs text-muted-foreground">time allocation</p>
+                        </div>
+                        <div className="flex items-center gap-2 justify-end">
+                          <div className="text-right">
+                            <p className="text-xs text-muted-foreground">Automation</p>
+                            <div className="flex items-center gap-1 text-sm">
+                              <span className={cn(
+                                'font-medium',
+                                task.automationPotential.now >= 70 && 'text-success',
+                                task.automationPotential.now >= 40 && task.automationPotential.now < 70 && 'text-warning',
+                                task.automationPotential.now < 40 && 'text-muted-foreground'
+                              )}>
+                                {task.automationPotential.now}%
+                              </span>
+                              <span className="text-muted-foreground">→</span>
+                              <span className="font-medium text-success">
+                                {task.automationPotential.future}%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
